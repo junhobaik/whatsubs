@@ -57,9 +57,9 @@ const Dashboard = () => {
         style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}
       >
         <Text
-          style={{ color: "#eee", fontSize: 25, fontWeight: "bold", flex: 1 }}
+          style={{ color: "#eee", fontSize: 18, fontWeight: "bold", flex: 1 }}
         >
-          DashBoard
+          WhatSubs
         </Text>
         <Fa icon={faPlusCircle} size={25} style={{ color: "#eee" }} />
       </View>
