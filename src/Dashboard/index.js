@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
   faLayerGroup,
@@ -14,40 +14,47 @@ const Dashboard = () => {
     title = "title",
     icon,
     color = "#999",
+    pressEvent = () => {},
     num = 0
   ) => {
     return (
-      <View style={styles.summaryItem}>
-        <View
-          style={{
-            flexDirection: "row",
-            minHeight: 30,
-            alignItems: "center",
-            marginBottom: 7
-          }}
-        >
+      <TouchableHighlight
+        onPress={pressEvent}
+        style={styles.summaryItem}
+        underlayColor="rgba(255,255,255,0.2)"
+      >
+        <View>
           <View
             style={{
-              flex: 1
+              flexDirection: "row",
+              minHeight: 30,
+              alignItems: "center",
+              marginBottom: 7
             }}
           >
             <View
               style={{
-                backgroundColor: color,
-                borderRadius: "100%",
-                height: 27,
-                width: 27,
-                alignItems: "center",
-                justifyContent: "center"
+                flex: 1
               }}
             >
-              <Fa icon={icon} style={{ color: "#fff", margin: 0 }} />
+              <View
+                style={{
+                  backgroundColor: color,
+                  borderRadius: "100%",
+                  height: 27,
+                  width: 27,
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <Fa icon={icon} style={{ color: "#fff", margin: 0 }} />
+              </View>
             </View>
+            <Text style={styles.summaryNum}>{num}</Text>
           </View>
-          <Text style={styles.summaryNum}>{num}</Text>
+          <Text style={styles.summaryTitle}>{title}</Text>
         </View>
-        <Text style={styles.summaryTitle}>{title}</Text>
-      </View>
+      </TouchableHighlight>
     );
   };
 
@@ -61,7 +68,15 @@ const Dashboard = () => {
         >
           WhatSubs
         </Text>
-        <Fa icon={faPlusCircle} size={25} style={{ color: "#eee" }} />
+        <TouchableHighlight
+          onPress={() => {
+            //
+          }}
+        >
+          <View>
+            <Fa icon={faPlusCircle} size={25} style={{ color: "#eee" }} />
+          </View>
+        </TouchableHighlight>
       </View>
       <View>
         <View style={styles.summary}>
