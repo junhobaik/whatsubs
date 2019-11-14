@@ -1,19 +1,29 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+
+import Footer from "./src/Footer";
+import Dashboard from "./src/Dashboard";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <View style={styles.content}>
+        <Dashboard />
+      </View>
+      <Footer />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#000",
+    paddingTop: 40, // 노치
+    display: "flex",
+    flex: 1
   },
+  content: {
+    padding: 20,
+    flex: 1
+  }
 });
