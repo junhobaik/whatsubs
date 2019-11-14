@@ -16,6 +16,7 @@
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-calendars": "^1.214.0",
     "react-native-svg": "^9.13.3",
     "react-native-web": "^0.11.7"
   },
