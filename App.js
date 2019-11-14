@@ -1,28 +1,17 @@
-import React from "react";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { createAppContainer, SafeAreaView } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 
-import Footer from "./src/Footer";
 import Dashboard from "./src/Dashboard";
+import Add from "./src/Add";
 
-export default function App() {
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Dashboard />
-      </View>
-      {/* <Footer /> */}
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#000",
-    display: "flex",
-    flex: 1
+const MainNavigator = createStackNavigator(
+  {
+    Home: { screen: Dashboard },
+    Add: { screen: Add }
   },
-  content: {
-    padding: 20,
-    flex: 1
-  }
-});
+  { headerMode: "none" }
+);
+
+const App = createAppContainer(MainNavigator);
+
+export default App;

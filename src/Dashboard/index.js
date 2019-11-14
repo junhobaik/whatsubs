@@ -8,8 +8,11 @@ import {
   faStar,
   faPlusCircle
 } from "@fortawesome/free-solid-svg-icons";
+import { SafeAreaView } from "react-navigation";
 
-const Dashboard = () => {
+const Dashboard = ({ navigation }) => {
+  const { navigate } = navigation;
+
   const createSummaryItem = (
     title = "title",
     icon,
@@ -59,7 +62,7 @@ const Dashboard = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View
         style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}
       >
@@ -70,7 +73,7 @@ const Dashboard = () => {
         </Text>
         <TouchableHighlight
           onPress={() => {
-            //
+            navigate("Add");
           }}
         >
           <View>
@@ -89,13 +92,16 @@ const Dashboard = () => {
           {createSummaryItem("Monthly", faDollarSign, "rgb(252, 160, 9)")}
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex"
+    display: "flex",
+    padding: 25,
+    backgroundColor: "#000",
+    height: "100%"
   },
   summary: {
     flexDirection: "row"
@@ -123,5 +129,13 @@ const styles = StyleSheet.create({
     color: "#fff"
   }
 });
+
+Dashboard.navigationOptions = {
+  title: "WhatSubs"
+  // headerStyle: {
+  //   backgroundColor: '#f4511e',
+  //   // display: 'none'
+  // },
+};
 
 export default Dashboard;
