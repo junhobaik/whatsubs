@@ -73,7 +73,7 @@ const Dashboard = ({ navigation }) => {
         </Text>
         <TouchableHighlight
           onPress={() => {
-            navigate("Add");
+            navigate("List");
           }}
         >
           <View>

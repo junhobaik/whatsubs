@@ -2,12 +2,12 @@ import { createAppContainer, SafeAreaView } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
 import Dashboard from "./src/Dashboard";
-import Add from "./src/Add";
+import List from "./src/List";
 
 const MainNavigator = createStackNavigator(
   {
     Home: { screen: Dashboard },
-    Add: { screen: Add }
+    List: { screen: List }
   },
   { headerMode: "none" }
 );
