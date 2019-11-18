@@ -1,6 +1,41 @@
 import React from "react";
+import { View, Image, Text } from "react-native";
 import simpleIcons from "simple-icons";
 import Svg, { Path } from "react-native-svg";
+import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
+import { faSketch } from "@fortawesome/free-brands-svg-icons";
+
+const getIconFromUri = ({ title, uri, hex }) => {
+  // favicon uri 변경 등의 이유로 불러 올 수 없을 때의 처리 필요
+  return {
+    icon: (
+      <View>
+        <Image
+          style={{
+            position: "absolute",
+            top: -15,
+            left: -15,
+            backgroundColor: hex || "#333",
+            borderRadius: 3,
+            width: 30,
+            height: 30
+          }}
+          source={{ uri }}
+        />
+      </View>
+    )
+  };
+};
+
+const getIconFromFontAwesome = icon => {
+  return {
+    icon: (
+      <View>
+        <Fa icon={icon} style={{ color: "#fff", width: 25, height: 25 }} />
+      </View>
+    )
+  };
+};
 
 const getIconFromSimpleIcons = name => {
   const simpleIcon = simpleIcons.get(name);
@@ -22,7 +57,7 @@ const getIconFromSimpleIcons = name => {
     </Svg>
   );
 
-  return { icon, hex };
+  return { icon, hex: `#${hex}` };
 };
 
 const list = [
@@ -39,7 +74,7 @@ const list = [
   {
     title: "Amazon Prime Video",
     ...getIconFromSimpleIcons("amazon"),
-    hex: "469bd3",
+    hex: "#469bd3",
     local: {
       title: {
         kr: "아마존 프라임 비디오"
@@ -112,7 +147,7 @@ const list = [
   {
     title: "Apple Arcade",
     ...getIconFromSimpleIcons("apple"),
-    hex: "f05d42",
+    hex: "#f05d42",
     local: {
       title: {
         kr: "애플 아케이드"
@@ -155,11 +190,11 @@ const list = [
   { title: "Spotify Premium", ...getIconFromSimpleIcons("spotify") },
   { title: "Hulu", ...getIconFromSimpleIcons("hulu") },
   { title: "HBO Now" },
-  { title: "Sketch" },
+  { title: "Sketch", ...getIconFromFontAwesome(faSketch), hex: "#f1b03e" },
   {
     title: "Apple TV+",
     ...getIconFromSimpleIcons("apple"),
-    hex: "2c2c2c",
+    hex: "#2c2c2c",
     local: {
       title: {
         kr: "애플 TV+"
@@ -169,6 +204,11 @@ const list = [
   { title: "wavve" },
   {
     title: "Melon",
+    ...getIconFromUri({
+      title: "Melon",
+      uri: "https://www.melon.com/favicon.ico"
+      // hex: "#222"
+    }),
     local: {
       title: {
         kr: "멜론"
@@ -177,6 +217,11 @@ const list = [
   },
   {
     title: "Bugs",
+    ...getIconFromUri({
+      title: "Bugs",
+      uri: "https://music.bugs.co.kr/favicon.ico",
+      hex: "#222"
+    }),
     local: {
       title: {
         kr: "벅스"

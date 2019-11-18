@@ -68,7 +68,7 @@ const List = ({ navigation }) => {
             style={[
               {
                 height: 100,
-                backgroundColor: hex ? `#${hex}` : "transparent",
+                backgroundColor: hex || "transparent",
                 borderRadius: 3,
                 width: 30,
                 height: 30,
