@@ -16,7 +16,6 @@ import {
   faPlusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView } from "react-navigation";
-import Svg, { Path } from "react-native-svg";
 
 import list from "./list";
 
@@ -28,12 +27,12 @@ const List = ({ navigation }) => {
 
   const Item = ({ item }) => {
     const { title } = item;
-    let { svg, hex, local } = item;
+    let { icon, hex, local } = item;
 
     if (!local) local = { title: {} };
 
     let iconElement;
-    if (!svg) {
+    if (!icon) {
       iconElement = (
         <View
           style={{
@@ -49,19 +48,7 @@ const List = ({ navigation }) => {
         </View>
       );
     } else {
-      const path = svg.split(`<path d=\"`)[1].split('"/>')[0];
-
-      iconElement = (
-        <Svg
-          height="25"
-          width="25"
-          style={{
-            alignItems: "center"
-          }}
-        >
-          <Path d={path} fill="#fff" />
-        </Svg>
-      );
+      iconElement = icon;
     }
 
     return (
@@ -88,7 +75,7 @@ const List = ({ navigation }) => {
                 alignItems: "center",
                 justifyContent: "center"
               },
-              !svg
+              !icon
                 ? { borderWidth: 1, borderColor: "#ddd", borderStyle: "dotted" }
                 : null
             ]}

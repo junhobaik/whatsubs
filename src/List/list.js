@@ -1,15 +1,34 @@
+import React from "react";
 import simpleIcons from "simple-icons";
+import Svg, { Path } from "react-native-svg";
 
-const getIcon = name => {
-  const icon = simpleIcons.get(name);
-  if (!icon) return {};
-  const { svg, hex } = icon;
-  return { svg, hex };
+const getIconFromSimpleIcons = name => {
+  const simpleIcon = simpleIcons.get(name);
+  if (!simpleIcon) return {};
+
+  const { svg, hex } = simpleIcon;
+  const path = svg.split(`<path d=\"`)[1].split('"/>')[0];
+  let icon;
+
+  icon = (
+    <Svg
+      height="25"
+      width="25"
+      style={{
+        alignItems: "center"
+      }}
+    >
+      <Path d={path} fill="#fff" />
+    </Svg>
+  );
+
+  return { icon, hex };
 };
 
 const list = [
   {
     title: "Netflix",
+    ...getIconFromSimpleIcons("netflix"),
     cycle: "m",
     local: {
       title: {
@@ -19,7 +38,7 @@ const list = [
   },
   {
     title: "Amazon Prime Video",
-    iconTitle: "Amazon",
+    ...getIconFromSimpleIcons("amazon"),
     hex: "469bd3",
     local: {
       title: {
@@ -29,6 +48,7 @@ const list = [
   },
   {
     title: "Codecademy",
+    ...getIconFromSimpleIcons("codecademy"),
     local: {
       title: {
         en: "Codecademy"
@@ -37,7 +57,7 @@ const list = [
   },
   {
     title: "Amazon Prime",
-    iconTitle: "amazon",
+    ...getIconFromSimpleIcons("amazon"),
     local: {
       title: {
         kr: "아마존 프라임"
@@ -46,7 +66,7 @@ const list = [
   },
   {
     title: "Adobe",
-    icon: "Adobe"
+    ...getIconFromSimpleIcons("adobe")
   },
   {
     title: "Watcha Play",
@@ -61,11 +81,12 @@ const list = [
     cycle: "m"
   },
   {
-    title: "Medium"
+    title: "Medium",
+    ...getIconFromSimpleIcons("medium")
   },
   {
     title: "Youtube Premium",
-    iconTitle: "youtube",
+    ...getIconFromSimpleIcons("youtube"),
     local: {
       title: {
         kr: "유튜브 프리미엄"
@@ -73,14 +94,15 @@ const list = [
     }
   },
   {
-    title: "Notion"
+    title: "Notion",
+    ...getIconFromSimpleIcons("notion")
   },
   {
     title: "Bear"
   },
   {
     title: "Nintendo Online",
-    iconTitle: "nintendo switch",
+    ...getIconFromSimpleIcons("nintendo switch"),
     local: {
       title: {
         kr: "닌텐도 온라인"
@@ -89,7 +111,7 @@ const list = [
   },
   {
     title: "Apple Arcade",
-    iconTitle: "apple",
+    ...getIconFromSimpleIcons("apple"),
     hex: "f05d42",
     local: {
       title: {
@@ -99,6 +121,7 @@ const list = [
   },
   {
     title: "Apple Music",
+    ...getIconFromSimpleIcons("apple music"),
     local: {
       title: {
         kr: "애플 뮤직"
@@ -129,13 +152,13 @@ const list = [
       }
     }
   },
-  { title: "Spotify Premium", iconTitle: "spotify" },
-  { title: "Hulu" },
+  { title: "Spotify Premium", ...getIconFromSimpleIcons("spotify") },
+  { title: "Hulu", ...getIconFromSimpleIcons("hulu") },
   { title: "HBO Now" },
   { title: "Sketch" },
   {
     title: "Apple TV+",
-    iconTitle: "apple",
+    ...getIconFromSimpleIcons("apple"),
     hex: "2c2c2c",
     local: {
       title: {
@@ -172,6 +195,7 @@ const list = [
   { title: "VIBE" },
   {
     title: "Evernote",
+    ...getIconFromSimpleIcons("evernote"),
     local: {
       title: {
         kr: "에버노트"
@@ -180,15 +204,7 @@ const list = [
   }
 ];
 
-const addedIconList = list.reduce((p, c) => {
-  const icon = getIcon(c.iconTitle || c.title);
-  let item = c;
-  if (icon) item = { ...icon, ...c };
-
-  return [...p, item];
-}, []);
-
-const sortedList = addedIconList.sort((_a, _b) => {
+const sortedList = list.sort((_a, _b) => {
   const a = _a.title.toLocaleLowerCase();
   const b = _b.title.toLocaleLowerCase();
 
