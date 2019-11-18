@@ -10,12 +10,39 @@ const getIcon = name => {
 const list = [
   {
     title: "Netflix",
-    cycle: "m"
+    cycle: "m",
+    local: {
+      title: {
+        kr: "넷플릭스"
+      }
+    }
   },
   {
     title: "Amazon Prime Video",
     iconTitle: "Amazon",
-    cycle: "m"
+    hex: "469bd3",
+    local: {
+      title: {
+        kr: "아마존 프라임 비디오"
+      }
+    }
+  },
+  {
+    title: "Codecademy",
+    local: {
+      title: {
+        en: "Codecademy"
+      }
+    }
+  },
+  {
+    title: "Amazon Prime",
+    iconTitle: "amazon",
+    local: {
+      title: {
+        kr: "아마존 프라임"
+      }
+    }
   },
   {
     title: "Adobe",
@@ -23,7 +50,11 @@ const list = [
   },
   {
     title: "Watcha Play",
-    cycle: "m"
+    local: {
+      title: {
+        kr: "왓챠 플레이"
+      }
+    }
   },
   {
     title: "SetApp",
@@ -34,7 +65,12 @@ const list = [
   },
   {
     title: "Youtube Premium",
-    iconTitle: "youtube"
+    iconTitle: "youtube",
+    local: {
+      title: {
+        kr: "유튜브 프리미엄"
+      }
+    }
   },
   {
     title: "Notion"
@@ -44,24 +80,54 @@ const list = [
   },
   {
     title: "Nintendo Online",
-    iconTitle: "nintendo switch"
+    iconTitle: "nintendo switch",
+    local: {
+      title: {
+        kr: "닌텐도 온라인"
+      }
+    }
   },
   {
     title: "Apple Arcade",
     iconTitle: "apple",
-    hex: "f05d42"
+    hex: "f05d42",
+    local: {
+      title: {
+        kr: "애플 아케이드"
+      }
+    }
   },
   {
-    title: "Apple Music"
+    title: "Apple Music",
+    local: {
+      title: {
+        kr: "애플 뮤직"
+      }
+    }
   },
   {
-    title: "Coupang RocketWow"
+    title: "Coupang RocketWow",
+    local: {
+      title: {
+        kr: "쿠팡 로켓와우"
+      }
+    }
   },
   {
-    title: "millie"
+    title: "millie",
+    local: {
+      title: {
+        kr: "밀리의 서재"
+      }
+    }
   },
   {
-    title: "Disney+"
+    title: "Disney+",
+    local: {
+      title: {
+        kr: "디즈니+"
+      }
+    }
   },
   { title: "Spotify Premium", iconTitle: "spotify" },
   { title: "Hulu" },
@@ -70,14 +136,48 @@ const list = [
   {
     title: "Apple TV+",
     iconTitle: "apple",
-    hex: "2c2c2c"
+    hex: "2c2c2c",
+    local: {
+      title: {
+        kr: "애플 TV+"
+      }
+    }
   },
   { title: "wavve" },
-  { title: "Melon" },
-  { title: "Bugs" },
-  { title: "Genie" },
+  {
+    title: "Melon",
+    local: {
+      title: {
+        kr: "멜론"
+      }
+    }
+  },
+  {
+    title: "Bugs",
+    local: {
+      title: {
+        kr: "벅스"
+      }
+    }
+  },
+  {
+    title: "Genie",
+    local: {
+      title: {
+        kr: "지니"
+      }
+    }
+  },
   { title: "FLO" },
-  { title: "VIBE" }
+  { title: "VIBE" },
+  {
+    title: "Evernote",
+    local: {
+      title: {
+        kr: "에버노트"
+      }
+    }
+  }
 ];
 
 const addedIconList = list.reduce((p, c) => {

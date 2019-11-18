@@ -24,9 +24,13 @@ const List = ({ navigation }) => {
   const { navigate } = navigation;
   const [value, onChangeText] = useState("");
 
+  const locale = "kr"; // temp
+
   const Item = ({ item }) => {
     const { title } = item;
-    let { svg, hex } = item;
+    let { svg, hex, local } = item;
+
+    if (!local) local = { title: {} };
 
     let iconElement;
     if (!svg) {
@@ -91,7 +95,9 @@ const List = ({ navigation }) => {
           >
             {iconElement}
           </View>
-          <Text style={{ color: "#fff", fontSize: 18 }}>{title}</Text>
+          <Text style={{ color: "#fff", fontSize: 18 }}>
+            {local.title[locale] || title}
+          </Text>
         </View>
       </TouchableOpacity>
     );
