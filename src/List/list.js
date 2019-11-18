@@ -5,6 +5,23 @@ import Svg, { Path } from "react-native-svg";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import { faSketch } from "@fortawesome/free-brands-svg-icons";
 
+import img from "./img";
+
+const getIconFromImg = key => {
+  return {
+    icon: (
+      <Image
+        style={{
+          borderRadius: 3,
+          width: 30,
+          height: 30
+        }}
+        source={img[key]}
+      />
+    )
+  };
+};
+
 const getIconFromUri = ({ title, uri, hex }) => {
   // favicon uri 변경 등의 이유로 불러 올 수 없을 때의 처리 필요
   return {
@@ -12,9 +29,6 @@ const getIconFromUri = ({ title, uri, hex }) => {
       <View>
         <Image
           style={{
-            position: "absolute",
-            top: -15,
-            left: -15,
             backgroundColor: hex || "#333",
             borderRadius: 3,
             width: 30,
@@ -217,11 +231,12 @@ const list = [
   },
   {
     title: "Bugs",
-    ...getIconFromUri({
-      title: "Bugs",
-      uri: "https://music.bugs.co.kr/favicon.ico",
-      hex: "#222"
-    }),
+    // ...getIconFromUri({
+    //   title: "Bugs",
+    //   uri: "https://music.bugs.co.kr/favicon.ico",
+    //   hex: "#222"
+    // }),
+    ...getIconFromImg("bugs"),
     local: {
       title: {
         kr: "벅스"
