@@ -1,8 +1,11 @@
-import { createAppContainer, SafeAreaView } from "react-navigation";
+import { StatusBar } from "react-native";
+import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
 import Dashboard from "./src/Dashboard";
 import List from "./src/List";
+
+StatusBar.setBarStyle("lignt-content", true);
 
 const MainNavigator = createStackNavigator(
   {
