@@ -147,7 +147,8 @@ const list = [
     ...getIconFromSimpleIcons("notion")
   },
   {
-    title: "Bear"
+    title: "Bear",
+    ...getIconFromImg("bear")
   },
   {
     title: "Nintendo Online",
@@ -179,6 +180,7 @@ const list = [
   },
   {
     title: "Coupang RocketWow",
+    ...getIconFromImg("coupang"),
     local: {
       title: {
         kr: "쿠팡 로켓와우"
