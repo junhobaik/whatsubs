@@ -64,7 +64,7 @@ const Dashboard = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View
-        style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}
+        style={{ flexDirection: "row", alignItems: "center", marginBottom: 20, marginTop: 20}}
       >
         <Text
           style={{ color: "#eee", fontSize: 18, fontWeight: "bold", flex: 1 }}
