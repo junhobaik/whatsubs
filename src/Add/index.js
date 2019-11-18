@@ -6,7 +6,8 @@ import {
   Text,
   TextInput,
   Linking,
-  ScrollView
+  ScrollView,
+  Picker
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
@@ -106,9 +107,13 @@ const Add = ({ navigation }) => {
             <Text style={{ color: "#ddd", marginTop: 5 }}>{description}</Text>
           ) : null}
         </View>
-        <ScrollView>
+        <ScrollView style={{ height: "100%" }}>
           <View
-            style={{ borderRadius: 5, marginTop: 20, backgroundColor: "#222" }}
+            style={{
+              borderRadius: 5,
+              marginTop: 20,
+              backgroundColor: "#222"
+            }}
           >
             <TextInput
               style={{
@@ -135,8 +140,32 @@ const Add = ({ navigation }) => {
               placeholder="Memo"
               placeholderTextColor={"#666"}
             />
+            <View
+              style={{
+                borderTopWidth: 1,
+                borderColor: "#333",
+                padding: 5,
+                paddingHorizontal: 10
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <TextInput
+                  placeholder=""
+                  style={{
+                    color: "#fff",
+                    backgroundColor: "#111",
+                    width: 30,
+                    height: 30,
+                    fontSize: 20,
+                    textAlign: "center",
+                    borderRadius: 3
+                  }}
+                  keyboardType="number-pad"
+                  placeholderTextColor={"#666"}
+                />
+              </View>
+            </View>
           </View>
-          <View>{/* dateTimePicker */}</View>
         </ScrollView>
       </View>
     </SafeAreaView>
