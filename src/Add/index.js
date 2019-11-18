@@ -21,7 +21,7 @@ const Add = ({ navigation }) => {
   const [memoValue, setMemoValue] = useState("");
   const [period, setPeriod] = useState("day");
   const [periodNum, setPeriodNum] = useState("1");
-  const { navigate, state } = navigation;
+  const { goBack, state } = navigation;
   const item = list.filter(v => v.title === state.params.title)[0];
   const { title, local, icon, hex } = item;
   let { description, url } = item;
@@ -39,7 +39,7 @@ const Add = ({ navigation }) => {
   }
 
   useEffect(() => {
-    setTitleValue(local ? local.title[locale] || title : title);
+    setTitleValue(localTitle);
     setPeriod("m");
   }, []);
 
@@ -54,7 +54,7 @@ const Add = ({ navigation }) => {
           paddingRight: 20
         }}
         onPress={() => {
-          navigate("List");
+          goBack();
         }}
       >
         <View>
