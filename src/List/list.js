@@ -78,13 +78,18 @@ const list = [
   {
     title: "Netflix",
     ...getIconFromSimpleIcons("netflix"),
-    cycle: "m",
+    url: "https://www.netflix.com",
+    description: "Watch Netflix movies & TV shows online.",
     local: {
       title: {
         kr: "넷플릭스"
+      },
+      description: {
+        kr: "전 세계의 인기 TV 시리즈와 영화를 Netflix에서 만나보세요"
       }
     }
   },
+
   {
     title: "Amazon Prime Video",
     ...getIconFromSimpleIcons("amazon"),
@@ -95,6 +100,7 @@ const list = [
       }
     }
   },
+
   {
     title: "Codecademy",
     ...getIconFromSimpleIcons("codecademy"),
@@ -104,6 +110,7 @@ const list = [
       }
     }
   },
+
   {
     title: "Amazon Prime",
     ...getIconFromSimpleIcons("amazon"),
@@ -113,10 +120,12 @@ const list = [
       }
     }
   },
+
   {
     title: "Adobe",
     ...getIconFromSimpleIcons("adobe")
   },
+
   {
     title: "Watcha Play",
     local: {
@@ -125,14 +134,17 @@ const list = [
       }
     }
   },
+
   {
     title: "SetApp",
     cycle: "m"
   },
+
   {
     title: "Medium",
     ...getIconFromSimpleIcons("medium")
   },
+
   {
     title: "Youtube Premium",
     ...getIconFromSimpleIcons("youtube"),
@@ -142,14 +154,17 @@ const list = [
       }
     }
   },
+
   {
     title: "Notion",
     ...getIconFromSimpleIcons("notion")
   },
+
   {
     title: "Bear",
     ...getIconFromImg("bear")
   },
+
   {
     title: "Nintendo Online",
     ...getIconFromSimpleIcons("nintendo switch"),
@@ -159,6 +174,7 @@ const list = [
       }
     }
   },
+
   {
     title: "Apple Arcade",
     ...getIconFromSimpleIcons("apple"),
@@ -169,6 +185,7 @@ const list = [
       }
     }
   },
+
   {
     title: "Apple Music",
     ...getIconFromSimpleIcons("apple music"),
@@ -178,6 +195,7 @@ const list = [
       }
     }
   },
+
   {
     title: "Coupang RocketWow",
     ...getIconFromImg("coupang"),
@@ -187,6 +205,7 @@ const list = [
       }
     }
   },
+
   {
     title: "millie",
     local: {
@@ -195,6 +214,7 @@ const list = [
       }
     }
   },
+
   {
     title: "Disney+",
     local: {
@@ -203,6 +223,7 @@ const list = [
       }
     }
   },
+
   { title: "Spotify Premium", ...getIconFromSimpleIcons("spotify") },
   { title: "Hulu", ...getIconFromSimpleIcons("hulu") },
   { title: "HBO Now" },
@@ -217,6 +238,7 @@ const list = [
       }
     }
   },
+
   { title: "wavve" },
   {
     title: "Melon",
@@ -227,13 +249,9 @@ const list = [
       }
     }
   },
+
   {
     title: "Bugs",
-    // ...getIconFromUri({
-    //   title: "Bugs",
-    //   uri: "https://music.bugs.co.kr/favicon.ico",
-    //   hex: "#222"
-    // }),
     ...getIconFromImg("bugs"),
     local: {
       title: {
@@ -241,6 +259,7 @@ const list = [
       }
     }
   },
+
   {
     title: "Genie",
     local: {
@@ -249,6 +268,7 @@ const list = [
       }
     }
   },
+
   { title: "FLO" },
   { title: "VIBE" },
   {
@@ -262,13 +282,15 @@ const list = [
   }
 ];
 
-const sortedList = list.sort((_a, _b) => {
-  const a = _a.title.toLocaleLowerCase();
-  const b = _b.title.toLocaleLowerCase();
+export default list; // temp
 
-  if (a > b) return 1;
-  if (b > a) return -1;
-  return 0;
-});
+// const sortedList = list.sort((_a, _b) => {
+//   const a = _a.title.toLocaleLowerCase();
+//   const b = _b.title.toLocaleLowerCase();
 
-export default sortedList;
+//   if (a > b) return 1;
+//   if (b > a) return -1;
+//   return 0;
+// });
+
+// export default sortedList;
