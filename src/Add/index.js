@@ -107,7 +107,7 @@ const Add = ({ navigation }) => {
             <Text style={{ color: "#ddd", marginTop: 5 }}>{description}</Text>
           ) : null}
         </View>
-        <ScrollView style={{ height: "100%" }}>
+        <ScrollView style={{ height: "100%" }} keyboardDismissMode={"on-drag"}>
           <View
             style={{
               borderRadius: 5,
