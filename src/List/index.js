@@ -108,7 +108,7 @@ const List = ({ navigation }) => {
           paddingRight: 20
         }}
         onPress={() => {
-          navigate("Home");
+          navigate("Dashboard");
         }}
       >
         <View>

@@ -9,8 +9,9 @@ StatusBar.setBarStyle("lignt-content", true);
 
 const MainNavigator = createStackNavigator(
   {
-    Home: { screen: Dashboard },
-    List: { screen: List }
+    Home: { screen: List },
+    List: { screen: List },
+    Dashboard: { screen: Dashboard }
   },
   { headerMode: "none" }
 );
