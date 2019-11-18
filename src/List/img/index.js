@@ -1,3 +1,4 @@
 export default {
-  bugs: require("./bugs.png")
+  bugs: require("./bugs.png"),
+  melon: require("./melon.png")
 };
