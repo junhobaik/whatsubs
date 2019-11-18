@@ -16,30 +16,30 @@ const getIconFromImg = key => {
           width: 30,
           height: 30
         }}
-        source={img[key]}
+        source={img[key.toLocaleLowerCase()]}
       />
     )
   };
 };
 
-const getIconFromUri = ({ title, uri, hex }) => {
-  // favicon uri 변경 등의 이유로 불러 올 수 없을 때의 처리 필요
-  return {
-    icon: (
-      <View>
-        <Image
-          style={{
-            backgroundColor: hex || "#333",
-            borderRadius: 3,
-            width: 30,
-            height: 30
-          }}
-          source={{ uri }}
-        />
-      </View>
-    )
-  };
-};
+// const getIconFromUri = ({ title, uri, hex }) => {
+//   // favicon uri 변경 등의 이유로 불러 올 수 없을 때의 처리 필요
+//   return {
+//     icon: (
+//       <View>
+//         <Image
+//           style={{
+//             backgroundColor: hex || "#333",
+//             borderRadius: 3,
+//             width: 30,
+//             height: 30
+//           }}
+//           source={{ uri }}
+//         />
+//       </View>
+//     )
+//   };
+// };
 
 const getIconFromFontAwesome = icon => {
   return {
@@ -218,11 +218,7 @@ const list = [
   { title: "wavve" },
   {
     title: "Melon",
-    ...getIconFromUri({
-      title: "Melon",
-      uri: "https://www.melon.com/favicon.ico"
-      // hex: "#222"
-    }),
+    ...getIconFromImg("melon"),
     local: {
       title: {
         kr: "멜론"
