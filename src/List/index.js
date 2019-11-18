@@ -29,8 +29,6 @@ const List = ({ navigation }) => {
     const { title } = item;
     let { icon, hex, local } = item;
 
-    if (!local) local = { title: {} };
-
     let iconElement;
     if (!icon) {
       iconElement = (
@@ -52,7 +50,12 @@ const List = ({ navigation }) => {
     }
 
     return (
-      <TouchableOpacity style={{ borderRadius: 5 }}>
+      <TouchableOpacity
+        style={{ borderRadius: 5 }}
+        onPress={() => {
+          navigate("Add", { title });
+        }}
+      >
         <View
           style={{
             flexDirection: "row-reverse",
@@ -83,7 +86,7 @@ const List = ({ navigation }) => {
             {iconElement}
           </View>
           <Text style={{ color: "#fff", fontSize: 18 }}>
-            {local.title[locale] || title}
+            {local ? local.title[locale] || title : title}
           </Text>
         </View>
       </TouchableOpacity>
