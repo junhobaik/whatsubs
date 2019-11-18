@@ -4,14 +4,16 @@ import { createStackNavigator } from "react-navigation-stack";
 
 import Dashboard from "./src/Dashboard";
 import List from "./src/List";
+import Add from "./src/Add";
 
 StatusBar.setBarStyle("lignt-content", true);
 
 const MainNavigator = createStackNavigator(
   {
     Home: { screen: List },
+    Dashboard: { screen: Dashboard },
     List: { screen: List },
-    Dashboard: { screen: Dashboard }
+    Add: { screen: Add }
   },
   { headerMode: "none" }
 );
