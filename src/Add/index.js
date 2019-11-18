@@ -6,19 +6,21 @@ import {
   Text,
   TextInput,
   Linking,
-  ScrollView,
-  Picker
+  ScrollView
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faRedoAlt } from "@fortawesome/free-solid-svg-icons";
 
 import list from "../List/list";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
   const [titleValue, setTitleValue] = useState("");
   const [memoValue, setMemoValue] = useState("");
+  const [period, setPeriod] = useState("day");
+  const [periodNum, setPeriodNum] = useState("1");
   const { navigate, state } = navigation;
   const item = list.filter(v => v.title === state.params.title)[0];
   const { title, local, icon, hex } = item;
@@ -38,6 +40,7 @@ const Add = ({ navigation }) => {
 
   useEffect(() => {
     setTitleValue(local ? local.title[locale] || title : title);
+    setPeriod("m");
   }, []);
 
   return (
@@ -120,7 +123,8 @@ const Add = ({ navigation }) => {
                 height: 40,
                 color: "#fff",
                 padding: 5,
-                paddingHorizontal: 10
+                paddingHorizontal: 10,
+                fontSize: 18
               }}
               onChangeText={text => setTitleValue(text)}
               value={titleValue}
@@ -133,7 +137,8 @@ const Add = ({ navigation }) => {
                 borderColor: "#333",
                 borderTopWidth: 1,
                 padding: 5,
-                paddingHorizontal: 10
+                paddingHorizontal: 10,
+                fontSize: 18
               }}
               onChangeText={text => setMemoValue(text)}
               value={memoValue}
@@ -148,21 +153,111 @@ const Add = ({ navigation }) => {
                 paddingHorizontal: 10
               }}
             >
-              <View style={{ flexDirection: "row" }}>
-                <TextInput
-                  placeholder=""
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between"
+                }}
+              >
+                <Fa icon={faRedoAlt} style={{ color: "#ddd" }} size={20} />
+                <View
                   style={{
-                    color: "#fff",
-                    backgroundColor: "#111",
-                    width: 30,
-                    height: 30,
-                    fontSize: 20,
-                    textAlign: "center",
-                    borderRadius: 3
+                    flexDirection: "row",
+                    justifyContent: "flex-end"
                   }}
-                  keyboardType="number-pad"
-                  placeholderTextColor={"#666"}
-                />
+                >
+                  <TextInput
+                    placeholder=""
+                    style={{
+                      color: "#fff",
+                      backgroundColor: "#333",
+                      width: 40,
+                      height: 40,
+                      fontSize: 20,
+                      textAlign: "center",
+                      borderRadius: 5,
+                      marginRight: 5
+                    }}
+                    keyboardType="number-pad"
+                    value={periodNum}
+                    onChangeText={num => setPeriodNum(num)}
+                    placeholderTextColor={"#666"}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      borderRadius: 5,
+                      backgroundColor: "#333"
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => {
+                        setPeriod("d");
+                      }}
+                    >
+                      <View style={styles.periodItemView}>
+                        <Text
+                          style={[
+                            styles.periodItemText,
+                            {
+                              opacity: period === "d" ? 1 : 0.2,
+                              fontWeight: period === "d" ? "bold" : "normal"
+                            }
+                          ]}
+                        >
+                          Day
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                    <View
+                      style={{
+                        borderRightWidth: 1,
+                        borderLeftWidth: 1,
+                        borderColor: "#444"
+                      }}
+                    >
+                      <TouchableOpacity
+                        onPress={() => {
+                          setPeriod("m");
+                        }}
+                      >
+                        <View style={styles.periodItemView}>
+                          <Text
+                            style={[
+                              styles.periodItemText,
+                              {
+                                opacity: period === "m" ? 1 : 0.2,
+                                fontWeight: period === "m" ? "bold" : "normal"
+                              }
+                            ]}
+                          >
+                            Month
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setPeriod("y");
+                      }}
+                    >
+                      <View style={styles.periodItemView}>
+                        <Text
+                          style={[
+                            styles.periodItemText,
+                            {
+                              opacity: period === "y" ? 1 : 0.2,
+                              fontWeight: period === "y" ? "bold" : "normal"
+                            }
+                          ]}
+                        >
+                          Year
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </View>
           </View>
@@ -177,6 +272,19 @@ const styles = StyleSheet.create({
     display: "flex",
     backgroundColor: "#000",
     height: "100%"
+  },
+  periodItemView: {
+    height: 40,
+    width: 70,
+    paddingHorizontal: 7.5,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  periodItemText: {
+    color: "#fff",
+    fontSize: 16,
+    margin: 0,
+    borderRadius: 3
   }
 });
 
