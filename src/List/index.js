@@ -100,7 +100,13 @@ const List = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <TouchableHighlight
-        style={{ marginTop: 20, marginBottom: 20, marginLeft: 25 }}
+        style={{
+          marginBottom: 20,
+          marginLeft: 25,
+          alignSelf: "flex-start",
+          paddingTop: 20,
+          paddingRight: 20
+        }}
         onPress={() => {
           navigate("Home");
         }}
