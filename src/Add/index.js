@@ -14,6 +14,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 import list from "../List/list";
 import Period from "./Period";
+import DateTime from "./DateTime";
 
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
@@ -23,6 +24,7 @@ const Add = ({ navigation }) => {
   const [memoValue, setMemoValue] = useState("");
   const [period, setPeriod] = useState("day");
   const [periodNum, setPeriodNum] = useState("1");
+  const [dateValue, setDateValue] = useState("");
 
   const item = list.filter(v => v.title === state.params.title)[0];
   const { title, local, icon, hex } = item;
@@ -147,7 +149,16 @@ const Add = ({ navigation }) => {
               placeholder="Memo"
               placeholderTextColor={"#666"}
             />
-
+            <View
+              style={{
+                borderTopWidth: 1,
+                borderColor: "#333",
+                padding: 5,
+                paddingHorizontal: 10
+              }}
+            >
+              <DateTime dateValue={dateValue} setDateValue={setDateValue} />
+            </View>
             <View
               style={{
                 borderTopWidth: 1,
