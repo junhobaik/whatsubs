@@ -10,7 +10,7 @@ StatusBar.setBarStyle("lignt-content", true);
 
 const MainNavigator = createStackNavigator(
   {
-    Home: { screen: List },
+    Home: { screen: Dashboard },
     Dashboard: { screen: Dashboard },
     List: { screen: List },
     Add: { screen: Add }
