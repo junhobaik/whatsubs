@@ -7,7 +7,8 @@ import {
   TextInput,
   Linking,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
@@ -17,6 +18,7 @@ import list from "../List/list";
 import Period from "./Period";
 import DateTime from "./DateTime";
 import Pay from "./Pay";
+import moment from "moment";
 
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
@@ -30,7 +32,8 @@ const Add = ({ navigation }) => {
   const [payValue, setPayValue] = useState("");
   const [currencyValue, setCurrencyValue] = useState("won");
 
-  const item = list.filter(v => v.title === state.params.title)[0];
+  const globalTitle = state.params.title;
+  const item = list.filter(v => v.title === globalTitle)[0];
   const { local, icon, hex, cycle } = item;
 
   const data = local[locale] || local[local.default];
@@ -42,6 +45,31 @@ const Add = ({ navigation }) => {
     setPeriod(cycle || "m");
     setCurrencyValue(currency || "dollar");
   }, []);
+
+  const addSubs = () => {
+    AsyncStorage.getItem("whatsubs_list", (err, result) => {
+      const item = {
+        icon: {
+          type: "include",
+          title: globalTitle
+        },
+        globalTitle,
+        title: titleValue,
+        memo: memoValue,
+        period,
+        periodNum,
+        date: dateValue || moment().format("YYYY.MM.DD"),
+        price: payValue || price,
+        currency: currencyValue
+      };
+
+      const list = result ? [...JSON.parse(result), item] : [item];
+
+      AsyncStorage.setItem("whatsubs_list", JSON.stringify(list), () => {
+        goBack();
+      });
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -192,7 +220,7 @@ const Add = ({ navigation }) => {
           <View style={{ alignItems: "center", marginTop: "10%" }}>
             <TouchableOpacity
               onPress={() => {
-                goBack();
+                addSubs();
               }}
             >
               <View
