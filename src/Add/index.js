@@ -15,6 +15,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import list from "../List/list";
 import Period from "./Period";
 import DateTime from "./DateTime";
+import Pay from "./Pay";
 
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
@@ -25,6 +26,8 @@ const Add = ({ navigation }) => {
   const [period, setPeriod] = useState("day");
   const [periodNum, setPeriodNum] = useState("1");
   const [dateValue, setDateValue] = useState("");
+  const [payValue, setPayValue] = useState("");
+  const [currency, setCurrency] = useState("won");
 
   const item = list.filter(v => v.title === state.params.title)[0];
   const { title, local, icon, hex } = item;
@@ -172,6 +175,22 @@ const Add = ({ navigation }) => {
                 periodNum={periodNum}
                 setPeriod={setPeriod}
                 setPeriodNum={setPeriodNum}
+              />
+            </View>
+
+            <View
+              style={{
+                borderTopWidth: 1,
+                borderColor: "#333",
+                padding: 5,
+                paddingHorizontal: 10
+              }}
+            >
+              <Pay
+                payValue={payValue}
+                setPayValue={setPayValue}
+                currency={currency}
+                setCurrency={setCurrency}
               />
             </View>
           </View>
