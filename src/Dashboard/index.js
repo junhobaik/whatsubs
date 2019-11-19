@@ -21,6 +21,8 @@ const Dashboard = ({ navigation }) => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
+    AsyncStorage.clear(); // temp
+
     AsyncStorage.getItem("whatsubs_list", (err, result) => {
       if (result) setList(JSON.parse(result));
     });
