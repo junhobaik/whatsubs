@@ -34,7 +34,8 @@ const Add = ({ navigation }) => {
   const { local, icon, hex, cycle } = item;
 
   const data = local[locale] || local[local.default];
-  const { title, url, description, price, currency } = data;
+  const { url, description, price, currency } = data;
+  const title = local[locale] ? local[locale].title : item.title;
 
   useEffect(() => {
     setTitleValue(title);

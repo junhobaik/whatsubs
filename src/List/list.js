@@ -107,12 +107,11 @@ const list = [
   {
     title: "Youtube Premium",
     ...getIconFromSimpleIcons("youtube"),
-    cycle: "m",
     local: {
       default: "en",
       en: {
         title: "Youtube Premium",
-        url: "https://www.youtube.com/premium",
+        url: "https://www.youtube.com",
         description:
           "Enjoy exclusive Amazon Originals as well as popular movies and TV shows",
         price: "11.99",
@@ -120,7 +119,7 @@ const list = [
       },
       kr: {
         title: "유튜브 프리미엄",
-        url: "https://www.youtube.com/premium",
+        url: "https://www.youtube.com",
         description:
           "독점 아마존 오리지널, 인기 영화 및 TV 프로그램을 즐길 수 있습니다",
         price: "7900",
@@ -132,16 +131,31 @@ const list = [
   {
     title: "Setapp",
     ...getIconFromImg("setapp"),
-    cycle: "m",
     local: {
       default: "en",
       en: {
         title: "Setapp",
-        url: "https://setapp.com/pricing",
+        url: "https://setapp.com",
         description:
           "The frontier platform that packs 160+ Mac apps into just one",
         price: "9.99",
         currency: "dollar"
+      }
+    }
+  },
+
+  {
+    title: "Bugs",
+    ...getIconFromImg("bugs"),
+    local: {
+      default: "kr",
+      kr: {
+        title: "벅스",
+        url: "https://music.bugs.co.kr/",
+        description:
+          "벅스 4천만곡 음악서비스, 슈퍼사운드, 고음질, FLAC, 최신 인기가요, 뮤직PD, 커넥트, 페이코, 추천 플레이리스트, 추천 선곡, 테마 음악",
+        price: "7900",
+        currency: "won"
       }
     }
   }
@@ -276,16 +290,6 @@ const list = [
   //   local: {
   //     title: {
   //       kr: "멜론"
-  //     }
-  //   }
-  // },
-
-  // {
-  //   title: "Bugs",
-  //   ...getIconFromImg("bugs"),
-  //   local: {
-  //     title: {
-  //       kr: "벅스"
   //     }
   //   }
   // },

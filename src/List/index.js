@@ -28,8 +28,8 @@ const List = ({ navigation }) => {
   const Item = ({ item }) => {
     const { icon, hex, local } = item;
     const globalTitle = item.title;
-    const data = local[locale] || local[local.default];
-    const { title } = data;
+
+    const title = local[locale] ? local[locale].title : globalTitle;
 
     let iconElement;
     if (!icon) {
