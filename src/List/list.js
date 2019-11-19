@@ -22,25 +22,6 @@ const getIconFromImg = key => {
   };
 };
 
-// const getIconFromUri = ({ title, uri, hex }) => {
-//   // favicon uri 변경 등의 이유로 불러 올 수 없을 때의 처리 필요
-//   return {
-//     icon: (
-//       <View>
-//         <Image
-//           style={{
-//             backgroundColor: hex || "#333",
-//             borderRadius: 3,
-//             width: 30,
-//             height: 30
-//           }}
-//           source={{ uri }}
-//         />
-//       </View>
-//     )
-//   };
-// };
-
 const getIconFromFontAwesome = icon => {
   return {
     icon: (
@@ -78,14 +59,22 @@ const list = [
   {
     title: "Netflix",
     ...getIconFromSimpleIcons("netflix"),
-    url: "https://www.netflix.com",
-    description: "Watch Netflix movies & TV shows online.",
+    cycle: "m",
     local: {
-      title: {
-        kr: "넷플릭스"
+      default: "en",
+      en: {
+        title: "Netflix",
+        url: "https://www.netflix.com",
+        description: "Watch Netflix movies & TV shows online.",
+        price: "13",
+        currency: "dollar"
       },
-      description: {
-        kr: "전 세계의 인기 TV 시리즈와 영화를 Netflix에서 만나보세요"
+      kr: {
+        title: "넷플릭스",
+        url: "https://www.netflix.com",
+        description: "전 세계의 인기 TV 시리즈와 영화를 Netflix에서 만나보세요",
+        price: "12000",
+        currency: "won"
       }
     }
   },
@@ -94,203 +83,242 @@ const list = [
     title: "Amazon Prime Video",
     ...getIconFromSimpleIcons("amazon"),
     hex: "#469bd3",
+    cycle: "m",
     local: {
-      title: {
-        kr: "아마존 프라임 비디오"
+      default: "en",
+      en: {
+        title: "Amazon Prime Video",
+        url: "https://www.primevideo.com/",
+        description:
+          "Enjoy exclusive Amazon Originals as well as popular movies and TV shows",
+        price: "5.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "아마존 프라임 비디오",
+        url: "https://www.primevideo.com/",
+        description:
+          "독점 아마존 오리지널, 인기 영화 및 TV 프로그램을 즐길 수 있습니다",
+        price: "5.99",
+        currency: "dollar"
       }
     }
   },
-
-  {
-    title: "Codecademy",
-    ...getIconFromSimpleIcons("codecademy"),
-    local: {
-      title: {
-        en: "Codecademy"
-      }
-    }
-  },
-
-  {
-    title: "Amazon Prime",
-    ...getIconFromSimpleIcons("amazon"),
-    local: {
-      title: {
-        kr: "아마존 프라임"
-      }
-    }
-  },
-
-  {
-    title: "Adobe",
-    ...getIconFromSimpleIcons("adobe")
-  },
-
-  {
-    title: "Watcha Play",
-    local: {
-      title: {
-        kr: "왓챠 플레이"
-      }
-    }
-  },
-
-  {
-    title: "SetApp",
-    cycle: "m"
-  },
-
-  {
-    title: "Medium",
-    ...getIconFromSimpleIcons("medium")
-  },
-
   {
     title: "Youtube Premium",
     ...getIconFromSimpleIcons("youtube"),
+    cycle: "m",
     local: {
-      title: {
-        kr: "유튜브 프리미엄"
+      default: "en",
+      en: {
+        title: "Youtube Premium",
+        url: "https://www.youtube.com/premium",
+        description:
+          "Enjoy exclusive Amazon Originals as well as popular movies and TV shows",
+        price: "11.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "유튜브 프리미엄",
+        url: "https://www.youtube.com/premium",
+        description:
+          "독점 아마존 오리지널, 인기 영화 및 TV 프로그램을 즐길 수 있습니다",
+        price: "7900",
+        currency: "won"
       }
     }
   },
 
   {
-    title: "Notion",
-    ...getIconFromSimpleIcons("notion")
-  },
-
-  {
-    title: "Bear",
-    ...getIconFromImg("bear")
-  },
-
-  {
-    title: "Nintendo Online",
-    ...getIconFromSimpleIcons("nintendo switch"),
+    title: "Setapp",
+    ...getIconFromImg("setapp"),
+    cycle: "m",
     local: {
-      title: {
-        kr: "닌텐도 온라인"
-      }
-    }
-  },
-
-  {
-    title: "Apple Arcade",
-    ...getIconFromSimpleIcons("apple"),
-    hex: "#f05d42",
-    local: {
-      title: {
-        kr: "애플 아케이드"
-      }
-    }
-  },
-
-  {
-    title: "Apple Music",
-    ...getIconFromSimpleIcons("apple music"),
-    local: {
-      title: {
-        kr: "애플 뮤직"
-      }
-    }
-  },
-
-  {
-    title: "Coupang RocketWow",
-    ...getIconFromImg("coupang"),
-    local: {
-      title: {
-        kr: "쿠팡 로켓와우"
-      }
-    }
-  },
-
-  {
-    title: "millie",
-    local: {
-      title: {
-        kr: "밀리의 서재"
-      }
-    }
-  },
-
-  {
-    title: "Disney+",
-    local: {
-      title: {
-        kr: "디즈니+"
-      }
-    }
-  },
-
-  { title: "Spotify Premium", ...getIconFromSimpleIcons("spotify") },
-  { title: "Hulu", ...getIconFromSimpleIcons("hulu") },
-  { title: "HBO Now" },
-  { title: "Sketch", ...getIconFromFontAwesome(faSketch), hex: "#f1b03e" },
-  {
-    title: "Apple TV+",
-    ...getIconFromSimpleIcons("apple"),
-    hex: "#2c2c2c",
-    local: {
-      title: {
-        kr: "애플 TV+"
-      }
-    }
-  },
-
-  { title: "wavve" },
-  {
-    title: "Melon",
-    ...getIconFromImg("melon"),
-    local: {
-      title: {
-        kr: "멜론"
-      }
-    }
-  },
-
-  {
-    title: "Bugs",
-    ...getIconFromImg("bugs"),
-    local: {
-      title: {
-        kr: "벅스"
-      }
-    }
-  },
-
-  {
-    title: "Genie",
-    local: {
-      title: {
-        kr: "지니"
-      }
-    }
-  },
-
-  { title: "FLO" },
-  { title: "VIBE" },
-  {
-    title: "Evernote",
-    ...getIconFromSimpleIcons("evernote"),
-    local: {
-      title: {
-        kr: "에버노트"
+      default: "en",
+      en: {
+        title: "Setapp",
+        url: "https://setapp.com/pricing",
+        description:
+          "The frontier platform that packs 160+ Mac apps into just one",
+        price: "9.99",
+        currency: "dollar"
       }
     }
   }
+
+  // {
+  //   title: "Codecademy",
+  //   ...getIconFromSimpleIcons("codecademy"),
+  //   local: {
+  //     title: {
+  //       en: "Codecademy"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "Amazon Prime",
+  //   ...getIconFromSimpleIcons("amazon"),
+  //   local: {
+  //     title: {
+  //       kr: "아마존 프라임"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "Adobe",
+  //   ...getIconFromSimpleIcons("adobe")
+  // },
+
+  // {
+  //   title: "Watcha Play",
+  //   local: {
+  //     title: {
+  //       kr: "왓챠 플레이"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "Medium",
+  //   ...getIconFromSimpleIcons("medium")
+  // },
+
+  // {
+  //   title: "Notion",
+  //   ...getIconFromSimpleIcons("notion")
+  // },
+
+  // {
+  //   title: "Bear",
+  //   ...getIconFromImg("bear")
+  // },
+
+  // {
+  //   title: "Nintendo Online",
+  //   ...getIconFromSimpleIcons("nintendo switch"),
+  //   local: {
+  //     title: {
+  //       kr: "닌텐도 온라인"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "Apple Arcade",
+  //   ...getIconFromSimpleIcons("apple"),
+  //   hex: "#f05d42",
+  //   local: {
+  //     title: {
+  //       kr: "애플 아케이드"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "Apple Music",
+  //   ...getIconFromSimpleIcons("apple music"),
+  //   local: {
+  //     title: {
+  //       kr: "애플 뮤직"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "Coupang RocketWow",
+  //   ...getIconFromImg("coupang"),
+  //   local: {
+  //     title: {
+  //       kr: "쿠팡 로켓와우"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "millie",
+  //   local: {
+  //     title: {
+  //       kr: "밀리의 서재"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "Disney+",
+  //   local: {
+  //     title: {
+  //       kr: "디즈니+"
+  //     }
+  //   }
+  // },
+
+  // { title: "Spotify Premium", ...getIconFromSimpleIcons("spotify") },
+  // { title: "Hulu", ...getIconFromSimpleIcons("hulu") },
+  // { title: "HBO Now" },
+  // { title: "Sketch", ...getIconFromFontAwesome(faSketch), hex: "#f1b03e" },
+  // {
+  //   title: "Apple TV+",
+  //   ...getIconFromSimpleIcons("apple"),
+  //   hex: "#2c2c2c",
+  //   local: {
+  //     title: {
+  //       kr: "애플 TV+"
+  //     }
+  //   }
+  // },
+
+  // { title: "wavve" },
+  // {
+  //   title: "Melon",
+  //   ...getIconFromImg("melon"),
+  //   local: {
+  //     title: {
+  //       kr: "멜론"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "Bugs",
+  //   ...getIconFromImg("bugs"),
+  //   local: {
+  //     title: {
+  //       kr: "벅스"
+  //     }
+  //   }
+  // },
+
+  // {
+  //   title: "Genie",
+  //   local: {
+  //     title: {
+  //       kr: "지니"
+  //     }
+  //   }
+  // },
+
+  // { title: "FLO" },
+  // { title: "VIBE" },
+  // {
+  //   title: "Evernote",
+  //   ...getIconFromSimpleIcons("evernote"),
+  //   local: {
+  //     title: {
+  //       kr: "에버노트"
+  //     }
+  //   }
+  // }
 ];
 
-export default list; // temp
+const sortedList = list.sort((_a, _b) => {
+  const a = _a.title.toLocaleLowerCase();
+  const b = _b.title.toLocaleLowerCase();
 
-// const sortedList = list.sort((_a, _b) => {
-//   const a = _a.title.toLocaleLowerCase();
-//   const b = _b.title.toLocaleLowerCase();
+  if (a > b) return 1;
+  if (b > a) return -1;
+  return 0;
+});
 
-//   if (a > b) return 1;
-//   if (b > a) return -1;
-//   return 0;
-// });
-
-// export default sortedList;
+export default sortedList;

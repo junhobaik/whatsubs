@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { View, TextInput } from "react-native";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import moment from "moment";
 
 const DateTime = ({ dateValue, setDateValue }) => {
   const [max, setMax] = useState(10);
+  const now = moment().format("YYYY.MM.DD");
 
   const changeValue = text => {
     if (dateValue.length < text.length) {
@@ -48,7 +50,7 @@ const DateTime = ({ dateValue, setDateValue }) => {
           }}
           onChangeText={text => changeValue(text)}
           value={dateValue}
-          placeholder={"2019.01.31"}
+          placeholder={now}
           placeholderTextColor={"#666"}
           keyboardType="number-pad"
           clearTextOnFocus={true}

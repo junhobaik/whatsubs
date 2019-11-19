@@ -8,7 +8,13 @@ import {
   faYenSign
 } from "@fortawesome/free-solid-svg-icons";
 
-const Pay = ({ payValue, setPayValue, currency, setCurrency }) => {
+const Pay = ({
+  payValue,
+  setPayValue,
+  currencyValue,
+  setCurrencyValue,
+  price
+}) => {
   return (
     <View
       style={{
@@ -35,7 +41,7 @@ const Pay = ({ payValue, setPayValue, currency, setCurrency }) => {
           }}
           onChangeText={text => setPayValue(text)}
           value={payValue}
-          placeholder={"0"}
+          placeholder={price.toString() || ""}
           placeholderTextColor={"#666"}
           keyboardType="decimal-pad"
           clearTextOnFocus={true}
@@ -49,12 +55,12 @@ const Pay = ({ payValue, setPayValue, currency, setCurrency }) => {
         >
           <TouchableOpacity
             onPress={() => {
-              setCurrency("won");
+              setCurrencyValue("won");
             }}
           >
             <View style={styles.periodItemView}>
               <Fa
-                style={{ color: currency === "won" ? "#fff" : "#666" }}
+                style={{ color: currencyValue === "won" ? "#fff" : "#666" }}
                 icon={faWonSign}
               />
             </View>
@@ -68,12 +74,14 @@ const Pay = ({ payValue, setPayValue, currency, setCurrency }) => {
           >
             <TouchableOpacity
               onPress={() => {
-                setCurrency("dollar");
+                setCurrencyValue("dollar");
               }}
             >
               <View style={styles.periodItemView}>
                 <Fa
-                  style={{ color: currency === "dollar" ? "#fff" : "#666" }}
+                  style={{
+                    color: currencyValue === "dollar" ? "#fff" : "#666"
+                  }}
                   icon={faDollarSign}
                 />
               </View>
@@ -81,12 +89,12 @@ const Pay = ({ payValue, setPayValue, currency, setCurrency }) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              setCurrency("yen");
+              setCurrencyValue("yen");
             }}
           >
             <View style={styles.periodItemView}>
               <Fa
-                style={{ color: currency === "yen" ? "#fff" : "#666" }}
+                style={{ color: currencyValue === "yen" ? "#fff" : "#666" }}
                 icon={faYenSign}
               />
             </View>

@@ -26,8 +26,10 @@ const List = ({ navigation }) => {
   const locale = "kr"; // temp
 
   const Item = ({ item }) => {
-    const { title } = item;
-    let { icon, hex, local } = item;
+    const { icon, hex, local } = item;
+    const globalTitle = item.title;
+    const data = local[locale] || local[local.default];
+    const { title } = data;
 
     let iconElement;
     if (!icon) {
@@ -53,7 +55,7 @@ const List = ({ navigation }) => {
       <TouchableOpacity
         style={{ borderRadius: 5 }}
         onPress={() => {
-          navigate("Add", { title });
+          navigate("Add", { title: globalTitle });
         }}
       >
         <View
@@ -85,9 +87,7 @@ const List = ({ navigation }) => {
           >
             {iconElement}
           </View>
-          <Text style={{ color: "#fff", fontSize: 18 }}>
-            {local ? local.title[locale] || title : title}
-          </Text>
+          <Text style={{ color: "#fff", fontSize: 18 }}>{title}</Text>
         </View>
       </TouchableOpacity>
     );

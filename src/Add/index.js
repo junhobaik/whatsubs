@@ -6,21 +6,17 @@ import {
   Text,
   TextInput,
   Linking,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
-import {
-  faChevronLeft,
-  faPlusCircle,
-  faPlus
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import list from "../List/list";
 import Period from "./Period";
 import DateTime from "./DateTime";
 import Pay from "./Pay";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
@@ -32,27 +28,18 @@ const Add = ({ navigation }) => {
   const [periodNum, setPeriodNum] = useState("1");
   const [dateValue, setDateValue] = useState("");
   const [payValue, setPayValue] = useState("");
-  const [currency, setCurrency] = useState("won");
+  const [currencyValue, setCurrencyValue] = useState("won");
 
   const item = list.filter(v => v.title === state.params.title)[0];
-  const { title, local, icon, hex } = item;
-  let { description, url } = item;
+  const { local, icon, hex, cycle } = item;
 
-  let localTitle;
-
-  if (local) {
-    localTitle = local.title ? local.title[locale] || title : title;
-    description = local.description
-      ? local.description[locale] || description
-      : description;
-    url = local.url ? local.url[locale] || url : url;
-  } else {
-    localTitle = title;
-  }
+  const data = local[locale] || local[local.default];
+  const { title, url, description, price, currency } = data;
 
   useEffect(() => {
-    setTitleValue(localTitle);
-    setPeriod("m");
+    setTitleValue(title);
+    setPeriod(cycle || "m");
+    setCurrencyValue(currency || "dollar");
   }, []);
 
   return (
@@ -93,7 +80,7 @@ const Add = ({ navigation }) => {
                 alignSelf: "center"
               }}
             >
-              {localTitle}
+              {title}
             </Text>
             <View
               style={{
@@ -195,8 +182,9 @@ const Add = ({ navigation }) => {
               <Pay
                 payValue={payValue}
                 setPayValue={setPayValue}
-                currency={currency}
-                setCurrency={setCurrency}
+                currencyValue={currencyValue}
+                setCurrencyValue={setCurrencyValue}
+                price={price}
               />
             </View>
           </View>
