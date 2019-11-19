@@ -10,12 +10,17 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faPlusCircle,
+  faPlus
+} from "@fortawesome/free-solid-svg-icons";
 
 import list from "../List/list";
 import Period from "./Period";
 import DateTime from "./DateTime";
 import Pay from "./Pay";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
@@ -117,6 +122,7 @@ const Add = ({ navigation }) => {
             <Text style={{ color: "#ddd", marginTop: 5 }}>{description}</Text>
           ) : null}
         </View>
+
         <ScrollView style={{ height: "100%" }} keyboardDismissMode={"on-drag"}>
           <View
             style={{
@@ -193,6 +199,27 @@ const Add = ({ navigation }) => {
                 setCurrency={setCurrency}
               />
             </View>
+          </View>
+          <View style={{ alignItems: "center", marginTop: "10%" }}>
+            <TouchableOpacity
+              onPress={() => {
+                goBack();
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  backgroundColor: "#222",
+                  borderRadius: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 55,
+                  height: 55
+                }}
+              >
+                <Fa icon={faPlus} style={{ color: "#ddd" }} size={35} />
+              </View>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>
