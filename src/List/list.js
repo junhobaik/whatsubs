@@ -158,6 +158,27 @@ const list = [
         currency: "won"
       }
     }
+  },
+
+  {
+    title: "Apple Developer Program",
+    ...getIconFromSimpleIcons("apple"),
+    cycle: 'y',
+    local: {
+      default: "en",
+      en: {
+        title: "Apple Developer Program",
+        url: "https://developer.apple.com/programs/",
+        price: "99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "Apple Developer Program",
+        url: "https://developer.apple.com/programs/",
+        price: "129000",
+        currency: "won"
+      }
+    }
   }
 
   // {
