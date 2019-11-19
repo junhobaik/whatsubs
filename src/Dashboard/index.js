@@ -1,5 +1,11 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableHighlight,
+  AsyncStorage
+} from "react-native";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
   faLayerGroup,
@@ -12,6 +18,21 @@ import { SafeAreaView } from "react-navigation";
 
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    AsyncStorage.getItem("whatsubs_list", (err, result) => {
+      if (result) setList(JSON.parse(result));
+    });
+  }, []);
+
+  const foo = list.map(v => {
+    return (
+      <Text key={v.title} style={{ color: "white" }}>
+        {v.title}
+      </Text>
+    );
+  });
 
   const createSummaryItem = (
     title = "title",
@@ -97,6 +118,8 @@ const Dashboard = ({ navigation }) => {
           {createSummaryItem("Monthly", faDollarSign, "rgb(252, 160, 9)")}
         </View>
       </View>
+
+      <View>{foo}</View>
     </SafeAreaView>
   );
 };
