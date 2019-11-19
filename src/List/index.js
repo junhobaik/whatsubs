@@ -20,7 +20,7 @@ import { SafeAreaView } from "react-navigation";
 import list from "./list";
 
 const List = ({ navigation }) => {
-  const { navigate } = navigation;
+  const { navigate, goBack } = navigation;
   const [value, onChangeText] = useState("");
 
   const locale = "kr"; // temp
@@ -104,7 +104,7 @@ const List = ({ navigation }) => {
           paddingRight: 20
         }}
         onPress={() => {
-          navigate("Dashboard");
+          goBack();
         }}
       >
         <View>
