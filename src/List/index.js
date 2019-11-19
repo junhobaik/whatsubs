@@ -134,6 +134,7 @@ const List = ({ navigation }) => {
           onChangeText={text => onChangeText(text)}
           value={value}
           placeholder="Search"
+          placeholderTextColor={"#666"}
         />
       </View>
 
