@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import { faRedoAlt } from "@fortawesome/free-solid-svg-icons";
 
-const Period = ({ period, periodNum, setPeriod, setPeriodNum }) => {
+const Period = ({ period, setPeriod }) => {
   return (
     <View
       style={{
@@ -25,54 +25,19 @@ const Period = ({ period, periodNum, setPeriod, setPeriodNum }) => {
           justifyContent: "flex-end"
         }}
       >
-        <TextInput
-          placeholder=""
-          style={{
-            color: "#fff",
-            backgroundColor: "#333",
-            width: 40,
-            height: 40,
-            fontSize: 20,
-            textAlign: "center",
-            borderRadius: 5,
-            marginRight: 5
-          }}
-          keyboardType="number-pad"
-          value={periodNum}
-          onChangeText={num => setPeriodNum(num)}
-          placeholderTextColor={"#666"}
-        />
         <View
           style={{
             flexDirection: "row",
             borderRadius: 5,
-            backgroundColor: "#333"
+            backgroundColor: "#333",
+            width: 150
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              setPeriod("d");
-            }}
-          >
-            <View style={styles.periodItemView}>
-              <Text
-                style={[
-                  styles.periodItemText,
-                  {
-                    opacity: period === "d" ? 1 : 0.2,
-                    fontWeight: period === "d" ? "bold" : "normal"
-                  }
-                ]}
-              >
-                Day
-              </Text>
-            </View>
-          </TouchableOpacity>
           <View
             style={{
               borderRightWidth: 1,
-              borderLeftWidth: 1,
-              borderColor: "#444"
+              borderRightColor: "#444",
+              width: "50%"
             }}
           >
             <TouchableOpacity
@@ -95,7 +60,11 @@ const Period = ({ period, periodNum, setPeriod, setPeriodNum }) => {
               </View>
             </TouchableOpacity>
           </View>
+
           <TouchableOpacity
+            style={{
+              width: "50%"
+            }}
             onPress={() => {
               setPeriod("y");
             }}
@@ -123,7 +92,6 @@ const Period = ({ period, periodNum, setPeriod, setPeriodNum }) => {
 const styles = StyleSheet.create({
   periodItemView: {
     height: 40,
-    width: 70,
     paddingHorizontal: 7.5,
     alignItems: "center",
     justifyContent: "center"

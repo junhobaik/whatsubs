@@ -28,7 +28,6 @@ const Add = ({ navigation }) => {
   const [titleValue, setTitleValue] = useState("");
   const [memoValue, setMemoValue] = useState("");
   const [period, setPeriod] = useState("day");
-  const [periodNum, setPeriodNum] = useState("1");
   const [dateValue, setDateValue] = useState("");
   const [payValue, setPayValue] = useState("");
   const [currencyValue, setCurrencyValue] = useState("won");
@@ -59,7 +58,6 @@ const Add = ({ navigation }) => {
         title: titleValue,
         memo: memoValue,
         period,
-        periodNum,
         date: dateValue || moment().format("YYYY.MM.DD"),
         price: payValue || price,
         currency: currencyValue
@@ -196,9 +194,7 @@ const Add = ({ navigation }) => {
             >
               <Period
                 period={period}
-                periodNum={periodNum}
                 setPeriod={setPeriod}
-                setPeriodNum={setPeriodNum}
               />
             </View>
 
