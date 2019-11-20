@@ -17,6 +17,8 @@ import {
 import { SafeAreaView, NavigationEvents } from "react-navigation";
 import { ScrollView } from "react-native-gesture-handler";
 
+import List from "./List";
+
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
   const [list, setList] = useState([]);
@@ -30,14 +32,6 @@ const Dashboard = ({ navigation }) => {
       if (result) setList(JSON.parse(result));
     });
   };
-
-  const foo = list.map(v => {
-    return (
-      <Text key={v.id} style={{ color: "white" }}>
-        {v.title}
-      </Text>
-    );
-  });
 
   const createSummaryItem = (
     title = "title",
@@ -134,7 +128,9 @@ const Dashboard = ({ navigation }) => {
           </View>
         </View>
 
-        <ScrollView>{foo}</ScrollView>
+        <ScrollView style={{marginTop: 50}}>
+          <List list={list} />
+        </ScrollView>
       </SafeAreaView>
     </>
   );
