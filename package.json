@@ -14,6 +14,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-native-fontawesome": "^0.1.0",
     "@react-native-community/datetimepicker": "^2.1.0",
+    "cashify": "^2.0.2",
     "expo": "^35.0.0",
     "moment": "^2.24.0",
     "react": "16.8.3",
