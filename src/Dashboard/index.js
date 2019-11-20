@@ -11,7 +11,7 @@ import {
   faLayerGroup,
   faCalendarAlt,
   faDollarSign,
-  faStar,
+  faCalendarDay,
   faPlusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
@@ -22,6 +22,7 @@ import List from "./List";
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
   const [list, setList] = useState([]);
+  const [listFilter, setListFilter] = useState("all");
 
   useEffect(() => {
     // AsyncStorage.clear(); // temp
@@ -97,12 +98,13 @@ const Dashboard = ({ navigation }) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginVertical: 20,
-            marginHorizontal: 25
+            marginTop: 20,
+            marginBottom: 10,
+            marginHorizontal: 30
           }}
         >
           <Text
-            style={{ color: "#eee", fontSize: 18, fontWeight: "bold", flex: 1 }}
+            style={{ color: "#fff", fontSize: 18, fontWeight: "bold", flex: 1 }}
           >
             WhatSubs
           </Text>
@@ -119,16 +121,29 @@ const Dashboard = ({ navigation }) => {
         <View>
           <View style={styles.summary}>
             {createSummaryItem("All", faLayerGroup, "rgb(88, 99, 106)")}
-            {createSummaryItem("Monthly", faCalendarAlt, "rgb(4, 132, 255)")}
+            {createSummaryItem("Monthly", faDollarSign, "rgb(252, 160, 9)")}
           </View>
 
           <View style={styles.summary}>
-            {createSummaryItem("Marked", faStar, "rgb(252, 71, 59)")}
-            {createSummaryItem("Monthly", faDollarSign, "rgb(252, 160, 9)")}
+            {createSummaryItem("Yearly", faCalendarAlt, "rgb(252, 71, 59)")}
+            {createSummaryItem("Monthly", faCalendarDay, "rgb(4, 132, 255)")}
           </View>
         </View>
-
-        <ScrollView style={{ marginTop: 10, paddingHorizontal: 25 }}>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 18,
+            marginHorizontal: 30,
+            marginTop: 20,
+            alignSelf: "flex-end"
+          }}
+        >
+          {[
+            listFilter[0].toLocaleUpperCase(),
+            ...listFilter.slice(1, listFilter.length)
+          ]}
+        </Text>
+        <ScrollView style={{ marginTop: 3, paddingHorizontal: 25 }}>
           <List list={list} />
         </ScrollView>
       </SafeAreaView>
@@ -150,7 +165,8 @@ const styles = StyleSheet.create({
     padding: 14,
     paddingTop: 7,
     paddingBottom: 7,
-    margin: 5,
+    marginHorizontal: 5,
+    marginVertical: 2.5,
     flex: 1,
     borderWidth: 1.2,
     borderRadius: 10,
