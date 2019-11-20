@@ -144,7 +144,11 @@ const List = ({ navigation }) => {
           renderItem={({ item }) => <Item item={item} />}
           keyExtractor={item => item.title}
         />
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigate("CustomAdd");
+          }}
+        >
           <View
             style={{
               backgroundColor: "#111",

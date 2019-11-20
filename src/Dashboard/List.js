@@ -37,6 +37,24 @@ const List = ({ list }) => {
           </View>
         );
       }
+      if (iconType === "custom") {
+        return (
+          <View
+            style={{
+              backgroundColor: v.icon.hex,
+              width: 30,
+              height: 30,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 3
+            }}
+          >
+            <Text style={{ color: "#ddd", fontSize: 20, fontWeight: "bold" }}>
+              {v.icon.iconChar}
+            </Text>
+          </View>
+        );
+      }
     };
 
     const makeCurrencyIcon = currency => {
