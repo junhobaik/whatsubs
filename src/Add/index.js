@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import { faChevronLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import uuidv4 from "uuid/v4";
 
 import list from "../List/list";
 import Period from "./Period";
@@ -49,6 +50,7 @@ const Add = ({ navigation }) => {
   const addSubs = () => {
     AsyncStorage.getItem("whatsubs_list", (err, result) => {
       const item = {
+        id: uuidv4(),
         icon: {
           type: "include",
           title: globalTitle
