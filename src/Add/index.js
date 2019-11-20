@@ -158,6 +158,7 @@ const Add = ({ navigation }) => {
               onChangeText={text => setTitleValue(text)}
               value={titleValue}
               placeholder="Title"
+              placeholderTextColor={"#666"}
             />
             <TextInput
               style={{
@@ -192,10 +193,7 @@ const Add = ({ navigation }) => {
                 paddingHorizontal: 10
               }}
             >
-              <Period
-                period={period}
-                setPeriod={setPeriod}
-              />
+              <Period period={period} setPeriod={setPeriod} />
             </View>
 
             <View
