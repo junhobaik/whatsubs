@@ -14,19 +14,21 @@ import {
   faStar,
   faPlusCircle
 } from "@fortawesome/free-solid-svg-icons";
-import { SafeAreaView } from "react-navigation";
+import { SafeAreaView, NavigationEvents } from "react-navigation";
 
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    AsyncStorage.clear(); // temp
+    // AsyncStorage.clear(); // temp
+  }, []);
 
+  const willFocusEvents = () => {
     AsyncStorage.getItem("whatsubs_list", (err, result) => {
       if (result) setList(JSON.parse(result));
     });
-  }, []);
+  };
 
   const foo = list.map(v => {
     return (
@@ -85,44 +87,55 @@ const Dashboard = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginBottom: 20,
-          marginTop: 20
+    <>
+      <NavigationEvents
+        onWillFocus={payload => {
+          willFocusEvents();
         }}
-      >
-        <Text
-          style={{ color: "#eee", fontSize: 18, fontWeight: "bold", flex: 1 }}
-        >
-          WhatSubs
-        </Text>
-        <TouchableHighlight
-          onPress={() => {
-            navigate("List");
+        onDidFocus={payload => console.log("did focus")}
+        onWillBlur={payload => console.log("will blur")}
+        onDidBlur={payload => console.log("did blur")}
+      />
+
+      <SafeAreaView style={styles.container}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: 20,
+            marginTop: 20
           }}
         >
-          <View>
-            <Fa icon={faPlusCircle} size={25} style={{ color: "#eee" }} />
+          <Text
+            style={{ color: "#eee", fontSize: 18, fontWeight: "bold", flex: 1 }}
+          >
+            WhatSubs
+          </Text>
+          <TouchableHighlight
+            onPress={() => {
+              navigate("List");
+            }}
+          >
+            <View>
+              <Fa icon={faPlusCircle} size={25} style={{ color: "#eee" }} />
+            </View>
+          </TouchableHighlight>
+        </View>
+        <View>
+          <View style={styles.summary}>
+            {createSummaryItem("All", faLayerGroup, "rgb(88, 99, 106)")}
+            {createSummaryItem("Monthly", faCalendarAlt, "rgb(4, 132, 255)")}
           </View>
-        </TouchableHighlight>
-      </View>
-      <View>
-        <View style={styles.summary}>
-          {createSummaryItem("All", faLayerGroup, "rgb(88, 99, 106)")}
-          {createSummaryItem("Monthly", faCalendarAlt, "rgb(4, 132, 255)")}
+
+          <View style={styles.summary}>
+            {createSummaryItem("Marked", faStar, "rgb(252, 71, 59)")}
+            {createSummaryItem("Monthly", faDollarSign, "rgb(252, 160, 9)")}
+          </View>
         </View>
 
-        <View style={styles.summary}>
-          {createSummaryItem("Marked", faStar, "rgb(252, 71, 59)")}
-          {createSummaryItem("Monthly", faDollarSign, "rgb(252, 160, 9)")}
-        </View>
-      </View>
-
-      <View>{foo}</View>
-    </SafeAreaView>
+        <View>{foo}</View>
+      </SafeAreaView>
+    </>
   );
 };
 
