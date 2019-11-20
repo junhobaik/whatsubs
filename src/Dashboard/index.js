@@ -12,10 +12,12 @@ import {
   faCalendarAlt,
   faDollarSign,
   faCalendarDay,
-  faPlusCircle
+  faPlusCircle,
+  faWonSign
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
 import { ScrollView } from "react-native-gesture-handler";
+import { Cashify } from "cashify";
 
 import List from "./List";
 
@@ -28,6 +30,37 @@ const Dashboard = ({ navigation }) => {
     // AsyncStorage.clear(); // temp
   }, []);
 
+  const currencyFormat = currency => {
+    switch (currency) {
+      case "dollar":
+        return "USD";
+      case "won":
+        return "KRW";
+      case "yen":
+        return "JPY";
+      default:
+        return "USD";
+    }
+  };
+
+  const sumPrice = _list => {
+    const rates = {
+      USD: 1,
+      KRW: 1200,
+      JPY: 110
+    };
+    const cashify = new Cashify({ base: "USD", rates });
+
+    let sum = 0;
+    for (item of _list) {
+      sum += cashify.convert(item.price, {
+        from: currencyFormat(item.currency),
+        to: "KRW"
+      });
+    }
+    return sum;
+  };
+
   const willFocusEvents = () => {
     AsyncStorage.getItem("whatsubs_list", (err, result) => {
       if (result) setList(JSON.parse(result));
@@ -38,8 +71,8 @@ const Dashboard = ({ navigation }) => {
     title = "title",
     icon,
     color = "#999",
-    pressEvent = () => {},
-    num = 0
+    num = 0,
+    pressEvent = () => {}
   ) => {
     return (
       <TouchableHighlight
@@ -120,13 +153,33 @@ const Dashboard = ({ navigation }) => {
         </View>
         <View>
           <View style={styles.summary}>
-            {createSummaryItem("All", faLayerGroup, "rgb(88, 99, 106)")}
-            {createSummaryItem("Monthly", faDollarSign, "rgb(252, 160, 9)")}
+            {createSummaryItem(
+              "All",
+              faLayerGroup,
+              "rgb(88, 99, 106)",
+              list.length
+            )}
+            {createSummaryItem(
+              "This month",
+              faWonSign,
+              "rgb(252, 160, 9)",
+              sumPrice(list)
+            )}
           </View>
 
           <View style={styles.summary}>
-            {createSummaryItem("Yearly", faCalendarAlt, "rgb(252, 71, 59)")}
-            {createSummaryItem("Monthly", faCalendarDay, "rgb(4, 132, 255)")}
+            {createSummaryItem(
+              "Yearly",
+              faCalendarAlt,
+              "rgb(252, 71, 59)",
+              list.filter(item => item.period === "y").length
+            )}
+            {createSummaryItem(
+              "Monthly",
+              faCalendarDay,
+              "rgb(4, 132, 255)",
+              list.filter(item => item.period === "m").length
+            )}
           </View>
         </View>
         <Text
