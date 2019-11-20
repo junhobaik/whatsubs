@@ -97,8 +97,8 @@ const Dashboard = ({ navigation }) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginBottom: 20,
-            marginTop: 20
+            marginVertical: 20,
+            marginHorizontal: 25
           }}
         >
           <Text
@@ -128,7 +128,7 @@ const Dashboard = ({ navigation }) => {
           </View>
         </View>
 
-        <ScrollView style={{marginTop: 50}}>
+        <ScrollView style={{ marginTop: 10, paddingHorizontal: 25 }}>
           <List list={list} />
         </ScrollView>
       </SafeAreaView>
@@ -139,20 +139,18 @@ const Dashboard = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    padding: 25,
     backgroundColor: "#000",
     height: "100%"
   },
   summary: {
-    flexDirection: "row"
+    flexDirection: "row",
+    marginHorizontal: 20
   },
   summaryItem: {
     padding: 14,
     paddingTop: 7,
     paddingBottom: 7,
-    margin: 10,
-    marginTop: 5,
-    marginBottom: 5,
+    margin: 5,
     flex: 1,
     borderWidth: 1.2,
     borderRadius: 10,
