@@ -15,7 +15,7 @@ import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import { faChevronLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import uuidv4 from "uuid/v4";
 
-import list from "../List/list";
+import list from "../AddList/list";
 import Period from "./Period";
 import DateTime from "./DateTime";
 import Pay from "./Pay";

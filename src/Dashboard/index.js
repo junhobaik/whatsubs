@@ -15,6 +15,7 @@ import {
   faPlusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
+import { ScrollView } from "react-native-gesture-handler";
 
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
@@ -32,7 +33,7 @@ const Dashboard = ({ navigation }) => {
 
   const foo = list.map(v => {
     return (
-      <Text key={v.title} style={{ color: "white" }}>
+      <Text key={v.id} style={{ color: "white" }}>
         {v.title}
       </Text>
     );
@@ -92,9 +93,9 @@ const Dashboard = ({ navigation }) => {
         onWillFocus={payload => {
           willFocusEvents();
         }}
-        onDidFocus={payload => console.log("did focus")}
-        onWillBlur={payload => console.log("will blur")}
-        onDidBlur={payload => console.log("did blur")}
+        // onDidFocus={payload => console.log("did focus")}
+        // onWillBlur={payload => console.log("will blur")}
+        // onDidBlur={payload => console.log("did blur")}
       />
 
       <SafeAreaView style={styles.container}>
@@ -113,7 +114,7 @@ const Dashboard = ({ navigation }) => {
           </Text>
           <TouchableHighlight
             onPress={() => {
-              navigate("List");
+              navigate("AddList");
             }}
           >
             <View>
@@ -133,7 +134,7 @@ const Dashboard = ({ navigation }) => {
           </View>
         </View>
 
-        <View>{foo}</View>
+        <ScrollView>{foo}</ScrollView>
       </SafeAreaView>
     </>
   );
