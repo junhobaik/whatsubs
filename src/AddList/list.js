@@ -1,9 +1,8 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image } from "react-native";
 import simpleIcons from "simple-icons";
 import Svg, { Path } from "react-native-svg";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
-import { faSketch } from "@fortawesome/free-brands-svg-icons";
 
 import img from "./img";
 
@@ -163,7 +162,7 @@ const list = [
   {
     title: "Apple Developer Program",
     ...getIconFromSimpleIcons("apple"),
-    cycle: 'y',
+    cycle: "y",
     local: {
       default: "en",
       en: {

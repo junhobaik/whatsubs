@@ -10,7 +10,6 @@ import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
   faLayerGroup,
   faCalendarAlt,
-  faDollarSign,
   faCalendarDay,
   faPlusCircle,
   faWonSign
