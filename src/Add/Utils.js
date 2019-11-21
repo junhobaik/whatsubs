@@ -74,13 +74,14 @@ export const DateTime = ({ dateValue, setDateValue }) => {
   );
 };
 
-export const Info = ({ title, icon, url, description }) => {
+export const Info = ({ title, icon, url, description, hex }) => {
   return (
     <View
       style={{
         padding: 10,
         backgroundColor: "#222",
-        borderRadius: 7
+        borderRadius: 7,
+        marginBottom: 20
       }}
     >
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>

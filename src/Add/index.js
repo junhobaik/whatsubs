@@ -10,7 +10,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
-import { faChevronLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faPlus,
+  faCheck
+} from "@fortawesome/free-solid-svg-icons";
 import uuidv4 from "uuid/v4";
 
 import list from "../AddList/list";
@@ -21,7 +25,7 @@ import { DateTime, Info, Pay, Period, IconSetting } from "./Utils";
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
   const { goBack, state } = navigation;
-  const { type } = state.params;
+  const { type, modify } = state.params;
 
   const [titleValue, setTitleValue] = useState("");
   const [memoValue, setMemoValue] = useState("");
@@ -31,6 +35,16 @@ const Add = ({ navigation }) => {
   const [currencyValue, setCurrencyValue] = useState("won");
   const [hexValue, setHexValue] = useState("#333"); // custom only
   const [iconChar, setIconChar] = useState(""); // custom only
+  const [infoData, setInfoData] = useState({}); // modify && include only
+
+  const setInfo = globalTitle => {
+    const item = list.filter(v => v.title === globalTitle)[0];
+    const { icon, hex, local } = item;
+    const localData = local[locale] || local[local.default];
+    const { title, url, description } = localData;
+
+    setInfoData({ globalTitle, title, description, url, icon, hex });
+  };
 
   const includeData = () => {
     const itemTitle = state.params.title;
@@ -53,7 +67,51 @@ const Add = ({ navigation }) => {
     };
   };
 
-  const data = type === "include" ? includeData() : {};
+  const setModifyData = () => {
+    const { id } = state.params;
+
+    const setValues = item => {
+      const { currency, date, memo, period, price, title, icon } = item;
+
+      setTitleValue(title);
+      setMemoValue(memo);
+      setDateValue(date);
+      setPeriod(period);
+      setPayValue(price);
+      setCurrencyValue(currency);
+      setHexValue(icon.hex);
+      setIconChar(icon.iconChar);
+    };
+
+    const setInfoData = item => {
+      setInfo(item.globalTitle);
+    };
+
+    AsyncStorage.getItem("whatsubs_list", (err, result) => {
+      const item = JSON.parse(result).filter(v => v.id === id)[0];
+      setValues(item);
+      if (item.type === "include") setInfoData(item);
+    });
+  };
+
+  const isAddInclude = type === "include" && !state.params.modify;
+  const data = isAddInclude ? includeData() : {};
+
+  const modifySubs = () => {
+    const { id } = state.params;
+
+    AsyncStorage.getItem("whatsubs_list", (err, result) => {
+      const deletedList = JSON.parse(result).filter(v => v.id !== id);
+
+      AsyncStorage.setItem("whatsubs_list", JSON.stringify(deletedList), () => {
+        if (type === "include") {
+          addSubs();
+        } else {
+          addCustomSubs();
+        }
+      });
+    });
+  };
 
   const addSubs = () => {
     AsyncStorage.getItem("whatsubs_list", (err, result) => {
@@ -61,14 +119,14 @@ const Add = ({ navigation }) => {
         id: uuidv4(),
         type: "include",
         icon: {
-          title: itemTitle
+          title: data.itemTitle || infoData.globalTitle
         },
-        globalTitle: itemTitle,
+        globalTitle: data.itemTitle || infoData.globalTitle,
         title: titleValue,
         memo: memoValue,
         period,
         date: dateValue || moment().format("YYYY.MM.DD"),
-        price: payValue || price,
+        price: payValue || data.price,
         currency: currencyValue
       };
 
@@ -107,10 +165,15 @@ const Add = ({ navigation }) => {
 
   // ComponentDidMount
   useEffect(() => {
-    const { title, cycle, currency } = data;
-    setTitleValue(title || "");
-    setPeriod(cycle || "m");
-    setCurrencyValue(currency || "dollar");
+    if (state.params.modify) {
+      setModifyData();
+    } else {
+      const { title, cycle, currency } = data;
+
+      setTitleValue(title || "");
+      setPeriod(cycle || "m");
+      setCurrencyValue(currency || "dollar");
+    }
   }, []);
 
   return (
@@ -132,10 +195,11 @@ const Add = ({ navigation }) => {
         {/* Info */}
         {type === "include" ? (
           <Info
-            title={data.title}
-            icon={data.icon}
-            description={data.description}
-            url={data.url}
+            title={modify ? infoData.title : data.title}
+            icon={modify ? infoData.icon : data.icon}
+            description={modify ? infoData.description : data.description}
+            url={modify ? infoData.url : data.url}
+            hex={modify ? infoData.hex : data.hex}
           />
         ) : null}
 
@@ -145,7 +209,6 @@ const Add = ({ navigation }) => {
           <View
             style={{
               borderRadius: 5,
-              marginTop: 20,
               backgroundColor: "#222"
             }}
           >
@@ -210,20 +273,23 @@ const Add = ({ navigation }) => {
           <View style={{ alignItems: "center", marginTop: "10%" }}>
             <TouchableOpacity
               onPress={() => {
-                switch (type) {
-                  case "include":
+                if (modify) {
+                  modifySubs();
+                } else {
+                  if (type === "include") {
                     addSubs();
-                    break;
-                  case "custom":
+                  } else {
                     addCustomSubs();
-                    break;
-                  default:
-                    break;
+                  }
                 }
               }}
             >
               <View style={styles.addButton}>
-                <Fa icon={faPlus} style={{ color: "#ddd" }} size={35} />
+                <Fa
+                  icon={modify ? faCheck : faPlus}
+                  style={{ color: "#ddd" }}
+                  size={35}
+                />
               </View>
             </TouchableOpacity>
           </View>

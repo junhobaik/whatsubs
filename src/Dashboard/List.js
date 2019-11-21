@@ -12,7 +12,7 @@ import {
 
 import addListData from "../AddList/list";
 
-const List = ({ list }) => {
+const List = ({ navigate, list }) => {
   const allList = list.map(v => {
     const splitedDate = v.date.split(".");
 
@@ -92,7 +92,8 @@ const List = ({ list }) => {
           padding: 10
         }}
         onPress={() => {
-          // console.log(v);
+          console.log(`> Modify: ${v.title}`);
+          navigate("Add", { id: v.id, type: v.type, modify: true });
         }}
       >
         <View>

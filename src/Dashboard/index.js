@@ -251,7 +251,7 @@ const Dashboard = ({ navigation }) => {
           {getFilterStr(listFilter)}
         </Text>
         <ScrollView style={{ marginTop: 5, paddingHorizontal: 25 }}>
-          <List list={remakedList} />
+          <List navigate={navigate} list={remakedList} />
         </ScrollView>
       </SafeAreaView>
     </>
