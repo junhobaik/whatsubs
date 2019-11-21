@@ -55,7 +55,7 @@ const List = ({ navigation }) => {
       <TouchableOpacity
         style={{ borderRadius: 5 }}
         onPress={() => {
-          navigate("Add", { title: globalTitle });
+          navigate("Add", { title: globalTitle, type: "include" });
         }}
       >
         <View
@@ -146,7 +146,7 @@ const List = ({ navigation }) => {
         />
         <TouchableOpacity
           onPress={() => {
-            navigate("CustomAdd");
+            navigate("Add", { type: "custom" });
           }}
         >
           <View

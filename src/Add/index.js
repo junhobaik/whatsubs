@@ -3,9 +3,7 @@ import {
   View,
   TouchableHighlight,
   StyleSheet,
-  Text,
   TextInput,
-  Linking,
   ScrollView,
   TouchableOpacity,
   AsyncStorage
@@ -16,14 +14,14 @@ import { faChevronLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import uuidv4 from "uuid/v4";
 
 import list from "../AddList/list";
-import Period from "./Period";
-import DateTime from "./DateTime";
-import Pay from "./Pay";
+
 import moment from "moment";
+import { DateTime, Info, Pay, Period, IconSetting } from "./Utils";
 
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
   const { goBack, state } = navigation;
+  const { type } = state.params;
 
   const [titleValue, setTitleValue] = useState("");
   const [memoValue, setMemoValue] = useState("");
@@ -31,20 +29,31 @@ const Add = ({ navigation }) => {
   const [dateValue, setDateValue] = useState("");
   const [payValue, setPayValue] = useState("");
   const [currencyValue, setCurrencyValue] = useState("won");
+  const [hexValue, setHexValue] = useState("#333"); // custom only
+  const [iconChar, setIconChar] = useState(""); // custom only
 
-  const globalTitle = state.params.title;
-  const item = list.filter(v => v.title === globalTitle)[0];
-  const { local, icon, hex, cycle } = item;
+  const includeData = () => {
+    const itemTitle = state.params.title;
+    const item = list.filter(v => v.title === itemTitle)[0];
+    const { local, icon, hex, cycle } = item;
 
-  const data = local[locale] || local[local.default];
-  const { url, description, price, currency } = data;
-  const title = local[locale] ? local[locale].title : item.title;
+    const localData = local[locale] || local[local.default];
+    const { title, url, description, price, currency } = localData;
 
-  useEffect(() => {
-    setTitleValue(title);
-    setPeriod(cycle || "m");
-    setCurrencyValue(currency || "dollar");
-  }, []);
+    return {
+      itemTitle,
+      title,
+      url,
+      description,
+      price,
+      currency,
+      icon,
+      hex,
+      cycle
+    };
+  };
+
+  const data = type === "include" ? includeData() : {};
 
   const addSubs = () => {
     AsyncStorage.getItem("whatsubs_list", (err, result) => {
@@ -52,9 +61,9 @@ const Add = ({ navigation }) => {
         id: uuidv4(),
         type: "include",
         icon: {
-          title: globalTitle
+          title: itemTitle
         },
-        globalTitle,
+        globalTitle: itemTitle,
         title: titleValue,
         memo: memoValue,
         period,
@@ -71,16 +80,44 @@ const Add = ({ navigation }) => {
     });
   };
 
+  const addCustomSubs = () => {
+    AsyncStorage.getItem("whatsubs_list", (err, result) => {
+      const item = {
+        id: uuidv4(),
+        type: "custom",
+        icon: {
+          iconChar: iconChar !== "" ? iconChar : titleValue[0],
+          hex: hexValue
+        },
+        title: titleValue,
+        memo: memoValue,
+        period,
+        date: dateValue || moment().format("YYYY.MM.DD"),
+        price: payValue || 0,
+        currency: currencyValue
+      };
+
+      const list = result ? [...JSON.parse(result), item] : [item];
+
+      AsyncStorage.setItem("whatsubs_list", JSON.stringify(list), () => {
+        goBack();
+      });
+    });
+  };
+
+  // ComponentDidMount
+  useEffect(() => {
+    const { title, cycle, currency } = data;
+    setTitleValue(title || "");
+    setPeriod(cycle || "m");
+    setCurrencyValue(currency || "dollar");
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
+      {/* goBack Icon */}
       <TouchableHighlight
-        style={{
-          marginBottom: 20,
-          marginLeft: 25,
-          alignSelf: "flex-start",
-          paddingTop: 20,
-          paddingRight: 20
-        }}
+        style={styles.goBack}
         onPress={() => {
           goBack();
         }}
@@ -89,57 +126,22 @@ const Add = ({ navigation }) => {
           <Fa icon={faChevronLeft} size={20} style={{ color: "#eee" }} />
         </View>
       </TouchableHighlight>
+
+      {/* Content Wrapper */}
       <View style={{ padding: 25, paddingTop: 5 }}>
-        <View
-          style={{
-            padding: 10,
-            backgroundColor: "#222",
-            borderRadius: 7
-          }}
-        >
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <Text
-              style={{
-                color: "#fff",
-                fontWeight: "bold",
-                paddingRight: 10,
-                fontSize: 18,
-                alignSelf: "center"
-              }}
-            >
-              {title}
-            </Text>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 3,
-                backgroundColor: hex || "transparent",
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              {icon ? icon : null}
-            </View>
-          </View>
+        {/* Info */}
+        {type === "include" ? (
+          <Info
+            title={data.title}
+            icon={data.icon}
+            description={data.description}
+            url={data.url}
+          />
+        ) : null}
 
-          {url ? (
-            <Text
-              style={{ color: "#3b82f6", marginTop: 5 }}
-              onPress={() => Linking.openURL(url)}
-            >
-              {url}
-            </Text>
-          ) : null}
-
-          {description ? (
-            <Text style={{ color: "#ddd", marginTop: 5 }}>{description}</Text>
-          ) : null}
-        </View>
-
+        {/* Content ScrollView */}
         <ScrollView style={{ height: "100%" }} keyboardDismissMode={"on-drag"}>
+          {/* Contents */}
           <View
             style={{
               borderRadius: 5,
@@ -147,89 +149,80 @@ const Add = ({ navigation }) => {
               backgroundColor: "#222"
             }}
           >
+            {/* Title Input */}
             <TextInput
-              style={{
-                height: 40,
-                color: "#fff",
-                padding: 5,
-                paddingHorizontal: 10,
-                fontSize: 18
-              }}
+              style={styles.titleInput}
               onChangeText={text => setTitleValue(text)}
               value={titleValue}
               placeholder="Title"
               placeholderTextColor={"#666"}
             />
+            {/* Memo Input */}
             <TextInput
-              style={{
-                height: 40,
-                color: "#fff",
-                borderColor: "#333",
-                borderTopWidth: 1,
-                padding: 5,
-                paddingHorizontal: 10,
-                fontSize: 18
-              }}
+              style={styles.memoInput}
               onChangeText={text => setMemoValue(text)}
               value={memoValue}
               placeholder="Memo"
               placeholderTextColor={"#666"}
             />
-            <View
-              style={{
-                borderTopWidth: 1,
-                borderColor: "#333",
-                padding: 5,
-                paddingHorizontal: 10
-              }}
-            >
+
+            {/* DateTime Wrapper */}
+            <View style={styles.utilWrapper}>
               <DateTime dateValue={dateValue} setDateValue={setDateValue} />
             </View>
-            <View
-              style={{
-                borderTopWidth: 1,
-                borderColor: "#333",
-                padding: 5,
-                paddingHorizontal: 10
-              }}
-            >
+
+            {/* Period Wrapper */}
+            <View style={styles.utilWrapper}>
               <Period period={period} setPeriod={setPeriod} />
             </View>
 
-            <View
-              style={{
-                borderTopWidth: 1,
-                borderColor: "#333",
-                padding: 5,
-                paddingHorizontal: 10
-              }}
-            >
+            {/* Pay Wrapper */}
+            <View style={styles.utilWrapper}>
               <Pay
                 payValue={payValue}
                 setPayValue={setPayValue}
                 currencyValue={currencyValue}
                 setCurrencyValue={setCurrencyValue}
-                price={price}
+                price={data.price || "0"}
               />
             </View>
+
+            {type === "custom" ? (
+              <View
+                style={{
+                  borderTopWidth: 1,
+                  borderColor: "#333",
+                  padding: 5,
+                  paddingHorizontal: 10
+                }}
+              >
+                <IconSetting
+                  hexValue={hexValue}
+                  setHexValue={setHexValue}
+                  iconChar={iconChar}
+                  setIconChar={setIconChar}
+                />
+              </View>
+            ) : null}
           </View>
+
+          {/* Add Buttom Wrapper */}
           <View style={{ alignItems: "center", marginTop: "10%" }}>
             <TouchableOpacity
               onPress={() => {
-                addSubs();
+                switch (type) {
+                  case "include":
+                    addSubs();
+                    break;
+                  case "custom":
+                    addCustomSubs();
+                    break;
+                  default:
+                    break;
+                }
               }}
             >
-              <View
-                style={{
-                  flexDirection: "row",
-                  backgroundColor: "#222",
-                  borderRadius: "100%",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 55,
-                  height: 55
-                }}
-              >
+              <View style={styles.addButton}>
                 <Fa icon={faPlus} style={{ color: "#ddd" }} size={35} />
               </View>
             </TouchableOpacity>
@@ -245,6 +238,44 @@ const styles = StyleSheet.create({
     display: "flex",
     backgroundColor: "#000",
     height: "100%"
+  },
+  utilWrapper: {
+    borderTopWidth: 1,
+    borderColor: "#333",
+    padding: 5,
+    paddingHorizontal: 10
+  },
+  titleInput: {
+    height: 40,
+    color: "#fff",
+    padding: 5,
+    paddingHorizontal: 10,
+    fontSize: 18
+  },
+  memoInput: {
+    height: 40,
+    color: "#fff",
+    borderColor: "#333",
+    borderTopWidth: 1,
+    padding: 5,
+    paddingHorizontal: 10,
+    fontSize: 18
+  },
+  goBack: {
+    marginBottom: 20,
+    marginLeft: 25,
+    alignSelf: "flex-start",
+    paddingTop: 20,
+    paddingRight: 20
+  },
+  addButton: {
+    flexDirection: "row",
+    backgroundColor: "#222",
+    borderRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 55,
+    height: 55
   }
 });
 
