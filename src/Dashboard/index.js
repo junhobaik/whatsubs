@@ -126,7 +126,19 @@ const Dashboard = ({ navigation }) => {
 
   const sumPrice = _list => {
     let sum = 0;
-    for (item of _list) {
+    const now = moment()
+      .format("YYYY.MM.DD")
+      .split(".");
+
+    const filteredList = _list.filter(v => {
+      const subMonth = parseInt(v.date.split(".")[1], 10);
+      const nowMonth = parseInt(now[1], 10);
+
+      if (v.period === "m") return true;
+      if (v.period === "y" && subMonth === nowMonth) return true;
+    });
+
+    for (item of filteredList) {
       sum += cashify.convert(item.price, {
         from: currencyFormat(item.currency),
         to: "KRW"
