@@ -19,6 +19,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Cashify } from "cashify";
 
 import List from "./List";
+import moment from "moment";
 
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
@@ -74,28 +75,48 @@ const Dashboard = ({ navigation }) => {
       );
     };
 
+    const sortString = (a, b) => {
+      const x = a.title.toLocaleLowerCase();
+      const y = b.title.toLocaleLowerCase();
+      if (x > y) {
+        return 1;
+      }
+      if (y > x) {
+        return -1;
+      }
+      return 0;
+    };
+
     switch (filter) {
       case "all": {
-        return [...list].sort((a, b) => {
-          const x = a.title.toLocaleLowerCase();
-          const y = b.title.toLocaleLowerCase();
-          if (x > y) {
-            return 1;
-          }
-          if (y > x) {
-            return -1;
-          }
-          return 0;
-        });
+        return [...list].sort(sortString);
       }
       case "month": {
-        return [...list].sort((a, b) => cur(b) - cur(a));
+        const now = moment()
+          .format("YYYY.MM.DD")
+          .split(".");
+
+        return list
+          .filter(v => {
+            const subMonth = parseInt(v.date.split(".")[1], 10);
+            const nowMonth = parseInt(now[1], 10);
+
+            if (v.period === "m") return true;
+            if (v.period === "y" && subMonth === nowMonth) return true;
+          })
+          .sort((a, b) => {
+            return (
+              parseInt(a.date.split(".")[2], 10) -
+              parseInt(b.date.split(".")[2], 10)
+            );
+            // return cur(b) - cur(a); // 가격순 정렬
+          });
       }
       case "yearly": {
-        return list.filter(item => item.period === "y");
+        return list.filter(item => item.period === "y").sort(sortString);
       }
       case "monthly": {
-        return list.filter(item => item.period === "m");
+        return list.filter(item => item.period === "m").sort(sortString);
       }
       default:
         break;

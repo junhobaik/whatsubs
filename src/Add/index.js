@@ -137,7 +137,7 @@ const Add = ({ navigation }) => {
         title: titleValue,
         memo: memoValue,
         period,
-        date: dateFormater(dateValue) || moment().format("YYYY.MM.DD"),
+        date: dateFormater(dateValue || moment().format("YYYY.MM.DD")),
         price: payValue || data.price,
         currency: currencyValue
       };
@@ -162,7 +162,7 @@ const Add = ({ navigation }) => {
         title: titleValue,
         memo: memoValue,
         period,
-        date: dateFormater(dateValue) || moment().format("YYYY.MM.DD"),
+        date: dateFormater(dateValue || moment().format("YYYY.MM.DD")),
         price: payValue || 0,
         currency: currencyValue
       };
