@@ -24,11 +24,32 @@ import List from "./List";
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
   const [list, setList] = useState([]);
-  const [listFilter, setListFilter] = useState("all");
+  const [listFilter, setListFilter] = useState("all"); // all, price, yearly, monthly
+  const rates = {
+    USD: 1,
+    KRW: 1200,
+    JPY: 110
+  };
+  const cashify = new Cashify({ base: "USD", rates });
 
   useEffect(() => {
     // AsyncStorage.clear(); // temp
   }, []);
+
+  const getFilterStr = filter => {
+    switch (filter) {
+      case "all":
+        return "All";
+      case "price":
+        return "All (Sort by price)";
+      case "yearly":
+        return "Yearly";
+      case "monthly":
+        return "Monthly";
+      default:
+        return "list";
+    }
+  };
 
   const currencyFormat = currency => {
     switch (currency) {
@@ -43,14 +64,47 @@ const Dashboard = ({ navigation }) => {
     }
   };
 
-  const sumPrice = _list => {
-    const rates = {
-      USD: 1,
-      KRW: 1200,
-      JPY: 110
+  const remakeList = (list, filter) => {
+    const cur = item => {
+      return parseInt(
+        cashify.convert(item.price, {
+          from: currencyFormat(item.currency),
+          to: "KRW"
+        }),
+        10
+      );
     };
-    const cashify = new Cashify({ base: "USD", rates });
 
+    switch (filter) {
+      case "all": {
+        return [...list].sort((a, b) => {
+          const x = a.title.toLocaleLowerCase();
+          const y = b.title.toLocaleLowerCase();
+          if (x > y) {
+            return 1;
+          }
+          if (y > x) {
+            return -1;
+          }
+          return 0;
+        });
+      }
+      case "price": {
+        return [...list].sort((a, b) => cur(b) - cur(a));
+      }
+      case "yearly": {
+        return list.filter(item => item.period === "y");
+      }
+      case "monthly": {
+        return list.filter(item => item.period === "m");
+      }
+      default:
+        break;
+    }
+  };
+  const remakedList = remakeList(list, listFilter);
+
+  const sumPrice = _list => {
     let sum = 0;
     for (item of _list) {
       sum += cashify.convert(item.price, {
@@ -157,13 +211,15 @@ const Dashboard = ({ navigation }) => {
               "All",
               faLayerGroup,
               "rgb(88, 99, 106)",
-              list.length
+              list.length,
+              () => setListFilter("all")
             )}
             {createSummaryItem(
               "This month",
               faWonSign,
               "rgb(252, 160, 9)",
-              sumPrice(list)
+              sumPrice(list),
+              () => setListFilter("price")
             )}
           </View>
 
@@ -172,13 +228,15 @@ const Dashboard = ({ navigation }) => {
               "Yearly",
               faCalendarAlt,
               "rgb(252, 71, 59)",
-              list.filter(item => item.period === "y").length
+              list.filter(item => item.period === "y").length,
+              () => setListFilter("yearly")
             )}
             {createSummaryItem(
               "Monthly",
               faCalendarDay,
               "rgb(4, 132, 255)",
-              list.filter(item => item.period === "m").length
+              list.filter(item => item.period === "m").length,
+              () => setListFilter("monthly")
             )}
           </View>
         </View>
@@ -191,13 +249,10 @@ const Dashboard = ({ navigation }) => {
             alignSelf: "flex-end"
           }}
         >
-          {[
-            listFilter[0].toLocaleUpperCase(),
-            ...listFilter.slice(1, listFilter.length)
-          ]}
+          {getFilterStr(listFilter)}
         </Text>
-        <ScrollView style={{ marginTop: 3, paddingHorizontal: 25 }}>
-          <List list={list} />
+        <ScrollView style={{ marginTop: 5, paddingHorizontal: 25 }}>
+          <List list={remakedList} />
         </ScrollView>
       </SafeAreaView>
     </>
