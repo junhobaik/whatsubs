@@ -97,6 +97,18 @@ const Add = ({ navigation }) => {
   const isAddInclude = type === "include" && !state.params.modify;
   const data = isAddInclude ? includeData() : {};
 
+  const dateFormater = date => {
+    const addFrontZero = index => {
+      if (dateArr[index].length === 1) {
+        dateArr[index] = `0${dateArr[index]}`;
+      }
+    };
+    const dateArr = date.split(".");
+    addFrontZero(1);
+    addFrontZero(2);
+    return dateArr.join(".");
+  };
+
   const modifySubs = () => {
     const { id } = state.params;
 
@@ -125,7 +137,7 @@ const Add = ({ navigation }) => {
         title: titleValue,
         memo: memoValue,
         period,
-        date: dateValue || moment().format("YYYY.MM.DD"),
+        date: dateFormater(dateValue) || moment().format("YYYY.MM.DD"),
         price: payValue || data.price,
         currency: currencyValue
       };
@@ -150,7 +162,7 @@ const Add = ({ navigation }) => {
         title: titleValue,
         memo: memoValue,
         period,
-        date: dateValue || moment().format("YYYY.MM.DD"),
+        date: dateFormater(dateValue) || moment().format("YYYY.MM.DD"),
         price: payValue || 0,
         currency: currencyValue
       };

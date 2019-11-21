@@ -40,7 +40,7 @@ const Dashboard = ({ navigation }) => {
       case "all":
         return "All";
       case "price":
-        return "All (Sort by price)";
+        return "This month";
       case "yearly":
         return "Yearly";
       case "monthly":
