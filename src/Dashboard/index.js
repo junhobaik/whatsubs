@@ -39,7 +39,7 @@ const Dashboard = ({ navigation }) => {
     switch (filter) {
       case "all":
         return "All";
-      case "price":
+      case "month":
         return "This month";
       case "yearly":
         return "Yearly";
@@ -88,7 +88,7 @@ const Dashboard = ({ navigation }) => {
           return 0;
         });
       }
-      case "price": {
+      case "month": {
         return [...list].sort((a, b) => cur(b) - cur(a));
       }
       case "yearly": {
@@ -218,7 +218,7 @@ const Dashboard = ({ navigation }) => {
               faWonSign,
               "rgb(252, 160, 9)",
               sumPrice(list),
-              () => setListFilter("price")
+              () => setListFilter("month")
             )}
           </View>
 
