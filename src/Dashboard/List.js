@@ -9,12 +9,25 @@ import {
   faCalendarDay,
   faCalendarAlt
 } from "@fortawesome/free-solid-svg-icons";
+import moment from "moment";
 
 import addListData from "../AddList/list";
 
 const List = ({ navigate, list }) => {
+  const thisMonth = moment().format("MM");
+  const thisDay = moment().format("DD");
+
   const allList = list.map(v => {
     const splitedDate = v.date.split(".");
+    const subMonth = splitedDate[1];
+    const subDay = splitedDate[2];
+
+    let resultMonth = thisMonth;
+    if (parseInt(thisDay, 10) > parseInt(subDay, 10)) {
+      resultMonth = parseInt(thisMonth) + 1;
+    }
+    if (v.period === "y") resultMonth = subMonth;
+    let dateStr = `${resultMonth}.${subDay}`;
 
     const makeIcon = iconType => {
       if (iconType === "include") {
@@ -110,9 +123,7 @@ const List = ({ navigate, list }) => {
             <Text style={{ color: "#fff", fontSize: 16 }}>{v.price}</Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Text
-              style={{ color: "#bbb", fontSize: 16 }}
-            >{`${splitedDate[1]}.${splitedDate[2]}`}</Text>
+            <Text style={{ color: "#bbb", fontSize: 16 }}>{dateStr}</Text>
             <View
               style={{
                 backgroundColor:
