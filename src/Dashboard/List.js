@@ -77,7 +77,7 @@ const List = ({ list }) => {
       return <Fa icon={icon} style={{ color: "#ddd" }} size={14} />;
     };
 
-    const makedIcon = makeIcon(v.icon.type);
+    const makedIcon = makeIcon(v.type);
     const makedCurrencyIcon = makeCurrencyIcon(v.currency);
 
     return (
@@ -90,6 +90,9 @@ const List = ({ list }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           padding: 10
+        }}
+        onPress={() => {
+          // console.log(v);
         }}
       >
         <View>

@@ -50,8 +50,8 @@ const Add = ({ navigation }) => {
     AsyncStorage.getItem("whatsubs_list", (err, result) => {
       const item = {
         id: uuidv4(),
+        type: "include",
         icon: {
-          type: "include",
           title: globalTitle
         },
         globalTitle,

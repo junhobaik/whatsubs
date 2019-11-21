@@ -43,8 +43,8 @@ const CustomAdd = ({ navigation }) => {
     AsyncStorage.getItem("whatsubs_list", (err, result) => {
       const item = {
         id: uuidv4(),
+        type: "custom",
         icon: {
-          type: "custom",
           iconChar: iconChar !== "" ? iconChar : titleValue[0],
           hex: hexValue
         },
