@@ -13,7 +13,8 @@ import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
   faChevronLeft,
   faPlus,
-  faCheck
+  faCheck,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import uuidv4 from "uuid/v4";
 
@@ -121,6 +122,18 @@ const Add = ({ navigation }) => {
         } else {
           addCustomSubs();
         }
+      });
+    });
+  };
+
+  const deleteSubs = () => {
+    const { id } = state.params;
+
+    AsyncStorage.getItem("whatsubs_list", (err, result) => {
+      const deletedList = JSON.parse(result).filter(v => v.id !== id);
+
+      AsyncStorage.setItem("whatsubs_list", JSON.stringify(deletedList), () => {
+        goBack();
       });
     });
   };
@@ -282,7 +295,14 @@ const Add = ({ navigation }) => {
           </View>
 
           {/* Add Buttom Wrapper */}
-          <View style={{ alignItems: "center", marginTop: "10%" }}>
+          <View
+            style={{
+              flexDirection: "row-reverse",
+              justifyContent: "space-around",
+              alignItems: "center",
+              marginTop: "10%"
+            }}
+          >
             <TouchableOpacity
               onPress={() => {
                 if (modify) {
@@ -304,6 +324,17 @@ const Add = ({ navigation }) => {
                 />
               </View>
             </TouchableOpacity>
+            {modify ? (
+              <TouchableOpacity
+                onPress={() => {
+                  deleteSubs();
+                }}
+              >
+                <View style={styles.addButton}>
+                  <Fa icon={faTrash} style={{ color: "#ddd" }} size={35} />
+                </View>
+              </TouchableOpacity>
+            ) : null}
           </View>
         </ScrollView>
       </View>
