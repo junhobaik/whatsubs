@@ -17,7 +17,6 @@ import {
   faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
-// import { ScrollView } from "react-native-gesture-handler";
 import { Cashify } from "cashify";
 
 import List from "./List";
@@ -39,21 +38,6 @@ const Dashboard = ({ navigation }) => {
     // AsyncStorage.clear(); // temp
   }, []);
 
-  const getFilterStr = filter => {
-    switch (filter) {
-      case "all":
-        return "All";
-      case "month":
-        return "This month";
-      case "yearly":
-        return "Yearly";
-      case "monthly":
-        return "Monthly";
-      default:
-        return "list";
-    }
-  };
-
   const currencyFormat = currency => {
     switch (currency) {
       case "dollar":
@@ -66,65 +50,6 @@ const Dashboard = ({ navigation }) => {
         return "USD";
     }
   };
-
-  const remakeList = (list, filter) => {
-    const cur = item => {
-      return parseInt(
-        cashify.convert(item.price, {
-          from: currencyFormat(item.currency),
-          to: "KRW"
-        }),
-        10
-      );
-    };
-
-    const sortString = (a, b) => {
-      const x = a.title.toLocaleLowerCase();
-      const y = b.title.toLocaleLowerCase();
-      if (x > y) {
-        return 1;
-      }
-      if (y > x) {
-        return -1;
-      }
-      return 0;
-    };
-
-    switch (filter) {
-      case "all": {
-        return list;
-      }
-      case "month": {
-        const now = moment()
-          .format("YYYY.MM.DD")
-          .split(".");
-
-        return list.filter(v => {
-          const subMonth = parseInt(v.date.split(".")[1], 10);
-          const nowMonth = parseInt(now[1], 10);
-
-          if (v.period === "m") return true;
-          if (v.period === "y" && subMonth === nowMonth) return true;
-        });
-        // .sort((a, b) => {
-        //   return (
-        //     parseInt(a.date.split(".")[2], 10) -
-        //     parseInt(b.date.split(".")[2], 10)
-        //   );
-        //   // return cur(b) - cur(a); // 가격순 정렬
-        // });
-      }
-      case "yearly": {
-        return list.filter(item => item.period === "y");
-      }
-      case "monthly": {
-        return list.filter(item => item.period === "m");
-      }
-      default:
-        break;
-    }
-  };
-  const remakedList = remakeList(list, listFilter);
 
   const sumPrice = _list => {
     let sum = 0;
@@ -340,7 +265,14 @@ const Dashboard = ({ navigation }) => {
           {createSortItem("title")}
         </View>
         <ScrollView>
-          <List navigate={navigate} list={remakedList} />
+          <List
+            navigate={navigate}
+            list={list}
+            filter={listFilter}
+            sort={sortMethod}
+            cashify={cashify}
+            currencyFormat={currencyFormat}
+          />
         </ScrollView>
       </SafeAreaView>
     </>

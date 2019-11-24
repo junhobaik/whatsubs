@@ -13,21 +13,193 @@ import moment from "moment";
 
 import addListData from "../AddList/list";
 
-const List = ({ navigate, list }) => {
-  const thisMonth = moment().format("MM");
-  const thisDay = moment().format("DD");
+const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
+  const getNextDate = item => {
+    const { date, period } = item;
+    const splitDate = date.split(".");
 
-  const allList = list.map(v => {
-    const splitedDate = v.date.split(".");
-    const subMonth = splitedDate[1];
-    const subDay = splitedDate[2];
+    const now = {
+      date: parseInt(moment().format("YYYYMMDD"), 10),
+      d: parseInt(moment().format("DD"), 10),
+      m: parseInt(moment().format("MM"), 10),
+      y: parseInt(moment().format("YYYY"), 10),
+      lastDay: parseInt(
+        moment()
+          .endOf("month")
+          .format("DD"),
+        10
+      ),
+      nextLastDay: parseInt(
+        moment()
+          .add(1, "month")
+          .endOf("month")
+          .format("DD"),
+        10
+      )
+    };
 
-    let resultMonth = thisMonth;
-    if (parseInt(thisDay, 10) > parseInt(subDay, 10)) {
-      resultMonth = parseInt(thisMonth) + 1;
+    const sub = {
+      date: parseInt(splitDate.join(""), 10),
+      y: parseInt(splitDate[0], 10),
+      m: parseInt(splitDate[1], 10),
+      d: parseInt(splitDate[2], 10)
+    };
+
+    let resultYear = now.y;
+    let resultMonth = now.m;
+    let resultDay = sub.d;
+
+    if (period === "m") {
+      if (sub.d > now.lastDay) resultDay = now.lastDay;
+
+      if (now.d > sub.d) {
+        if (sub.d > now.nextLastDay) resultDay = now.nextLastDay;
+
+        if (now.m === 12) {
+          resultMonth = 1;
+          resultYear += 1;
+        } else {
+          resultMonth = now.m + 1;
+        }
+      }
     }
-    if (v.period === "y") resultMonth = subMonth;
-    let dateStr = `${resultMonth}.${subDay}`;
+
+    if (period === "y") {
+      resultMonth = sub.m;
+
+      if (parseInt(`${now.m}${now.d}`, 10) > parseInt(`${sub.m}${sub.d}`, 10)) {
+        resultYear += 1;
+      }
+    }
+
+    const result = {
+      y: resultYear.toString(),
+      m:
+        resultMonth.toString().length === 1
+          ? `0${resultMonth}`
+          : resultMonth.toString(),
+      d:
+        resultDay.toString().length === 1
+          ? `0${resultDay}`
+          : resultDay.toString()
+    };
+
+    return {
+      y: `${result.y}`,
+      m: `${result.m}`,
+      d: `${result.d}`,
+      num: parseInt(`${result.y}${result.m}${result.d}`, 10)
+    };
+  };
+
+  const sortList = (list, sort) => {
+    const price = (a, b) => {
+      const cur = item => {
+        return parseInt(
+          cashify.convert(item.price, {
+            from: currencyFormat(item.currency),
+            to: "KRW"
+          }),
+          10
+        );
+      };
+
+      return cur(b) - cur(a);
+    };
+
+    const title = (a, b) => {
+      const x = a.title.toLocaleLowerCase();
+      const y = b.title.toLocaleLowerCase();
+      if (x > y) {
+        return 1;
+      }
+      if (y > x) {
+        return -1;
+      }
+      return 0;
+    };
+
+    const pay = (a, b) => getNextDate(a).num - getNextDate(b).num;
+
+    switch (sort) {
+      case "title":
+        return list.sort(title);
+      case "price":
+        return list.sort(price);
+      case "pay":
+        return list.sort(pay);
+      default:
+        return list.sort(title);
+    }
+  };
+
+  const filterList = (list, filter) => {
+    switch (filter) {
+      case "all": {
+        return list;
+      }
+      case "month": {
+        const splitNowDate = moment()
+          .format("YYYY.MM.DD")
+          .split(".");
+
+        const now = {
+          y: parseInt(splitNowDate[0], 10),
+          m: parseInt(splitNowDate[1], 10),
+          d: parseInt(splitNowDate[2], 10)
+        };
+
+        return list.filter(v => {
+          const splitSubDate = v.date.split(".");
+          const { y, m, d, num } = getNextDate(v);
+
+          const sub = {
+            y: parseInt(splitSubDate[0], 10),
+            m: parseInt(splitSubDate[1], 10),
+            d: parseInt(splitSubDate[2], 10),
+            num
+          };
+
+          const next = {
+            y: parseInt(y, 10),
+            m: parseInt(m, 10),
+            d: parseInt(d, 10),
+            num: parseInt(splitSubDate.join(""), 10)
+          };
+
+          if (v.period === "m") return true;
+
+          if (
+            v.period === "y" &&
+            sub.m === now.m &&
+            sub.y <= now.y &&
+            next.y >= now.y
+          ) {
+            return true;
+          }
+        });
+      }
+      case "yearly": {
+        return list.filter(item => item.period === "y");
+      }
+      case "monthly": {
+        return list.filter(item => item.period === "m");
+      }
+      default:
+        break;
+    }
+  };
+
+  const remakedList = sortList(filterList(list, filter), sort);
+
+  const listMap = remakedList.map(v => {
+    const { y, m, d } = getNextDate(v);
+
+    let dateStr = `${y.substr(2, 2)}.${m}.${d}`;
+
+    if (v.period === "m") {
+      dateStr = `${m}.${d}`;
+    }
 
     const makeIcon = iconType => {
       if (iconType === "include") {
@@ -108,7 +280,6 @@ const List = ({ navigate, list }) => {
           styles.shadow
         ]}
         onPress={() => {
-          console.log(`> Modify: ${v.title}`);
           navigate("Add", { id: v.id, type: v.type, modify: true });
         }}
       >
@@ -154,7 +325,7 @@ const List = ({ navigate, list }) => {
 
   return (
     <View style={{ paddingHorizontal: 25, paddingVertical: 15 }}>
-      {allList}
+      {listMap}
     </View>
   );
 };
