@@ -12,6 +12,7 @@ import {
 import moment from "moment";
 
 import addListData from "../AddList/list";
+import gs from "../globalStyle";
 
 const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
   const getNextDate = item => {
@@ -277,14 +278,14 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
             justifyContent: "space-between",
             padding: 10
           },
-          styles.shadow
+          gs.normalShadow
         ]}
         onPress={() => {
           navigate("Add", { id: v.id, type: v.type, modify: true });
         }}
       >
         <View>
-          <Text style={{ color: "#2b2c2e", fontSize: 18, fontWeight: "bold" }}>
+          <Text style={[{ fontSize: 18, fontWeight: "bold" }, gs.normalFont]}>
             {v.title}
           </Text>
           <View style={{ marginTop: 10 }}>{makedIcon}</View>
@@ -294,7 +295,7 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={{ marginRight: 2 }}>{makedCurrencyIcon}</View>
-            <Text style={{ color: "#2b2c2e", fontSize: 16 }}>{v.price}</Text>
+            <Text style={[{ fontSize: 16 }, gs.normalFont]}>{v.price}</Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Text style={{ color: "#666", fontSize: 16 }}>{dateStr}</Text>

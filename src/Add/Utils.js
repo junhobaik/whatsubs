@@ -18,6 +18,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
+import gs from "../globalStyle";
+
 export const DateTime = ({ dateValue, setDateValue }) => {
   const [max, setMax] = useState(10);
   const now = moment().format("YYYY.MM.DD");
@@ -47,25 +49,27 @@ export const DateTime = ({ dateValue, setDateValue }) => {
         justifyContent: "space-between"
       }}
     >
-      <Fa icon={faCalendarAlt} style={{ color: "#ddd" }} size={20} />
+      <Fa icon={faCalendarAlt} style={{ color: "#999" }} size={20} />
       <View>
         <TextInput
-          style={{
-            backgroundColor: "#333",
-            width: 150,
-            height: 40,
-            color: "#fff",
-            padding: 5,
-            paddingHorizontal: 10,
-            fontSize: 18,
-            borderRadius: 5,
-            fontWeight: "bold",
-            textAlign: "right"
-          }}
+          style={[
+            {
+              backgroundColor: "#e9e9e9",
+              width: 150,
+              height: 40,
+              padding: 5,
+              paddingHorizontal: 10,
+              fontSize: 18,
+              borderRadius: 5,
+              fontWeight: "bold",
+              textAlign: "right"
+            },
+            gs.inputFont
+          ]}
           onChangeText={text => changeValue(text)}
           value={dateValue}
           placeholder={now}
-          placeholderTextColor={"#666"}
+          placeholderTextColor={"#999"}
           keyboardType="number-pad"
           clearTextOnFocus={true}
         />
@@ -77,22 +81,27 @@ export const DateTime = ({ dateValue, setDateValue }) => {
 export const Info = ({ title, icon, url, description, hex }) => {
   return (
     <View
-      style={{
-        padding: 10,
-        backgroundColor: "#222",
-        borderRadius: 7,
-        marginBottom: 20
-      }}
+      style={[
+        {
+          padding: 10,
+          backgroundColor: "#fff",
+          borderRadius: 7,
+          marginBottom: 20
+        },
+        gs.normalShadow
+      ]}
     >
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text
-          style={{
-            color: "#fff",
-            fontWeight: "bold",
-            paddingRight: 10,
-            fontSize: 18,
-            alignSelf: "center"
-          }}
+          style={[
+            {
+              fontWeight: "bold",
+              paddingRight: 10,
+              fontSize: 18,
+              alignSelf: "center"
+            },
+            gs.normalFont
+          ]}
         >
           {title}
         </Text>
@@ -120,7 +129,7 @@ export const Info = ({ title, icon, url, description, hex }) => {
       ) : null}
 
       {description ? (
-        <Text style={{ color: "#ddd", marginTop: 5 }}>{description}</Text>
+        <Text style={{ color: "#555", marginTop: 5 }}>{description}</Text>
       ) : null}
     </View>
   );
@@ -141,26 +150,28 @@ export const Pay = ({
         justifyContent: "space-between"
       }}
     >
-      <Fa icon={faMoneyCheckAlt} style={{ color: "#ddd" }} size={20} />
+      <Fa icon={faMoneyCheckAlt} style={{ color: "#999" }} size={20} />
       <View style={{ flexDirection: "row" }}>
         <TextInput
-          style={{
-            backgroundColor: "#333",
-            width: 115,
-            height: 40,
-            color: "#fff",
-            padding: 5,
-            paddingHorizontal: 10,
-            fontSize: 18,
-            borderRadius: 5,
-            fontWeight: "bold",
-            textAlign: "right",
-            marginRight: 5
-          }}
+          style={[
+            {
+              backgroundColor: "#e9e9e9",
+              width: 115,
+              height: 40,
+              padding: 5,
+              paddingHorizontal: 10,
+              fontSize: 18,
+              borderRadius: 5,
+              fontWeight: "bold",
+              textAlign: "right",
+              marginRight: 5
+            },
+            gs.inputFont
+          ]}
           onChangeText={text => setPayValue(text)}
           value={payValue}
           placeholder={price.toString() || ""}
-          placeholderTextColor={"#666"}
+          placeholderTextColor={"#999"}
           keyboardType="decimal-pad"
           clearTextOnFocus={true}
         />
@@ -168,7 +179,7 @@ export const Pay = ({
           style={{
             flexDirection: "row",
             borderRadius: 5,
-            backgroundColor: "#333"
+            backgroundColor: "#e9e9e9"
           }}
         >
           <TouchableOpacity
@@ -178,7 +189,7 @@ export const Pay = ({
           >
             <View style={styles.payItemView}>
               <Fa
-                style={{ color: currencyValue === "won" ? "#fff" : "#666" }}
+                style={{ color: currencyValue === "won" ? "#444" : "#aaa" }}
                 icon={faWonSign}
               />
             </View>
@@ -187,7 +198,7 @@ export const Pay = ({
             style={{
               borderRightWidth: 1,
               borderLeftWidth: 1,
-              borderColor: "#444"
+              borderColor: "#eee"
             }}
           >
             <TouchableOpacity
@@ -198,7 +209,7 @@ export const Pay = ({
               <View style={styles.payItemView}>
                 <Fa
                   style={{
-                    color: currencyValue === "dollar" ? "#fff" : "#666"
+                    color: currencyValue === "dollar" ? "#444" : "#aaa"
                   }}
                   icon={faDollarSign}
                 />
@@ -212,7 +223,7 @@ export const Pay = ({
           >
             <View style={styles.payItemView}>
               <Fa
-                style={{ color: currencyValue === "yen" ? "#fff" : "#666" }}
+                style={{ color: currencyValue === "yen" ? "#444" : "#aaa" }}
                 icon={faYenSign}
               />
             </View>
@@ -232,7 +243,7 @@ export const Period = ({ period, setPeriod }) => {
         justifyContent: "space-between"
       }}
     >
-      <Fa icon={faRedoAlt} style={{ color: "#ddd" }} size={20} />
+      <Fa icon={faRedoAlt} style={{ color: "#999" }} size={20} />
       <View
         style={{
           flexDirection: "row",
@@ -243,14 +254,14 @@ export const Period = ({ period, setPeriod }) => {
           style={{
             flexDirection: "row",
             borderRadius: 5,
-            backgroundColor: "#333",
+            backgroundColor: "#e9e9e9",
             width: 150
           }}
         >
           <View
             style={{
               borderRightWidth: 1,
-              borderRightColor: "#444",
+              borderRightColor: "#eee",
               width: "50%"
             }}
           >
@@ -264,7 +275,7 @@ export const Period = ({ period, setPeriod }) => {
                   style={[
                     periodStyles.periodItemText,
                     {
-                      opacity: period === "m" ? 1 : 0.2,
+                      opacity: period === "m" ? 1 : 0.5,
                       fontWeight: period === "m" ? "bold" : "normal"
                     }
                   ]}
@@ -288,7 +299,7 @@ export const Period = ({ period, setPeriod }) => {
                 style={[
                   periodStyles.periodItemText,
                   {
-                    opacity: period === "y" ? 1 : 0.2,
+                    opacity: period === "y" ? 1 : 0.5,
                     fontWeight: period === "y" ? "bold" : "normal"
                   }
                 ]}
@@ -303,40 +314,6 @@ export const Period = ({ period, setPeriod }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  payItemView: {
-    height: 40,
-    width: 45,
-    paddingHorizontal: 7.5,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  payItemText: {
-    color: "#fff",
-    fontSize: 16,
-    margin: 0,
-    borderRadius: 3
-  },
-  icon: {
-    color: "#666"
-  }
-});
-
-const periodStyles = StyleSheet.create({
-  periodItemView: {
-    height: 40,
-    paddingHorizontal: 7.5,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  periodItemText: {
-    color: "#fff",
-    fontSize: 16,
-    margin: 0,
-    borderRadius: 3
-  }
-});
-
 export const IconSetting = ({
   hexValue,
   setHexValue,
@@ -349,7 +326,7 @@ export const IconSetting = ({
         <View>
           <View
             style={{
-              backgroundColor: "#d8d8d8",
+              backgroundColor: "#999",
               height: 20,
               width: 20,
               borderRadius: 3,
@@ -357,7 +334,7 @@ export const IconSetting = ({
               justifyContent: "center"
             }}
           >
-            <Text>{`i`}</Text>
+            <Text style={{ color: "#fff" }}>{`i`}</Text>
           </View>
 
           <View
@@ -414,16 +391,18 @@ export const IconSetting = ({
 
         <View>
           <TextInput
-            style={{
-              borderRadius: 10,
-              width: 70,
-              height: 70,
-              backgroundColor: hexValue,
-              textAlign: "center",
-              fontSize: iconChar === "" ? 14 : 36,
-              fontWeight: iconChar === "" ? "normal" : "bold",
-              color: "#ddd"
-            }}
+            style={[
+              {
+                borderRadius: 10,
+                width: 70,
+                height: 70,
+                backgroundColor: hexValue,
+                textAlign: "center",
+                fontSize: iconChar === "" ? 14 : 36,
+                fontWeight: iconChar === "" ? "normal" : "bold"
+              },
+              gs.inputFont
+            ]}
             onChangeText={text => {
               if (text.length < 2) setIconChar(text);
             }}
@@ -436,3 +415,37 @@ export const IconSetting = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  payItemView: {
+    height: 40,
+    width: 45,
+    paddingHorizontal: 7.5,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  payItemText: {
+    color: "#fff",
+    fontSize: 16,
+    margin: 0,
+    borderRadius: 3
+  },
+  icon: {
+    color: "#666"
+  }
+});
+
+const periodStyles = StyleSheet.create({
+  periodItemView: {
+    height: 40,
+    paddingHorizontal: 7.5,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  periodItemText: {
+    color: "#444",
+    fontSize: 16,
+    margin: 0,
+    borderRadius: 3
+  }
+});

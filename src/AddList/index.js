@@ -7,8 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   Text,
-  ScrollView,
-  Platform
+  ScrollView
 } from "react-native";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
@@ -19,6 +18,7 @@ import {
 import { SafeAreaView } from "react-navigation";
 
 import list from "./list";
+import gs from "../globalStyle";
 
 const List = ({ navigation }) => {
   const { navigate, goBack } = navigation;
@@ -53,85 +53,97 @@ const List = ({ navigation }) => {
     }
 
     return (
-      <TouchableOpacity
-        style={{ borderRadius: 5 }}
-        onPress={() => {
-          navigate("Add", { title: globalTitle, type: "include" });
-        }}
+      <View
+        style={[
+          {
+            borderRadius: 5,
+            backgroundColor: "#fff",
+            marginVertical: 5,
+            marginHorizontal: 25
+          },
+          gs.normalShadow
+        ]}
       >
-        <View
-          style={{
-            flexDirection: "row-reverse",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: 10,
-            backgroundColor: "#111",
-            borderRadius: 7,
-            padding: 10
+        <TouchableOpacity
+          onPress={() => {
+            navigate("Add", { title: globalTitle, type: "include" });
           }}
         >
           <View
-            style={[
-              {
-                height: 100,
-                backgroundColor: hex || "transparent",
-                borderRadius: 3,
-                width: 30,
-                height: 30,
-                alignItems: "center",
-                justifyContent: "center"
-              },
-              !icon
-                ? { borderWidth: 1, borderColor: "#ddd", borderStyle: "dotted" }
-                : null
-            ]}
+            style={{
+              flexDirection: "row-reverse",
+              alignItems: "center",
+              justifyContent: "space-between",
+              borderRadius: 7,
+              padding: 10
+            }}
           >
-            {iconElement}
+            <View
+              style={[
+                {
+                  backgroundColor: hex || "transparent",
+                  borderRadius: 3,
+                  width: 30,
+                  height: 30,
+                  alignItems: "center",
+                  justifyContent: "center"
+                },
+                !icon
+                  ? {
+                      borderWidth: 1,
+                      borderColor: "#ddd",
+                      borderStyle: "dotted"
+                    }
+                  : null
+              ]}
+            >
+              {iconElement}
+            </View>
+            <Text style={[{ fontSize: 18 }, gs.normalFont]}>{title}</Text>
           </View>
-          <Text style={{ color: "#fff", fontSize: 18 }}>{title}</Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     );
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <TouchableHighlight
-        style={{
-          marginBottom: 20,
-          marginLeft: 25,
-          alignSelf: "flex-start",
-          paddingTop: 20,
-          paddingRight: 20
-        }}
+    <SafeAreaView style={gs.container}>
+      <TouchableOpacity
+        style={gs.goBack}
         onPress={() => {
           goBack();
         }}
       >
         <View>
-          <Fa icon={faChevronLeft} size={20} style={{ color: "#eee" }} />
+          <Fa icon={faChevronLeft} size={20} style={gs.goBackColor} />
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
+
       <View
-        style={{
-          backgroundColor: "rgb(26, 27, 29)",
-          borderRadius: 10,
-          flexDirection: "row",
-          alignItems: "center",
-          paddingLeft: 10,
-          marginHorizontal: 25,
-          marginBottom: 5
-        }}
+        style={[
+          {
+            backgroundColor: "#fff",
+            borderRadius: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            paddingLeft: 10,
+            marginHorizontal: 25,
+            marginBottom: 1
+          },
+          gs.normalShadow
+        ]}
       >
         <Fa icon={faSearch} style={{ color: "rgb(140, 143, 151)" }} />
         <TextInput
-          style={{
-            flex: 1,
-            height: 40,
-            color: "#fff",
-            paddingLeft: 10,
-            paddingRight: 10
-          }}
+          style={[
+            {
+              flex: 1,
+              height: 40,
+              paddingLeft: 10,
+              paddingRight: 10
+            },
+            gs.normalFont
+          ]}
           onChangeText={text => onChangeText(text)}
           value={value}
           placeholder="Search"
@@ -139,8 +151,9 @@ const List = ({ navigation }) => {
         />
       </View>
 
-      <ScrollView style={{ padding: 25 }}>
+      <ScrollView>
         <FlatList
+          style={{ paddingVertical: 20 }}
           data={list}
           renderItem={({ item }) => <Item item={item} />}
           keyExtractor={item => item.title}
@@ -151,37 +164,34 @@ const List = ({ navigation }) => {
           }}
         >
           <View
-            style={{
-              backgroundColor: "#111",
-              borderColor: "#444",
-              borderWidth: 2,
-              borderStyle: "dotted",
-              marginBottom: 50,
-              borderRadius: 7,
-              height: 50,
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "row"
-            }}
+            style={[
+              {
+                backgroundColor: "#fff",
+                borderColor: "#ddd",
+                borderWidth: 2,
+                borderStyle: "dotted",
+                marginBottom: 50,
+                borderRadius: 7,
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row",
+                marginHorizontal: 25
+              },
+              gs.normalShadow
+            ]}
           >
             <View style={{ marginRight: 5 }}>
-              <Fa icon={faPlusCircle} style={{ color: "#ddd" }} />
+              <Fa icon={faPlusCircle} style={{ color: "#666" }} />
             </View>
-            <Text style={{ color: "#ddd", fontSize: 16 }}>기타 항목 추가</Text>
+            <Text style={[{ fontSize: 16 }, gs.normalFont]}>
+              기타 항목 추가
+            </Text>
           </View>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === "ios" ? 0 : 20,
-    display: "flex",
-    backgroundColor: "#000",
-    height: "100%"
-  }
-});
 
 export default List;

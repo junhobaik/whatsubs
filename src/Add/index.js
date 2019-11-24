@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  TouchableHighlight,
   StyleSheet,
   TextInput,
   ScrollView,
   TouchableOpacity,
-  AsyncStorage,
-  Platform
+  Text,
+  AsyncStorage
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
@@ -18,11 +17,11 @@ import {
   faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import uuidv4 from "uuid/v4";
-
-import list from "../AddList/list";
-
 import moment from "moment";
+
 import { DateTime, Info, Pay, Period, IconSetting } from "./Utils";
+import list from "../AddList/list";
+import gs from "../globalStyle";
 
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
@@ -203,56 +202,62 @@ const Add = ({ navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={gs.container}>
       {/* goBack Icon */}
-      <TouchableHighlight
-        style={styles.goBack}
+      <TouchableOpacity
+        style={gs.goBack}
         onPress={() => {
           goBack();
         }}
       >
         <View>
-          <Fa icon={faChevronLeft} size={20} style={{ color: "#eee" }} />
+          <Fa icon={faChevronLeft} size={20} style={gs.goBackColor} />
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
 
       {/* Content Wrapper */}
-      <View style={{ padding: 25, paddingTop: 5 }}>
+      <View>
         {/* Info */}
         {type === "include" ? (
-          <Info
-            title={modify ? infoData.title : data.title}
-            icon={modify ? infoData.icon : data.icon}
-            description={modify ? infoData.description : data.description}
-            url={modify ? infoData.url : data.url}
-            hex={modify ? infoData.hex : data.hex}
-          />
+          <View style={[{ marginHorizontal: 25 }]}>
+            <Info
+              title={modify ? infoData.title : data.title}
+              icon={modify ? infoData.icon : data.icon}
+              description={modify ? infoData.description : data.description}
+              url={modify ? infoData.url : data.url}
+              hex={modify ? infoData.hex : data.hex}
+            />
+          </View>
         ) : null}
 
         {/* Content ScrollView */}
         <ScrollView style={{ height: "100%" }} keyboardDismissMode={"on-drag"}>
           {/* Contents */}
           <View
-            style={{
-              borderRadius: 5,
-              backgroundColor: "#222"
-            }}
+            style={[
+              {
+                borderRadius: 5,
+                backgroundColor: "#fff",
+                marginHorizontal: 25
+              },
+              gs.normalShadow
+            ]}
           >
             {/* Title Input */}
             <TextInput
-              style={styles.titleInput}
+              style={[styles.titleInput, gs.normalFont]}
               onChangeText={text => setTitleValue(text)}
               value={titleValue}
               placeholder="Title"
-              placeholderTextColor={"#666"}
+              placeholderTextColor={"#bbb"}
             />
             {/* Memo Input */}
             <TextInput
-              style={styles.memoInput}
+              style={[styles.memoInput, gs.normalFont]}
               onChangeText={text => setMemoValue(text)}
               value={memoValue}
               placeholder="Memo"
-              placeholderTextColor={"#666"}
+              placeholderTextColor={"#bbb"}
             />
 
             {/* DateTime Wrapper */}
@@ -280,8 +285,8 @@ const Add = ({ navigation }) => {
               <View
                 style={{
                   borderTopWidth: 1,
-                  borderColor: "#333",
-                  padding: 5,
+                  borderColor: "#eee",
+                  padding: 7,
                   paddingHorizontal: 10
                 }}
               >
@@ -317,11 +322,11 @@ const Add = ({ navigation }) => {
                 }
               }}
             >
-              <View style={styles.addButton}>
+              <View style={[styles.addButton, gs.normalShadow]}>
                 <Fa
                   icon={modify ? faCheck : faPlus}
-                  style={{ color: "#ddd" }}
-                  size={35}
+                  style={{ color: "#3b82f6" }}
+                  size={22}
                 />
               </View>
             </TouchableOpacity>
@@ -331,8 +336,8 @@ const Add = ({ navigation }) => {
                   deleteSubs();
                 }}
               >
-                <View style={styles.addButton}>
-                  <Fa icon={faTrash} style={{ color: "#ddd" }} size={35} />
+                <View style={[styles.addButton, gs.normalShadow]}>
+                  <Fa icon={faTrash} style={{ color: "#e84f3d" }} size={22} />
                 </View>
               </TouchableOpacity>
             ) : null}
@@ -344,49 +349,32 @@ const Add = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: Platform.OS === "ios" ? 0 : 20,
-    display: "flex",
-    backgroundColor: "#000",
-    height: "100%"
-  },
   utilWrapper: {
     borderTopWidth: 1,
-    borderColor: "#333",
-    padding: 5,
+    borderColor: "#eee",
+    padding: 7,
     paddingHorizontal: 10
   },
   titleInput: {
-    height: 40,
-    color: "#fff",
-    padding: 5,
     paddingHorizontal: 10,
+    paddingVertical: 15,
     fontSize: 18
   },
   memoInput: {
-    height: 40,
-    color: "#fff",
-    borderColor: "#333",
+    borderColor: "#eee",
     borderTopWidth: 1,
-    padding: 5,
     paddingHorizontal: 10,
+    paddingVertical: 15,
     fontSize: 18
-  },
-  goBack: {
-    marginBottom: 20,
-    marginLeft: 25,
-    alignSelf: "flex-start",
-    paddingTop: 20,
-    paddingRight: 20
   },
   addButton: {
     flexDirection: "row",
-    backgroundColor: "#222",
-    borderRadius: 100,
+    backgroundColor: "#fff",
+    borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
-    width: 55,
-    height: 55
+    width: 120,
+    height: 40
   }
 });
 

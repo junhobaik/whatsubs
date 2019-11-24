@@ -6,7 +6,8 @@ import {
   TouchableHighlight,
   AsyncStorage,
   Platform,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
@@ -18,10 +19,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
 import { Cashify } from "cashify";
+import moment from "moment";
 
 import List from "./List";
-import moment from "moment";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import gs from "../globalStyle";
 
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
@@ -91,7 +92,7 @@ const Dashboard = ({ navigation }) => {
     return (
       <TouchableHighlight
         onPress={pressEvent}
-        style={styles.summaryItem}
+        style={[styles.summaryItem, gs.normalShadow]}
         underlayColor="#dfdfdf"
       >
         <View>
@@ -121,7 +122,7 @@ const Dashboard = ({ navigation }) => {
                 <Fa icon={icon} style={{ color: "#fff", margin: 0 }} />
               </View>
             </View>
-            <Text style={[styles.summaryNum, styles.font]}>{num}</Text>
+            <Text style={[styles.summaryNum, gs.normalFont]}>{num}</Text>
           </View>
           <Text style={styles.summaryTitle}>{title}</Text>
         </View>
@@ -189,7 +190,7 @@ const Dashboard = ({ navigation }) => {
         }}
       />
 
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={gs.container}>
         <View
           style={{
             flexDirection: "row",
@@ -200,7 +201,10 @@ const Dashboard = ({ navigation }) => {
           }}
         >
           <Text
-            style={[{ fontSize: 18, fontWeight: "bold", flex: 1 }, styles.font]}
+            style={[
+              { fontSize: 18, fontWeight: "bold", flex: 1 },
+              gs.normalFont
+            ]}
           >
             WhatSubs
           </Text>
@@ -210,7 +214,7 @@ const Dashboard = ({ navigation }) => {
             }}
           >
             <View>
-              <Fa icon={faPlus} size={20} style={styles.font} />
+              <Fa icon={faPlus} size={20} style={gs.normalFont} />
             </View>
           </TouchableOpacity>
         </View>
@@ -281,12 +285,6 @@ const Dashboard = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    display: "flex",
-    paddingTop: Platform.OS === "ios" ? 0 : 20,
-    backgroundColor: "#fafafa",
-    height: "100%"
-  },
   summary: {
     flexDirection: "row",
     marginHorizontal: 20
@@ -299,15 +297,7 @@ const styles = StyleSheet.create({
     marginVertical: 2.5,
     flex: 1,
     borderRadius: 10,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5
+    backgroundColor: "#fff"
   },
   summaryTitle: {
     fontSize: 14,
@@ -317,9 +307,6 @@ const styles = StyleSheet.create({
   summaryNum: {
     fontSize: 22,
     fontWeight: "bold"
-  },
-  font: {
-    color: "#2b2c2e"
   }
 });
 
