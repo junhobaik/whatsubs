@@ -420,14 +420,16 @@ export const IconSetting = ({
               height: 70,
               backgroundColor: hexValue,
               textAlign: "center",
-              fontSize: 36,
-              fontWeight: "bold",
+              fontSize: iconChar === "" ? 14 : 36,
+              fontWeight: iconChar === "" ? "normal" : "bold",
               color: "#ddd"
             }}
             onChangeText={text => {
               if (text.length < 2) setIconChar(text);
             }}
             value={iconChar}
+            placeholder="Icon text"
+            placeholderTextColor="#ddd"
           />
         </View>
       </View>
