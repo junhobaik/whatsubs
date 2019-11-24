@@ -21,6 +21,7 @@ import { Cashify } from "cashify";
 
 import List from "./List";
 import moment from "moment";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
@@ -203,7 +204,7 @@ const Dashboard = ({ navigation }) => {
           >
             WhatSubs
           </Text>
-          <TouchableHighlight
+          <TouchableOpacity
             onPress={() => {
               navigate("AddList");
             }}
@@ -211,7 +212,7 @@ const Dashboard = ({ navigation }) => {
             <View>
               <Fa icon={faPlus} size={20} style={styles.font} />
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
 
         <View>
