@@ -5,19 +5,19 @@ import {
   StyleSheet,
   TouchableHighlight,
   AsyncStorage,
-  Platform
+  Platform,
+  ScrollView
 } from "react-native";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
   faLayerGroup,
   faCalendarAlt,
   faCalendarDay,
-  faPlusCircle,
   faWonSign,
   faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
-import { ScrollView } from "react-native-gesture-handler";
+// import { ScrollView } from "react-native-gesture-handler";
 import { Cashify } from "cashify";
 
 import List from "./List";
@@ -26,7 +26,8 @@ import moment from "moment";
 const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
   const [list, setList] = useState([]);
-  const [listFilter, setListFilter] = useState("all"); // all, price, yearly, monthly
+  const [listFilter, setListFilter] = useState("all"); // all, month, yearly, monthly
+  const [sortMethod, setSortMethod] = useState("title"); // title, price, pay
   const rates = {
     USD: 1,
     KRW: 1200,
@@ -91,34 +92,33 @@ const Dashboard = ({ navigation }) => {
 
     switch (filter) {
       case "all": {
-        return [...list].sort(sortString);
+        return list;
       }
       case "month": {
         const now = moment()
           .format("YYYY.MM.DD")
           .split(".");
 
-        return list
-          .filter(v => {
-            const subMonth = parseInt(v.date.split(".")[1], 10);
-            const nowMonth = parseInt(now[1], 10);
+        return list.filter(v => {
+          const subMonth = parseInt(v.date.split(".")[1], 10);
+          const nowMonth = parseInt(now[1], 10);
 
-            if (v.period === "m") return true;
-            if (v.period === "y" && subMonth === nowMonth) return true;
-          })
-          .sort((a, b) => {
-            return (
-              parseInt(a.date.split(".")[2], 10) -
-              parseInt(b.date.split(".")[2], 10)
-            );
-            // return cur(b) - cur(a); // 가격순 정렬
-          });
+          if (v.period === "m") return true;
+          if (v.period === "y" && subMonth === nowMonth) return true;
+        });
+        // .sort((a, b) => {
+        //   return (
+        //     parseInt(a.date.split(".")[2], 10) -
+        //     parseInt(b.date.split(".")[2], 10)
+        //   );
+        //   // return cur(b) - cur(a); // 가격순 정렬
+        // });
       }
       case "yearly": {
-        return list.filter(item => item.period === "y").sort(sortString);
+        return list.filter(item => item.period === "y");
       }
       case "monthly": {
-        return list.filter(item => item.period === "m").sort(sortString);
+        return list.filter(item => item.period === "m");
       }
       default:
         break;
@@ -203,15 +203,64 @@ const Dashboard = ({ navigation }) => {
     );
   };
 
+  const createSortItem = (sort = "title") => {
+    let titleText = sort;
+
+    switch (sort) {
+      case "title":
+        titleText = "이름 순";
+        break;
+      case "price":
+        titleText = "가격 순";
+        break;
+      case "pay":
+        titleText = "다음 결제일 순";
+        break;
+
+      default:
+        break;
+    }
+
+    return (
+      <View style={{ flex: 1 }}>
+        <TouchableHighlight
+          style={{
+            padding: 10,
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+          underlayColor="transparent"
+          onPress={() => {
+            setSortMethod(sort);
+          }}
+        >
+          <Text style={{ fontSize: 14 }}>{titleText}</Text>
+        </TouchableHighlight>
+        <View
+          style={{
+            height: 3,
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <View
+            style={{
+              width: "100%",
+              height: sortMethod === sort ? 2 : 1.5,
+              backgroundColor: sortMethod === sort ? "#4880ee" : "#ebebeb"
+            }}
+          />
+        </View>
+      </View>
+    );
+  };
+
   return (
     <>
       <NavigationEvents
         onWillFocus={payload => {
           willFocusEvents();
         }}
-        // onDidFocus={payload => console.log("did focus")}
-        // onWillBlur={payload => console.log("will blur")}
-        // onDidBlur={payload => console.log("did blur")}
       />
 
       <SafeAreaView style={styles.container}>
@@ -239,17 +288,18 @@ const Dashboard = ({ navigation }) => {
             </View>
           </TouchableHighlight>
         </View>
+
         <View>
           <View style={styles.summary}>
             {createSummaryItem(
-              "All",
+              "모든 항목",
               faLayerGroup,
               "rgb(88, 99, 106)",
               list.length,
               () => setListFilter("all")
             )}
             {createSummaryItem(
-              "This month",
+              "이번 달 항목",
               faWonSign,
               "rgb(252, 160, 9)",
               sumPrice(list),
@@ -259,14 +309,14 @@ const Dashboard = ({ navigation }) => {
 
           <View style={styles.summary}>
             {createSummaryItem(
-              "Yearly",
+              "연 구독 항목",
               faCalendarAlt,
               "rgb(252, 71, 59)",
               list.filter(item => item.period === "y").length,
               () => setListFilter("yearly")
             )}
             {createSummaryItem(
-              "Monthly",
+              "월 구독 항목",
               faCalendarDay,
               "rgb(4, 132, 255)",
               list.filter(item => item.period === "m").length,
@@ -274,16 +324,21 @@ const Dashboard = ({ navigation }) => {
             )}
           </View>
         </View>
-        <Text
+
+        <View
           style={{
-            fontSize: 18,
-            marginHorizontal: 30,
             marginTop: 20,
-            alignSelf: "flex-end"
+            paddingHorizontal: 25,
+            marginBottom: 1,
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center"
           }}
         >
-          {getFilterStr(listFilter)}
-        </Text>
+          {createSortItem("pay")}
+          {createSortItem("price")}
+          {createSortItem("title")}
+        </View>
         <ScrollView>
           <List navigate={navigate} list={remakedList} />
         </ScrollView>
