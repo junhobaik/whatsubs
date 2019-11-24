@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   TouchableHighlight,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from "react-native";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
@@ -183,7 +184,8 @@ const Dashboard = ({ navigation }) => {
               <View
                 style={{
                   backgroundColor: color,
-                  borderRadius: "100%",
+                  // borderRadius: "100%",
+                  borderRadius: 100,
                   height: 27,
                   width: 27,
                   alignItems: "center",
@@ -294,6 +296,7 @@ const Dashboard = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
+    paddingTop: Platform.OS === "ios" ? 0 : 20,
     backgroundColor: "#000",
     height: "100%"
   },

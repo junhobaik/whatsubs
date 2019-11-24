@@ -128,7 +128,8 @@ const List = ({ navigate, list }) => {
               style={{
                 backgroundColor:
                   v.period === "m" ? "rgb(4, 132, 255)" : "rgb(252, 71, 59)",
-                borderRadius: "100%",
+                // borderRadius: "100%",
+                borderRadius: 100,
                 height: 16,
                 width: 16,
                 alignItems: "center",

@@ -6,7 +6,8 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  Platform
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
@@ -344,6 +345,7 @@ const Add = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: Platform.OS === "ios" ? 0 : 20,
     display: "flex",
     backgroundColor: "#000",
     height: "100%"

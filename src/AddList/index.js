@@ -7,7 +7,8 @@ import {
   FlatList,
   TouchableOpacity,
   Text,
-  ScrollView
+  ScrollView,
+  Platform
 } from "react-native";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
@@ -176,6 +177,7 @@ const List = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: Platform.OS === "ios" ? 0 : 20,
     display: "flex",
     backgroundColor: "#000",
     height: "100%"
