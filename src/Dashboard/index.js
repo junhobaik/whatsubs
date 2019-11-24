@@ -13,7 +13,8 @@ import {
   faCalendarAlt,
   faCalendarDay,
   faPlusCircle,
-  faWonSign
+  faWonSign,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
 import { ScrollView } from "react-native-gesture-handler";
@@ -165,7 +166,7 @@ const Dashboard = ({ navigation }) => {
       <TouchableHighlight
         onPress={pressEvent}
         style={styles.summaryItem}
-        underlayColor="rgba(255,255,255,0.2)"
+        underlayColor="#dfdfdf"
       >
         <View>
           <View
@@ -184,7 +185,6 @@ const Dashboard = ({ navigation }) => {
               <View
                 style={{
                   backgroundColor: color,
-                  // borderRadius: "100%",
                   borderRadius: 100,
                   height: 27,
                   width: 27,
@@ -195,7 +195,7 @@ const Dashboard = ({ navigation }) => {
                 <Fa icon={icon} style={{ color: "#fff", margin: 0 }} />
               </View>
             </View>
-            <Text style={styles.summaryNum}>{num}</Text>
+            <Text style={[styles.summaryNum, styles.font]}>{num}</Text>
           </View>
           <Text style={styles.summaryTitle}>{title}</Text>
         </View>
@@ -225,7 +225,7 @@ const Dashboard = ({ navigation }) => {
           }}
         >
           <Text
-            style={{ color: "#fff", fontSize: 18, fontWeight: "bold", flex: 1 }}
+            style={[{ fontSize: 18, fontWeight: "bold", flex: 1 }, styles.font]}
           >
             WhatSubs
           </Text>
@@ -235,7 +235,7 @@ const Dashboard = ({ navigation }) => {
             }}
           >
             <View>
-              <Fa icon={faPlusCircle} size={25} style={{ color: "#eee" }} />
+              <Fa icon={faPlus} size={20} style={styles.font} />
             </View>
           </TouchableHighlight>
         </View>
@@ -276,7 +276,6 @@ const Dashboard = ({ navigation }) => {
         </View>
         <Text
           style={{
-            color: "white",
             fontSize: 18,
             marginHorizontal: 30,
             marginTop: 20,
@@ -285,7 +284,7 @@ const Dashboard = ({ navigation }) => {
         >
           {getFilterStr(listFilter)}
         </Text>
-        <ScrollView style={{ marginTop: 5, paddingHorizontal: 25 }}>
+        <ScrollView>
           <List navigate={navigate} list={remakedList} />
         </ScrollView>
       </SafeAreaView>
@@ -297,7 +296,7 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     paddingTop: Platform.OS === "ios" ? 0 : 20,
-    backgroundColor: "#000",
+    backgroundColor: "#fafafa",
     height: "100%"
   },
   summary: {
@@ -311,19 +310,28 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginVertical: 2.5,
     flex: 1,
-    borderWidth: 1.2,
     borderRadius: 10,
-    backgroundColor: "rgb(26, 27, 29)"
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 5
   },
   summaryTitle: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "rgb(144, 145, 152)"
+    color: "#333"
   },
   summaryNum: {
     fontSize: 22,
-    fontWeight: "bold",
-    color: "#fff"
+    fontWeight: "bold"
+  },
+  font: {
+    color: "#2b2c2e"
   }
 });
 

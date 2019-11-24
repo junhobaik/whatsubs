@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import {
@@ -87,7 +87,7 @@ const List = ({ navigate, list }) => {
           break;
       }
 
-      return <Fa icon={icon} style={{ color: "#ddd" }} size={14} />;
+      return <Fa icon={icon} style={{ color: "#9b9b9b" }} size={12} />;
     };
 
     const makedIcon = makeIcon(v.type);
@@ -96,21 +96,24 @@ const List = ({ navigate, list }) => {
     return (
       <TouchableOpacity
         key={v.id}
-        style={{
-          backgroundColor: "rgb(26, 27, 29)",
-          marginBottom: 10,
-          borderRadius: 7,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          padding: 10
-        }}
+        style={[
+          {
+            backgroundColor: "#fff",
+            marginBottom: 10,
+            borderRadius: 7,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            padding: 10
+          },
+          styles.shadow
+        ]}
         onPress={() => {
           console.log(`> Modify: ${v.title}`);
           navigate("Add", { id: v.id, type: v.type, modify: true });
         }}
       >
         <View>
-          <Text style={{ color: "#fff", fontSize: 18, fontWeight: "bold" }}>
+          <Text style={{ color: "#2b2c2e", fontSize: 18, fontWeight: "bold" }}>
             {v.title}
           </Text>
           <View style={{ marginTop: 10 }}>{makedIcon}</View>
@@ -120,15 +123,14 @@ const List = ({ navigate, list }) => {
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={{ marginRight: 2 }}>{makedCurrencyIcon}</View>
-            <Text style={{ color: "#fff", fontSize: 16 }}>{v.price}</Text>
+            <Text style={{ color: "#2b2c2e", fontSize: 16 }}>{v.price}</Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Text style={{ color: "#bbb", fontSize: 16 }}>{dateStr}</Text>
+            <Text style={{ color: "#666", fontSize: 16 }}>{dateStr}</Text>
             <View
               style={{
                 backgroundColor:
                   v.period === "m" ? "rgb(4, 132, 255)" : "rgb(252, 71, 59)",
-                // borderRadius: "100%",
                 borderRadius: 100,
                 height: 16,
                 width: 16,
@@ -150,7 +152,24 @@ const List = ({ navigate, list }) => {
     );
   });
 
-  return <View>{allList}</View>;
+  return (
+    <View style={{ paddingHorizontal: 25, paddingVertical: 15 }}>
+      {allList}
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 0
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 10
+  }
+});
 
 export default List;

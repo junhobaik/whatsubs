@@ -6,7 +6,7 @@ import Dashboard from "./src/Dashboard";
 import AddList from "./src/AddList";
 import Add from "./src/Add";
 
-StatusBar.setBarStyle("lignt-content", true);
+StatusBar.setBarStyle("dark-content", true);
 
 const MainNavigator = createStackNavigator(
   {
