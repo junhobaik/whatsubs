@@ -267,7 +267,7 @@ const Add = ({ navigation }) => {
       </TouchableOpacity>
 
       {/* Content Wrapper */}
-      <ScrollView stlye={{ flex: 1 }}>
+      <ScrollView stlye={{ flex: 1 }} keyboardDismissMode={"on-drag"}>
         {/* Info */}
         {type === "include" ? (
           <View style={[{ marginHorizontal: 25 }]}>
