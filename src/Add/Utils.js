@@ -129,7 +129,9 @@ export const Info = ({ title, icon, url, description, hex }) => {
       ) : null}
 
       {description ? (
-        <Text style={{ color: "#555", marginTop: 5 }}>{description}</Text>
+        <Text style={{ color: "#555", marginTop: 5, lineHeight: 16 }}>
+          {description}
+        </Text>
       ) : null}
     </View>
   );
