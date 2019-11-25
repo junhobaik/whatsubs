@@ -3,6 +3,7 @@ import { View, Image } from "react-native";
 import simpleIcons from "simple-icons";
 import Svg, { Path } from "react-native-svg";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
+import { faSketch } from "@fortawesome/free-brands-svg-icons";
 
 import img from "./img";
 
@@ -25,7 +26,11 @@ const getIconFromFontAwesome = icon => {
   return {
     icon: (
       <View>
-        <Fa icon={icon} style={{ color: "#fff", width: 25, height: 25 }} />
+        <Fa
+          icon={icon}
+          style={{ color: "#fff", width: 25, height: 25 }}
+          size={20}
+        />
       </View>
     )
   };
@@ -112,7 +117,7 @@ const list = [
         title: "Youtube Premium",
         url: "https://www.youtube.com",
         description:
-          "Enjoy exclusive Amazon Originals as well as popular movies and TV shows",
+          "Enjoy the videos and music you love, upload original content, and share it all",
         price: "11.99",
         currency: "dollar"
       },
@@ -120,7 +125,7 @@ const list = [
         title: "유튜브 프리미엄",
         url: "https://www.youtube.com",
         description:
-          "독점 아마존 오리지널, 인기 영화 및 TV 프로그램을 즐길 수 있습니다",
+          "YouTube에서 마음에 드는 동영상과 음악을 감상하고, 직접 만든 콘텐츠를 업로드하여 친구, 가족뿐 아니라 전 세계 사람들과 콘텐츠를 공유할 수 있습니다.",
         price: "7900",
         currency: "won"
       }
@@ -178,32 +183,211 @@ const list = [
         currency: "won"
       }
     }
-  }
+  },
 
-  // {
-  //   title: "Codecademy",
-  //   ...getIconFromSimpleIcons("codecademy"),
-  //   local: {
-  //     title: {
-  //       en: "Codecademy"
-  //     }
-  //   }
-  // },
+  {
+    title: "Codecademy",
+    ...getIconFromSimpleIcons("codecademy"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Codecademy",
+        url: "https://www.codecademy.com/",
+        price: "15.99",
+        currency: "dollar"
+      }
+    }
+  },
 
-  // {
-  //   title: "Amazon Prime",
-  //   ...getIconFromSimpleIcons("amazon"),
-  //   local: {
-  //     title: {
-  //       kr: "아마존 프라임"
-  //     }
-  //   }
-  // },
+  {
+    title: "Amazon Prime",
+    ...getIconFromSimpleIcons("amazon"),
+    cycle: "y",
+    local: {
+      default: "en",
+      en: {
+        title: "Amazon Prime",
+        url: "https://www.amazon.com/",
+        price: "119",
+        currency: "dollar"
+      },
+      kr: {
+        title: "아마존 프라임",
+        url: "https://www.amazon.com/",
+        price: "119",
+        currency: "dollar"
+      }
+    }
+  },
 
-  // {
-  //   title: "Adobe",
-  //   ...getIconFromSimpleIcons("adobe")
-  // },
+  {
+    title: "Adobe Creative Cloud",
+    ...getIconFromSimpleIcons("adobe"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Adobe Creative Cloud",
+        url: "https://www.adobe.com",
+        price: "9.9",
+        currency: "dollar"
+      },
+      kr: {
+        title: "Adobe Creative Cloud",
+        url: "https://www.adobe.com/kr",
+        price: "11000",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Medium",
+    ...getIconFromSimpleIcons("medium"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Medium",
+        url: "https://medium.com",
+        price: "5",
+        currency: "dollar"
+      }
+    }
+  },
+
+  {
+    title: "Nintendo Online",
+    ...getIconFromSimpleIcons("nintendo switch"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Nintendo Online",
+        url: "https://www.nintendo.com",
+        price: "3.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "닌텐도 온라인",
+        url: "https://www.nintendo.co.kr",
+        price: "4900",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Apple Arcade",
+    ...getIconFromSimpleIcons("apple"),
+    hex: "#f05d42",
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Apple Arcade",
+        url: "https://www.apple.com/apple-arcade",
+        price: "4.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "애플 아케이드",
+        url: "https://www.apple.com/kr/apple-arcade",
+        price: "6500",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Apple Music",
+    ...getIconFromSimpleIcons("apple music"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Apple Music",
+        url: "https://www.apple.com/apple-music",
+        price: "9.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "애플 뮤직",
+        url: "https://www.apple.com/kr/apple-music",
+        price: "8900",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Apple TV+",
+    ...getIconFromSimpleIcons("apple"),
+    hex: "#2c2c2c",
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Apple TV+",
+        url: "https://www.apple.com/apple-tv-plus/",
+        price: "4.99",
+        currency: "dollar"
+      }
+    }
+  },
+
+  {
+    title: "Sketch",
+    ...getIconFromFontAwesome(faSketch),
+    hex: "#f1b03e",
+    cycle: "y",
+    local: {
+      default: "en",
+      en: {
+        title: "Sketch",
+        url: "https://www.sketch.com",
+        price: "99",
+        currency: "dollar"
+      }
+    }
+  },
+
+  {
+    title: "Spotify Premium",
+    ...getIconFromSimpleIcons("spotify"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Spotify Premium",
+        url: "https://www.spotify.com/",
+        price: "9.99",
+        currency: "dollar"
+      }
+    }
+  },
+
+  {
+    title: "Evernote",
+    ...getIconFromSimpleIcons("evernote"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Evernote",
+        url: "https://evernote.com/",
+        price: "7.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "에버노트",
+        url: "https://evernote.com",
+        price: "6000",
+        currency: "won"
+      }
+    }
+  },
 
   // {
   //   title: "Watcha Play",
@@ -214,58 +398,72 @@ const list = [
   //   }
   // },
 
-  // {
-  //   title: "Medium",
-  //   ...getIconFromSimpleIcons("medium")
-  // },
+  {
+    title: "Notion",
+    ...getIconFromSimpleIcons("notion"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Notion",
+        url: "https://www.notion.so",
+        price: "4",
+        currency: "dollar"
+      }
+    }
+  },
+
+  {
+    title: "Bear",
+    ...getIconFromImg("bear"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Bear",
+        url: "https://bear.app",
+        price: "1.49",
+        currency: "dollar"
+      }
+    }
+  },
+
+  {
+    title: "Coupang RocketWow",
+    ...getIconFromImg("coupang"),
+    cycle: "m",
+    local: {
+      default: "kr",
+      kr: {
+        title: "쿠팡 로켓와우",
+        url: "https://www.coupang.com",
+        price: "2900",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Melon",
+    ...getIconFromImg("melon"),
+    cycle: "m",
+    local: {
+      default: "kr",
+      kr: {
+        title: "멜론",
+        url: "https://www.melon.com",
+        description: '국내 최다 4000만곡 보유, No.1 뮤직플랫폼 멜론! 실시간 차트부터 나를 아는 똑똑한 음악추천까지!',
+        price: "10900",
+        currency: "won"
+      }
+    }
+  }
 
   // {
-  //   title: "Notion",
-  //   ...getIconFromSimpleIcons("notion")
-  // },
-
-  // {
-  //   title: "Bear",
-  //   ...getIconFromImg("bear")
-  // },
-
-  // {
-  //   title: "Nintendo Online",
-  //   ...getIconFromSimpleIcons("nintendo switch"),
+  //   title: "Genie",
   //   local: {
   //     title: {
-  //       kr: "닌텐도 온라인"
-  //     }
-  //   }
-  // },
-
-  // {
-  //   title: "Apple Arcade",
-  //   ...getIconFromSimpleIcons("apple"),
-  //   hex: "#f05d42",
-  //   local: {
-  //     title: {
-  //       kr: "애플 아케이드"
-  //     }
-  //   }
-  // },
-
-  // {
-  //   title: "Apple Music",
-  //   ...getIconFromSimpleIcons("apple music"),
-  //   local: {
-  //     title: {
-  //       kr: "애플 뮤직"
-  //     }
-  //   }
-  // },
-
-  // {
-  //   title: "Coupang RocketWow",
-  //   ...getIconFromImg("coupang"),
-  //   local: {
-  //     title: {
-  //       kr: "쿠팡 로켓와우"
+  //       kr: "지니"
   //     }
   //   }
   // },
@@ -288,52 +486,13 @@ const list = [
   //   }
   // },
 
-  // { title: "Spotify Premium", ...getIconFromSimpleIcons("spotify") },
   // { title: "Hulu", ...getIconFromSimpleIcons("hulu") },
   // { title: "HBO Now" },
-  // { title: "Sketch", ...getIconFromFontAwesome(faSketch), hex: "#f1b03e" },
-  // {
-  //   title: "Apple TV+",
-  //   ...getIconFromSimpleIcons("apple"),
-  //   hex: "#2c2c2c",
-  //   local: {
-  //     title: {
-  //       kr: "애플 TV+"
-  //     }
-  //   }
-  // },
 
   // { title: "wavve" },
-  // {
-  //   title: "Melon",
-  //   ...getIconFromImg("melon"),
-  //   local: {
-  //     title: {
-  //       kr: "멜론"
-  //     }
-  //   }
-  // },
-
-  // {
-  //   title: "Genie",
-  //   local: {
-  //     title: {
-  //       kr: "지니"
-  //     }
-  //   }
-  // },
 
   // { title: "FLO" },
   // { title: "VIBE" },
-  // {
-  //   title: "Evernote",
-  //   ...getIconFromSimpleIcons("evernote"),
-  //   local: {
-  //     title: {
-  //       kr: "에버노트"
-  //     }
-  //   }
-  // }
 ];
 
 const sortedList = list.sort((_a, _b) => {
