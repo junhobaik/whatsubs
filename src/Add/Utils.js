@@ -14,13 +14,14 @@ import {
   faWonSign,
   faDollarSign,
   faYenSign,
-  faRedoAlt
+  faRedoAlt,
+  faExclamationCircle
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
 import gs from "../globalStyle";
 
-export const DateTime = ({ dateValue, setDateValue }) => {
+export const DateTime = ({ dateValue, setDateValue, isError }) => {
   const [max, setMax] = useState(10);
   const now = moment().format("YYYY.MM.DD");
 
@@ -50,7 +51,14 @@ export const DateTime = ({ dateValue, setDateValue }) => {
       }}
     >
       <Fa icon={faCalendarAlt} style={{ color: "#999" }} size={20} />
-      <View>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        {isError ? (
+          <Fa
+            icon={faExclamationCircle}
+            style={{ color: "#d75a46", marginRight: 10 }}
+            size={14}
+          />
+        ) : null}
         <TextInput
           style={[
             {

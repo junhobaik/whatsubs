@@ -5,7 +5,8 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  AsyncStorage
+  AsyncStorage,
+  Text
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
@@ -13,7 +14,8 @@ import {
   faChevronLeft,
   faPlus,
   faCheck,
-  faTrash
+  faTrash,
+  faExclamationCircle
 } from "@fortawesome/free-solid-svg-icons";
 import uuidv4 from "uuid/v4";
 import moment from "moment";
@@ -36,6 +38,56 @@ const Add = ({ navigation }) => {
   const [hexValue, setHexValue] = useState("#333"); // custom only
   const [iconChar, setIconChar] = useState(""); // custom only
   const [infoData, setInfoData] = useState({}); // modify && include only
+  const [verification, setVerification] = useState({
+    date: true,
+    title: true,
+    messages: []
+  });
+
+  const verifySubmit = () => {
+    const splitDate = dateValue.split(".");
+    const month = parseInt(splitDate[1], 10);
+    const day = parseInt(splitDate[2], 10);
+
+    const checkDot = splitDate.length === 3 || dateValue === "";
+    const checkMonth = (month < 13 && month > 0) || dateValue === "";
+    const checkDay = (day < 32 && day > 0) || dateValue === "";
+    const checkTitle = titleValue !== "";
+
+    const messages = [];
+    if (!checkTitle) messages.push("제목(Title)을 입력하세요");
+    if (!checkDot) messages.push("날짜를 모두 입력했는지 확인하세요");
+    if (!checkDay && checkDot) messages.push("날짜의 일(Day)이 잘못되었어요");
+    if (!checkMonth && checkDot)
+      messages.push("날짜의 월(Month)이 잘못되었어요");
+
+    setVerification({
+      date: checkDot && checkDay && checkMonth,
+      title: checkTitle,
+      messages
+    });
+
+    return checkTitle && checkDot && checkDay && checkMonth;
+  };
+
+  const createErrorMessage = () => {
+    let result = null;
+
+    if (verification.messages) {
+      result = verification.messages.map(msg => {
+        return (
+          <Text
+            key={msg}
+            style={[{ color: "#d75a46", textAlign: "center" }, gs.fontSize5]}
+          >
+            {msg}
+          </Text>
+        );
+      });
+    }
+
+    return result;
+  };
 
   const setInfo = globalTitle => {
     const item = list.filter(v => v.title === globalTitle)[0];
@@ -243,13 +295,24 @@ const Add = ({ navigation }) => {
             ]}
           >
             {/* Title Input */}
-            <TextInput
-              style={[styles.titleInput, gs.normalFont]}
-              onChangeText={text => setTitleValue(text)}
-              value={titleValue}
-              placeholder="Title"
-              placeholderTextColor={"#bbb"}
-            />
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <TextInput
+                style={[styles.titleInput, gs.normalFont]}
+                onChangeText={text => setTitleValue(text)}
+                value={titleValue}
+                placeholder="Title"
+                placeholderTextColor={"#bbb"}
+              />
+
+              {!verification.title ? (
+                <Fa
+                  icon={faExclamationCircle}
+                  style={{ color: "#d75a46", marginRight: 10 }}
+                  size={14}
+                />
+              ) : null}
+            </View>
+
             {/* Memo Input */}
             <TextInput
               style={[styles.memoInput, gs.normalFont]}
@@ -261,7 +324,11 @@ const Add = ({ navigation }) => {
 
             {/* DateTime Wrapper */}
             <View style={styles.utilWrapper}>
-              <DateTime dateValue={dateValue} setDateValue={setDateValue} />
+              <DateTime
+                dateValue={dateValue}
+                setDateValue={setDateValue}
+                isError={!verification.date}
+              />
             </View>
 
             {/* Period Wrapper */}
@@ -292,6 +359,9 @@ const Add = ({ navigation }) => {
             ) : null}
           </View>
 
+          {/* error messages */}
+          <View style={{ marginTop: 20 }}>{createErrorMessage()}</View>
+
           {/* Add Buttom Wrapper */}
           <View
             style={{
@@ -303,13 +373,15 @@ const Add = ({ navigation }) => {
           >
             <TouchableOpacity
               onPress={() => {
-                if (modify) {
-                  modifySubs();
-                } else {
-                  if (type === "include") {
-                    addSubs();
+                if (verifySubmit()) {
+                  if (modify) {
+                    modifySubs();
                   } else {
-                    addCustomSubs();
+                    if (type === "include") {
+                      addSubs();
+                    } else {
+                      addCustomSubs();
+                    }
                   }
                 }
               }}
@@ -348,6 +420,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   titleInput: {
+    flex: 1,
     paddingHorizontal: 10,
     paddingVertical: 15,
     fontSize: 18
