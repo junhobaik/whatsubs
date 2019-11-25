@@ -401,12 +401,12 @@ export const IconSetting = ({
                 backgroundColor: hexValue,
                 textAlign: "center",
                 fontSize: iconChar === "" ? 14 : 36,
-                fontWeight: iconChar === "" ? "normal" : "bold"
-              },
-              gs.inputFont
+                fontWeight: iconChar === "" ? "normal" : "bold",
+                color: "#eee"
+              }
             ]}
             onChangeText={text => {
-              if (text.length < 2) setIconChar(text);
+              if (text.length < 2) setIconChar(text.toLocaleUpperCase());
             }}
             value={iconChar}
             placeholder="Icon text"
