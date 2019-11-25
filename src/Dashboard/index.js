@@ -83,16 +83,40 @@ const Dashboard = ({ navigation }) => {
   };
 
   const createSummaryItem = (
+    type = "all",
     title = "title",
     icon,
     color = "#999",
     num = 0,
     pressEvent = () => {}
   ) => {
+    const isIos = Platform.OS === "ios";
+    const isActive = listFilter === type;
+    const activeStyle = {
+      ios: {
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: isActive ? 0 : 3
+        },
+        shadowOpacity: isActive ? 0.35 : 0.1,
+        shadowRadius: isActive ? 2.5 : 5,
+        elevation: 3
+      },
+      android: {
+        borderWidth: 2,
+        borderColor: isActive ? "#4880ee" : "transparent"
+      }
+    };
+
     return (
       <TouchableHighlight
         onPress={pressEvent}
-        style={[styles.summaryItem, gs.normalShadow]}
+        style={[
+          styles.summaryItem,
+          isIos ? activeStyle.ios : activeStyle.android,
+          isIos ? {} : { elevation: 7 }
+        ]}
         underlayColor="#dfdfdf"
       >
         <View>
@@ -222,6 +246,7 @@ const Dashboard = ({ navigation }) => {
         <View>
           <View style={styles.summary}>
             {createSummaryItem(
+              "all",
               "모든 항목",
               faLayerGroup,
               "rgb(88, 99, 106)",
@@ -229,6 +254,7 @@ const Dashboard = ({ navigation }) => {
               () => setListFilter("all")
             )}
             {createSummaryItem(
+              "month",
               "이번 달 항목",
               faWonSign,
               "rgb(252, 160, 9)",
@@ -239,6 +265,7 @@ const Dashboard = ({ navigation }) => {
 
           <View style={styles.summary}>
             {createSummaryItem(
+              "yearly",
               "연 구독 항목",
               faCalendarAlt,
               "rgb(252, 71, 59)",
@@ -246,6 +273,7 @@ const Dashboard = ({ navigation }) => {
               () => setListFilter("yearly")
             )}
             {createSummaryItem(
+              "monthly",
               "월 구독 항목",
               faCalendarDay,
               "rgb(4, 132, 255)",
