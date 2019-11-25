@@ -180,7 +180,7 @@ const List = ({ navigation }) => {
         />
       </View>
 
-      <ScrollView>
+      <ScrollView keyboardDismissMode={"on-drag"}>
         <FlatList
           style={{ paddingVertical: 20 }}
           data={filteredList}
