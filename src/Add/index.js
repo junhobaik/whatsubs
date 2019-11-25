@@ -299,7 +299,7 @@ const Add = ({ navigation }) => {
               flexDirection: "row-reverse",
               justifyContent: "space-around",
               alignItems: "center",
-              marginTop: "10%"
+              paddingVertical: 30
             }}
           >
             <TouchableOpacity
