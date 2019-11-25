@@ -285,7 +285,7 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
         }}
       >
         <View>
-          <Text style={[{ fontSize: 18, fontWeight: "bold" }, gs.normalFont]}>
+          <Text style={[{ fontSize: 18, fontWeight: "bold", maxWidth: 200 }, gs.normalFont]}>
             {v.title}
           </Text>
           <View style={{ marginTop: 10 }}>{makedIcon}</View>
