@@ -235,8 +235,8 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
               borderRadius: 3
             }}
           >
-            <Text style={{ color: "#ddd", fontSize: 20, fontWeight: "bold" }}>
-              {v.icon.iconChar}
+            <Text style={[{ color: "#ddd", fontWeight: "bold", fontSize: 20 }]}>
+              {v.icon.iconChar.toLocaleUpperCase()}
             </Text>
           </View>
         );
@@ -276,7 +276,8 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
             borderRadius: 7,
             flexDirection: "row",
             justifyContent: "space-between",
-            padding: 10
+            paddingVertical: gs.isSmall ? 5 : 10,
+            paddingHorizontal: 10
           },
           gs.normalShadow
         ]}
@@ -284,28 +285,52 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
           navigate("Add", { id: v.id, type: v.type, modify: true });
         }}
       >
-        <View>
-          <Text style={[{ fontSize: 18, fontWeight: "bold", maxWidth: 200 }, gs.normalFont]}>
+        <View
+          style={[
+            gs.isSmall
+              ? { flexDirection: "row-reverse", alignItems: "center" }
+              : {}
+          ]}
+        >
+          <Text
+            style={[
+              { fontWeight: "bold", maxWidth: gs.isSmall ? 180 : 200 },
+              gs.normalFont,
+              gs.fontSize3
+            ]}
+          >
             {v.title}
           </Text>
-          <View style={{ marginTop: 10 }}>{makedIcon}</View>
+          <View
+            style={[
+              gs.isSmall
+                ? { height: "100%", marginRight: 5, paddingVertical: 5 }
+                : { marginTop: 10 }
+            ]}
+          >
+            {makedIcon}
+          </View>
         </View>
         <View
-          style={{ alignItems: "flex-end", justifyContent: "space-between" }}
+          style={{
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            marginVertical: gs.isSmall ? 2.5 : 0
+          }}
         >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={{ marginRight: 2 }}>{makedCurrencyIcon}</View>
-            <Text style={[{ fontSize: 16 }, gs.normalFont]}>{v.price}</Text>
+            <Text style={[gs.normalFont, gs.fontSize4]}>{v.price}</Text>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Text style={{ color: "#666", fontSize: 16 }}>{dateStr}</Text>
+            <Text style={[{ color: "#666" }, gs.fontSize4]}>{dateStr}</Text>
             <View
               style={{
                 backgroundColor:
                   v.period === "m" ? "rgb(4, 132, 255)" : "rgb(252, 71, 59)",
                 borderRadius: 100,
-                height: 16,
-                width: 16,
+                height: gs.isSmall ? 12 : 16,
+                width: gs.isSmall ? 12 : 16,
                 alignItems: "center",
                 justifyContent: "center",
                 marginLeft: 3,
@@ -315,7 +340,7 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
               <Fa
                 icon={v.period === "m" ? faCalendarDay : faCalendarAlt}
                 style={{ color: "#fff", margin: 0 }}
-                size={10}
+                size={gs.isSmall ? 7 : 10}
               />
             </View>
           </View>
@@ -330,18 +355,5 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  shadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 0
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 10
-  }
-});
 
 export default List;

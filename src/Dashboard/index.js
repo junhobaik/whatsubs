@@ -119,7 +119,6 @@ const Dashboard = ({ navigation }) => {
           <View
             style={{
               flexDirection: "row",
-              minHeight: 30,
               alignItems: "center",
               marginBottom: 7
             }}
@@ -133,18 +132,24 @@ const Dashboard = ({ navigation }) => {
                 style={{
                   backgroundColor: color,
                   borderRadius: 100,
-                  height: 27,
-                  width: 27,
+                  height: gs.isSmall ? 20 : 27,
+                  width: gs.isSmall ? 20 : 27,
                   alignItems: "center",
                   justifyContent: "center"
                 }}
               >
-                <Fa icon={icon} style={{ color: "#fff", margin: 0 }} />
+                <Fa
+                  icon={icon}
+                  style={{ color: "#fff", margin: 0 }}
+                  size={gs.isSmall ? 10 : 14}
+                />
               </View>
             </View>
-            <Text style={[styles.summaryNum, gs.normalFont]}>{num}</Text>
+            <Text style={[styles.summaryNum, gs.normalFont, gs.fontSize2]}>
+              {num}
+            </Text>
           </View>
-          <Text style={styles.summaryTitle}>{title}</Text>
+          <Text style={[styles.summaryTitle, gs.fontSize5]}>{title}</Text>
         </View>
       </TouchableHighlight>
     );
@@ -172,7 +177,8 @@ const Dashboard = ({ navigation }) => {
       <View style={{ flex: 1 }}>
         <TouchableHighlight
           style={{
-            padding: 10,
+            paddingVertical: gs.isSmall ? 5 : 10,
+            paddingHorizontal: 3,
             alignItems: "center",
             justifyContent: "center"
           }}
@@ -181,7 +187,7 @@ const Dashboard = ({ navigation }) => {
             setSortMethod(sort);
           }}
         >
-          <Text style={{ fontSize: 14 }}>{titleText}</Text>
+          <Text style={gs.fontSize5}>{titleText}</Text>
         </TouchableHighlight>
         <View
           style={{
@@ -215,15 +221,16 @@ const Dashboard = ({ navigation }) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginTop: 20,
-            marginBottom: 10,
-            marginHorizontal: 30
+            paddingTop: 20,
+            paddingBottom: 10,
+            paddingHorizontal: 30
           }}
         >
           <Text
             style={[
               { fontSize: 18, fontWeight: "bold", flex: 1 },
               gs.normalFont
+              // gs.fontSize3,
             ]}
           >
             WhatSubs
@@ -281,7 +288,7 @@ const Dashboard = ({ navigation }) => {
 
         <View
           style={{
-            marginTop: 20,
+            marginTop: gs.isSmall ? 14 : 20,
             paddingHorizontal: 25,
             marginBottom: 1,
             flexDirection: "row",
@@ -311,12 +318,11 @@ const Dashboard = ({ navigation }) => {
 const styles = StyleSheet.create({
   summary: {
     flexDirection: "row",
-    marginHorizontal: 20
+    paddingHorizontal: 20
   },
   summaryItem: {
-    padding: 14,
-    paddingTop: 7,
-    paddingBottom: 7,
+    paddingVertical: gs.isSmall ? 5 : 7,
+    paddingHorizontal: gs.isSmall ? 10 : 14,
     marginHorizontal: 5,
     marginVertical: 2.5,
     flex: 1,
@@ -324,12 +330,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   },
   summaryTitle: {
-    fontSize: 14,
     fontWeight: "bold",
     color: "#333"
   },
   summaryNum: {
-    fontSize: 22,
     fontWeight: "bold"
   }
 });

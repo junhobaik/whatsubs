@@ -1,6 +1,12 @@
-import { Platform } from "react-native";
+import { Platform, Dimensions } from "react-native";
+
+// const screenWidth = Math.round(Dimensions.get("window").width);
+const screenHeight = Math.round(Dimensions.get("window").height);
+
+const isSmall = screenHeight < 720;
 
 export default {
+  isSmall,
   container: {
     paddingTop: Platform.OS === "ios" ? 0 : 20,
     backgroundColor: "#fafafa",
@@ -31,5 +37,21 @@ export default {
   },
   goBackColor: {
     color: "#333"
+  },
+
+  fontSize1: {
+    fontSize: isSmall ? 18 : 22
+  },
+  fontSize2: {
+    fontSize: isSmall ? 16 : 20
+  },
+  fontSize3: {
+    fontSize: isSmall ? 14 : 18
+  },
+  fontSize4: {
+    fontSize: isSmall ? 13 : 16
+  },
+  fontSize5: {
+    fontSize: isSmall ? 12 : 14
   }
 };
