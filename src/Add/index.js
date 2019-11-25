@@ -5,7 +5,6 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  Text,
   AsyncStorage
 } from "react-native";
 import { SafeAreaView } from "react-navigation";
@@ -216,7 +215,7 @@ const Add = ({ navigation }) => {
       </TouchableOpacity>
 
       {/* Content Wrapper */}
-      <View>
+      <ScrollView stlye={{ flex: 1 }}>
         {/* Info */}
         {type === "include" ? (
           <View style={[{ marginHorizontal: 25 }]}>
@@ -231,7 +230,7 @@ const Add = ({ navigation }) => {
         ) : null}
 
         {/* Content ScrollView */}
-        <ScrollView style={{ height: "100%" }} keyboardDismissMode={"on-drag"}>
+        <View style={{ height: "100%" }} keyboardDismissMode={"on-drag"}>
           {/* Contents */}
           <View
             style={[
@@ -335,8 +334,8 @@ const Add = ({ navigation }) => {
               </TouchableOpacity>
             ) : null}
           </View>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
