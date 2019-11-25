@@ -16,11 +16,11 @@ export default {
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 5
+      height: 3
     },
     shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5
+    shadowRadius: 3,
+    elevation: 3
   },
   goBack: {
     marginBottom: 20,
