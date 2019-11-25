@@ -282,14 +282,7 @@ const Add = ({ navigation }) => {
             </View>
 
             {type === "custom" ? (
-              <View
-                style={{
-                  borderTopWidth: 1,
-                  borderColor: "#eee",
-                  padding: 7,
-                  paddingHorizontal: 10
-                }}
-              >
+              <View style={styles.utilWrapper}>
                 <IconSetting
                   hexValue={hexValue}
                   setHexValue={setHexValue}
