@@ -92,7 +92,7 @@ const Dashboard = ({ navigation }) => {
   ) => {
     const isIos = Platform.OS === "ios";
     const isActive = listFilter === type;
-    const activeStyle = {
+    const activeStyle = Platform.select({
       ios: {
         shadowColor: "#000",
         shadowOffset: {
@@ -107,16 +107,12 @@ const Dashboard = ({ navigation }) => {
         borderWidth: 2,
         borderColor: isActive ? "#4880ee" : "transparent"
       }
-    };
+    });
 
     return (
       <TouchableHighlight
         onPress={pressEvent}
-        style={[
-          styles.summaryItem,
-          isIos ? activeStyle.ios : activeStyle.android,
-          isIos ? {} : { elevation: 7 }
-        ]}
+        style={[styles.summaryItem, activeStyle, isIos ? {} : { elevation: 7 }]}
         underlayColor="#dfdfdf"
       >
         <View>
