@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
@@ -23,8 +23,37 @@ import gs from "../globalStyle";
 const List = ({ navigation }) => {
   const { navigate, goBack } = navigation;
   const [value, onChangeText] = useState("");
+  const [filteredList, setFilteredList] = useState([]);
 
   const locale = "kr"; // temp
+
+  useEffect(() => {
+    setFilteredList(list);
+  }, []);
+
+  const onChangeSearchText = text => {
+    onChangeText(text);
+
+    if (text === "") {
+      setFilteredList(list);
+    } else {
+      setFilteredList(
+        list.filter(item => {
+          const { title, local } = item;
+          const lowerText = text.toLocaleLowerCase();
+          const lowerTitle = title.toLocaleLowerCase();
+
+          if (lowerTitle.indexOf(lowerText) > -1) return true;
+          if (
+            (local[locale] || local[local.default]).title
+              .toLocaleLowerCase()
+              .indexOf(lowerText) > -1
+          )
+            return true;
+        })
+      );
+    }
+  };
 
   const Item = ({ item }) => {
     const { icon, hex, local } = item;
@@ -144,7 +173,7 @@ const List = ({ navigation }) => {
             },
             gs.normalFont
           ]}
-          onChangeText={text => onChangeText(text)}
+          onChangeText={text => onChangeSearchText(text)}
           value={value}
           placeholder="Search"
           placeholderTextColor={"#666"}
@@ -154,7 +183,7 @@ const List = ({ navigation }) => {
       <ScrollView>
         <FlatList
           style={{ paddingVertical: 20 }}
-          data={list}
+          data={filteredList}
           renderItem={({ item }) => <Item item={item} />}
           keyExtractor={item => item.title}
         />
