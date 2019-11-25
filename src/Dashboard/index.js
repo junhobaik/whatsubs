@@ -15,7 +15,9 @@ import {
   faCalendarAlt,
   faCalendarDay,
   faWonSign,
-  faPlus
+  faPlus,
+  faInfo,
+  faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
 import { Cashify } from "cashify";
@@ -226,15 +228,26 @@ const Dashboard = ({ navigation }) => {
             paddingHorizontal: 30
           }}
         >
-          <Text
-            style={[
-              { fontSize: 18, fontWeight: "bold", flex: 1 },
-              gs.normalFont
-              // gs.fontSize3,
-            ]}
-          >
-            WhatSubs
-          </Text>
+          <View style={{ flex: 1 }}>
+            <TouchableOpacity
+              style={{ flexDirection: "row", alignItems: "center" }}
+              onPress={() => {
+                navigate("Information");
+              }}
+            >
+              <Text
+                style={[{ fontSize: 18, fontWeight: "bold" }, gs.normalFont]}
+              >
+                WhatSubs
+              </Text>
+              <Fa
+                icon={faInfoCircle}
+                style={{ opacity: 0.15, marginLeft: 2 }}
+                size={12}
+              />
+            </TouchableOpacity>
+          </View>
+
           <TouchableOpacity
             onPress={() => {
               navigate("AddList");
