@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -31,14 +31,13 @@ const Information = ({ navigation }) => {
             flex: 1
           }}
         >
-          <View
+          <Image
             style={{
-              minWidth: 70,
-              minHeight: 70,
-              borderRadius: 5,
-              borderWidth: 1
+              width: 70,
+              height: 70
             }}
-          ></View>
+            source={require("../../assets/icon.png")}
+          />
 
           <Text
             style={[
