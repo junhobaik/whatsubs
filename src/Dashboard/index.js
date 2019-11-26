@@ -223,14 +223,16 @@ const Dashboard = ({ navigation }) => {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            paddingTop: 20,
-            paddingBottom: 10,
-            paddingHorizontal: 30
+            justifyContent: "center",
+            paddingLeft: 27.5
           }}
         >
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, alignItems: "flex-start" }}>
             <TouchableOpacity
-              style={{ flexDirection: "row", alignItems: "center" }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center"
+              }}
               onPress={() => {
                 navigate("Information");
               }}
@@ -242,7 +244,12 @@ const Dashboard = ({ navigation }) => {
               </Text>
               <Fa
                 icon={faInfoCircle}
-                style={{ opacity: 0.15, marginLeft: 2 }}
+                style={{
+                  opacity: 0.3,
+                  marginTop: 1,
+                  marginLeft: 2,
+                  color: "#3c82f6"
+                }}
                 size={12}
               />
             </TouchableOpacity>
@@ -251,6 +258,10 @@ const Dashboard = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               navigate("AddList");
+            }}
+            style={{
+              paddingHorizontal: 30,
+              paddingVertical: 12
             }}
           >
             <View>
