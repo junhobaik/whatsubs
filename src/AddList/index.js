@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
-  TouchableHighlight,
-  StyleSheet,
   FlatList,
   TouchableOpacity,
   Text,
@@ -72,7 +70,7 @@ const List = ({ navigation }) => {
             justifyContent: "center"
           }}
         >
-          <Text style={{ fontWeight: "bold", opacity: 0.8, color: "#ddd" }}>
+          <Text style={{ fontWeight: "bold", opacity: 0.8, color: "#333" }}>
             {title[0]}
           </Text>
         </View>
@@ -120,7 +118,7 @@ const List = ({ navigation }) => {
                 !icon
                   ? {
                       borderWidth: 1,
-                      borderColor: "#ddd",
+                      borderColor: "#333",
                       borderStyle: "dotted"
                     }
                   : null

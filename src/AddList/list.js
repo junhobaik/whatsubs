@@ -6,19 +6,11 @@ import { FontAwesomeIcon as Fa } from "@fortawesome/react-native-fontawesome";
 import { faSketch } from "@fortawesome/free-brands-svg-icons";
 
 import img from "./img";
+import IconImage from "./IconImage";
 
 const getIconFromImg = key => {
   return {
-    icon: (
-      <Image
-        style={{
-          borderRadius: 3,
-          width: 30,
-          height: 30
-        }}
-        source={img[key.toLocaleLowerCase()]}
-      />
-    )
+    icon: <IconImage source={img[key.toLocaleLowerCase()]} />
   };
 };
 
@@ -85,8 +77,7 @@ const list = [
 
   {
     title: "Amazon Prime Video",
-    ...getIconFromSimpleIcons("amazon"),
-    hex: "#469bd3",
+    ...getIconFromImg("amazonprime"),
     cycle: "m",
     local: {
       default: "en",
@@ -108,6 +99,7 @@ const list = [
       }
     }
   },
+
   {
     title: "Youtube Premium",
     ...getIconFromSimpleIcons("youtube"),
@@ -389,14 +381,26 @@ const list = [
     }
   },
 
-  // {
-  //   title: "Watcha Play",
-  //   local: {
-  //     title: {
-  //       kr: "왓챠 플레이"
-  //     }
-  //   }
-  // },
+  {
+    title: "Ulysses",
+    ...getIconFromImg("ulysses"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Ulysses",
+        url: "https://ulysses.app",
+        price: "5.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "Ulysses",
+        url: "https://ulysses.app",
+        price: "6500",
+        currency: "won"
+      }
+    }
+  },
 
   {
     title: "Notion",
@@ -452,47 +456,254 @@ const list = [
       kr: {
         title: "멜론",
         url: "https://www.melon.com",
-        description: '국내 최다 4000만곡 보유, No.1 뮤직플랫폼 멜론! 실시간 차트부터 나를 아는 똑똑한 음악추천까지!',
+        description:
+          "국내 최다 4000만곡 보유, No.1 뮤직플랫폼 멜론! 실시간 차트부터 나를 아는 똑똑한 음악추천까지!",
         price: "10900",
         currency: "won"
       }
     }
-  }
+  },
 
-  // {
-  //   title: "Genie",
-  //   local: {
-  //     title: {
-  //       kr: "지니"
-  //     }
-  //   }
-  // },
+  {
+    title: "Genie",
+    ...getIconFromImg("genie"),
+    local: {
+      default: "kr",
+      kr: {
+        title: "지니",
+        url: "https://www.genie.co.kr/",
+        description:
+          "국내 최다 음원 보유, FLAC 고음질, 지니차트, 최신음악, 앨범, 뮤직비디오, 오늘의 선곡, TV속음악, 시대별음악, 지니라이프 등 제공",
+        price: "10800",
+        currency: "won"
+      }
+    }
+  },
 
-  // {
-  //   title: "millie",
-  //   local: {
-  //     title: {
-  //       kr: "밀리의 서재"
-  //     }
-  //   }
-  // },
+  {
+    title: "laftel",
+    ...getIconFromImg("laftel"),
+    cycle: "m",
+    local: {
+      default: "kr",
+      kr: {
+        title: "라프텔",
+        url: "https://laftel.net/",
+        description:
+          "고화질 신작 애니 스트리밍. 불법 사이트는 이제 그만! 취향에 맞춘 애니 추천은 라프텔",
+        price: "9900",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Watcha Play",
+    ...getIconFromImg("watcha"),
+    cycle: "m",
+    local: {
+      default: "kr",
+      kr: {
+        title: "왓챠 플레이",
+        url: "https://play.watcha.net/",
+        description:
+          "모든 영화, 드라마, 다큐멘터리, 애니메이션을 언제 어디서나 최고의 화질로 무제한 감상하세요",
+        price: "7900",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "millie",
+    ...getIconFromImg("millie"),
+    cycle: "m",
+    local: {
+      default: "kr",
+      kr: {
+        title: "밀리의 서재",
+        url: "https://www.millie.co.kr/",
+        description:
+          "시간을 더 가치 있게. “무제한 전자책, 서점에서도 볼 수 없는 종이책까지 읽다 보니 지루할 틈이 없어요!”",
+        price: "9900",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Office 365",
+    ...getIconFromImg("office365"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Office 365",
+        url: "https://products.office.com/",
+        price: "9.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "오피스 365",
+        url: "https://products.office.com/",
+        price: "11900",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Dropbox",
+    ...getIconFromSimpleIcons("dropbox"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Dropbox",
+        url: "https://www.dropbox.com/",
+        price: "11.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "드롭박스",
+        url: "https://www.dropbox.com/",
+        price: "11.99",
+        currency: "dollar"
+      }
+    }
+  },
+
+  {
+    title: "iCloud",
+    ...getIconFromSimpleIcons("icloud"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "iCloud",
+        url: "https://www.icloud.com/",
+        price: "0.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "아이클라우드",
+        url: "https://www.icloud.com/",
+        price: "1100",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Google One",
+    ...getIconFromImg("googleone"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Google One",
+        url: "https://one.google.com/",
+        price: "1.99",
+        currency: "dollar"
+      },
+      kr: {
+        title: "Google One",
+        url: "https://one.google.com/",
+        price: "2400",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Github",
+    ...getIconFromSimpleIcons("github"),
+    cycle: "m",
+    local: {
+      default: "en",
+      en: {
+        title: "Github",
+        url: "https://github.com/",
+        price: "7",
+        currency: "dollar"
+      }
+    }
+  },
 
   // {
   //   title: "Disney+",
+  //   cycle: "m",
   //   local: {
-  //     title: {
-  //       kr: "디즈니+"
+  //     default: "en",
+  //     en: {
+  //       title: "Disney+",
+  //       url: "https://www.disneyplus.com/",
+  //       price: "6.99",
+  //       currency: "dollar"
   //     }
   //   }
-  // },
+  // }
 
-  // { title: "Hulu", ...getIconFromSimpleIcons("hulu") },
-  // { title: "HBO Now" },
+  {
+    title: "Hulu",
+    ...getIconFromSimpleIcons("hulu"),
+    local: {
+      default: "en",
+      en: {
+        title: "Hulu",
+        url: "https://www.hulu.com/",
+        description:
+          "Watch TV shows and movies online. Stream TV episodes of South Park, Empire, SNL, Modern Family and popular movies on your favorite devices",
+        price: "5.99",
+        currency: "dollar"
+      }
+    }
+  },
 
-  // { title: "wavve" },
+  {
+    title: "wavve",
+    ...getIconFromImg("wavve"),
+    cycle: "m",
+    local: {
+      default: "kr",
+      kr: {
+        title: "wavve",
+        url: "https://www.wavve.com/",
+        price: "7900",
+        currency: "won"
+      }
+    }
+  },
 
-  // { title: "FLO" },
-  // { title: "VIBE" },
+  {
+    title: "Flo",
+    ...getIconFromImg("flo"),
+    cycle: "m",
+    local: {
+      default: "kr",
+      kr: {
+        title: "Flo",
+        url: "https://www.music-flo.com/",
+        price: "7900",
+        currency: "won"
+      }
+    }
+  },
+
+  {
+    title: "Vibe",
+    ...getIconFromImg("vibe"),
+    cycle: "m",
+    local: {
+      default: "kr",
+      kr: {
+        title: "VIBE",
+        url: "https://vibe.naver.com/",
+        price: "7500",
+        currency: "won"
+      }
+    }
+  }
 ];
 
 const sortedList = list.sort((_a, _b) => {
