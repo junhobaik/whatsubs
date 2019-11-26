@@ -16,7 +16,6 @@ import {
   faCalendarDay,
   faWonSign,
   faPlus,
-  faInfo,
   faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { SafeAreaView, NavigationEvents } from "react-navigation";
