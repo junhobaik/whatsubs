@@ -121,7 +121,7 @@ const Dashboard = ({ navigation }) => {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginBottom: gs.isSmall ? 2 : 6
+              marginBottom: gs.isSmall ? 3 : 6
             }}
           >
             <View
@@ -239,7 +239,10 @@ const Dashboard = ({ navigation }) => {
               }}
             >
               <Text
-                style={[{ fontSize: 18, fontWeight: "bold" }, gs.normalFont]}
+                style={[
+                  { fontSize: gs.isSmall ? 17 : 18, fontWeight: "bold" },
+                  gs.normalFont
+                ]}
               >
                 WhatSubs
               </Text>
@@ -261,7 +264,7 @@ const Dashboard = ({ navigation }) => {
             }}
             style={{
               paddingHorizontal: 30,
-              paddingVertical: gs.isSmall ? 7 : 12
+              paddingVertical: gs.isSmall ? 10 : 12
             }}
           >
             <View>
@@ -345,8 +348,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20
   },
   summaryItem: {
-    paddingVertical: gs.isSmall ? 5 : 7,
-    paddingHorizontal: gs.isSmall ? 10 : 14,
+    paddingVertical: gs.isSmall ? 6 : 7,
+    paddingHorizontal: gs.isSmall ? 12 : 14,
     marginHorizontal: 5,
     marginVertical: 2.5,
     flex: 1,
