@@ -105,10 +105,10 @@ export const Info = ({ title, icon, url, description, hex }) => {
             {
               fontWeight: "bold",
               paddingRight: 10,
-              fontSize: 18,
               alignSelf: "center"
             },
-            gs.normalFont
+            gs.normalFont,
+            gs.fontSize3
           ]}
         >
           {title}
@@ -129,7 +129,7 @@ export const Info = ({ title, icon, url, description, hex }) => {
 
       {url ? (
         <Text
-          style={{ color: "#3b82f6", marginTop: 5 }}
+          style={[{ color: "#3b82f6", marginTop: 5 }, gs.fontSize5]}
           onPress={() => Linking.openURL(url)}
         >
           {url}
@@ -137,7 +137,7 @@ export const Info = ({ title, icon, url, description, hex }) => {
       ) : null}
 
       {description ? (
-        <Text style={{ color: "#555", marginTop: 5, lineHeight: 16 }}>
+        <Text style={[{ color: "#555", marginTop: 5, lineHeight: 16 }, gs.fontSize5]}>
           {description}
         </Text>
       ) : null}

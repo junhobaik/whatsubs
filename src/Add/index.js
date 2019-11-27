@@ -305,7 +305,7 @@ const Add = ({ navigation }) => {
             {/* Title Input */}
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <TextInput
-                style={[styles.titleInput, gs.normalFont]}
+                style={[styles.titleInput, gs.normalFont, gs.fontSize3]}
                 onChangeText={text => setTitleValue(text)}
                 value={titleValue}
                 placeholder="Title"
@@ -323,7 +323,7 @@ const Add = ({ navigation }) => {
 
             {/* Memo Input */}
             <TextInput
-              style={[styles.memoInput, gs.normalFont]}
+              style={[styles.memoInput, gs.normalFont, gs.fontSize3]}
               onChangeText={text => setMemoValue(text)}
               value={memoValue}
               placeholder="Memo"
@@ -430,15 +430,13 @@ const styles = StyleSheet.create({
   titleInput: {
     flex: 1,
     paddingHorizontal: 10,
-    paddingVertical: 15,
-    fontSize: 18
+    paddingVertical: gs.isSmall ? 10 : 15
   },
   memoInput: {
     borderColor: "#eee",
     borderTopWidth: 1,
     paddingHorizontal: 10,
-    paddingVertical: 15,
-    fontSize: 18
+    paddingVertical: gs.isSmall ? 10 : 15
   },
   addButton: {
     flexDirection: "row",

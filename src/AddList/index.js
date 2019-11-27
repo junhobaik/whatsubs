@@ -102,7 +102,8 @@ const List = ({ navigation }) => {
               alignItems: "center",
               justifyContent: "space-between",
               borderRadius: 7,
-              padding: 10
+              paddingHorizontal: 10,
+              paddingVertical: gs.isSmall ? 7 : 10
             }}
           >
             <View
@@ -126,7 +127,7 @@ const List = ({ navigation }) => {
             >
               {iconElement}
             </View>
-            <Text style={[{ fontSize: 18 }, gs.normalFont]}>{title}</Text>
+            <Text style={[gs.fontSize3, gs.normalFont]}>{title}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -180,7 +181,7 @@ const List = ({ navigation }) => {
 
       <ScrollView keyboardDismissMode={"on-drag"}>
         <FlatList
-          style={{ paddingVertical: 20 }}
+          style={{ paddingVertical: gs.isSmall ? 10 : 20 }}
           data={filteredList}
           renderItem={({ item }) => <Item item={item} />}
           keyExtractor={item => item.title}

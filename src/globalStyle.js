@@ -1,14 +1,24 @@
-import { Platform, Dimensions } from "react-native";
+import { Platform, Dimensions, StatusBar } from "react-native";
 
-// const screenWidth = Math.round(Dimensions.get("window").width);
-const screenHeight = Math.round(Dimensions.get("window").height);
+const { width, height, scale } = Dimensions.get("window");
 
-const isSmall = screenHeight < 720;
+const isSmall = width * scale <= 1080 && height / width < 1.8;
+
+const containerPaddingTop = (() => {
+  if (Platform.OS === "android") {
+    const statusbarHeight = StatusBar.currentHeight;
+    const vw = width * scale;
+
+    if (vw >= 1440) return statusbarHeight + 13;
+    return statusbarHeight + 5;
+  }
+  return 0;
+})();
 
 export default {
   isSmall,
   container: {
-    paddingTop: Platform.OS === "ios" ? 0 : 20,
+    paddingTop: containerPaddingTop,
     backgroundColor: "#fafafa",
     height: "100%"
   },
@@ -24,16 +34,14 @@ export default {
       width: 0,
       height: 3
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+    shadowOpacity: 0.15,
+    shadowRadius: 2,
     elevation: 3
   },
   goBack: {
-    marginBottom: 20,
-    marginLeft: 25,
     alignSelf: "flex-start",
-    paddingTop: 20,
-    paddingRight: 20
+    paddingVertical: isSmall ? 10 : 15,
+    paddingHorizontal: 22.5
   },
   goBackColor: {
     color: "#333"

@@ -121,7 +121,7 @@ const Dashboard = ({ navigation }) => {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginBottom: 7
+              marginBottom: gs.isSmall ? 2 : 6
             }}
           >
             <View
@@ -190,6 +190,7 @@ const Dashboard = ({ navigation }) => {
         >
           <Text style={gs.fontSize5}>{titleText}</Text>
         </TouchableHighlight>
+
         <View
           style={{
             height: 3,
@@ -230,7 +231,8 @@ const Dashboard = ({ navigation }) => {
             <TouchableOpacity
               style={{
                 flexDirection: "row",
-                alignItems: "center"
+                alignItems: "center",
+                marginTop: 1
               }}
               onPress={() => {
                 navigate("Information");
@@ -259,7 +261,7 @@ const Dashboard = ({ navigation }) => {
             }}
             style={{
               paddingHorizontal: 30,
-              paddingVertical: 12
+              paddingVertical: gs.isSmall ? 7 : 12
             }}
           >
             <View>
