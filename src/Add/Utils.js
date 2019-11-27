@@ -64,15 +64,15 @@ export const DateTime = ({ dateValue, setDateValue, isError }) => {
             {
               backgroundColor: "#e9e9e9",
               width: 150,
-              height: 40,
+              height: gs.isSmall ? 35 : 40,
               padding: 5,
               paddingHorizontal: 10,
-              fontSize: 18,
               borderRadius: 5,
               fontWeight: "bold",
               textAlign: "right"
             },
-            gs.inputFont
+            gs.inputFont,
+            gs.fontSize3
           ]}
           onChangeText={text => changeValue(text)}
           value={dateValue}
@@ -137,7 +137,12 @@ export const Info = ({ title, icon, url, description, hex }) => {
       ) : null}
 
       {description ? (
-        <Text style={[{ color: "#555", marginTop: 5, lineHeight: 16 }, gs.fontSize5]}>
+        <Text
+          style={[
+            { color: "#555", marginTop: 5, lineHeight: 16 },
+            gs.fontSize5
+          ]}
+        >
           {description}
         </Text>
       ) : null}
@@ -167,16 +172,16 @@ export const Pay = ({
             {
               backgroundColor: "#e9e9e9",
               width: 115,
-              height: 40,
+              height: gs.isSmall ? 35 : 40,
               padding: 5,
               paddingHorizontal: 10,
-              fontSize: 18,
               borderRadius: 5,
               fontWeight: "bold",
               textAlign: "right",
               marginRight: 5
             },
-            gs.inputFont
+            gs.inputFont,
+            gs.fontSize3
           ]}
           onChangeText={text => setPayValue(text)}
           value={payValue}
@@ -201,6 +206,7 @@ export const Pay = ({
               <Fa
                 style={{ color: currencyValue === "won" ? "#444" : "#aaa" }}
                 icon={faWonSign}
+                size={gs.isSmall ? 14 : 16}
               />
             </View>
           </TouchableOpacity>
@@ -222,6 +228,7 @@ export const Pay = ({
                     color: currencyValue === "dollar" ? "#444" : "#aaa"
                   }}
                   icon={faDollarSign}
+                  size={gs.isSmall ? 14 : 16}
                 />
               </View>
             </TouchableOpacity>
@@ -235,6 +242,7 @@ export const Pay = ({
               <Fa
                 style={{ color: currencyValue === "yen" ? "#444" : "#aaa" }}
                 icon={faYenSign}
+                size={gs.isSmall ? 14 : 16}
               />
             </View>
           </TouchableOpacity>
@@ -283,11 +291,15 @@ export const Period = ({ period, setPeriod }) => {
               <View style={periodStyles.periodItemView}>
                 <Text
                   style={[
-                    periodStyles.periodItemText,
                     {
+                      color: "#444",
+                      fontSize: 16,
+                      margin: 0,
+                      borderRadius: 3,
                       opacity: period === "m" ? 1 : 0.5,
                       fontWeight: period === "m" ? "bold" : "normal"
-                    }
+                    },
+                    gs.fontSize4
                   ]}
                 >
                   Month
@@ -307,11 +319,14 @@ export const Period = ({ period, setPeriod }) => {
             <View style={periodStyles.periodItemView}>
               <Text
                 style={[
-                  periodStyles.periodItemText,
                   {
+                    color: "#444",
+                    margin: 0,
+                    borderRadius: 3,
                     opacity: period === "y" ? 1 : 0.5,
                     fontWeight: period === "y" ? "bold" : "normal"
-                  }
+                  },
+                  gs.fontSize4
                 ]}
               >
                 Year
@@ -428,8 +443,8 @@ export const IconSetting = ({
 
 const styles = StyleSheet.create({
   payItemView: {
-    height: 40,
-    width: 45,
+    height: gs.isSmall ? 35 : 40,
+    width: 49,
     paddingHorizontal: 7.5,
     alignItems: "center",
     justifyContent: "center"
@@ -447,15 +462,9 @@ const styles = StyleSheet.create({
 
 const periodStyles = StyleSheet.create({
   periodItemView: {
-    height: 40,
+    height: gs.isSmall ? 35 : 40,
     paddingHorizontal: 7.5,
     alignItems: "center",
     justifyContent: "center"
-  },
-  periodItemText: {
-    color: "#444",
-    fontSize: 16,
-    margin: 0,
-    borderRadius: 3
   }
 });
