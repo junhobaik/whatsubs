@@ -19,6 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import uuidv4 from "uuid/v4";
 import moment from "moment";
+import { StackActions } from "react-navigation";
 
 import { DateTime, Info, Pay, Period, IconSetting } from "./Utils";
 import list from "../AddList/list";
@@ -26,7 +27,7 @@ import gs from "../globalStyle";
 
 const Add = ({ navigation }) => {
   const locale = "kr"; // temp
-  const { goBack, state } = navigation;
+  const { goBack, state, reset, navigate } = navigation;
   const { type, modify } = state.params;
 
   const [titleValue, setTitleValue] = useState("");
@@ -43,6 +44,13 @@ const Add = ({ navigation }) => {
     title: true,
     messages: []
   });
+
+  const goHome = () => {
+    StackActions.reset({
+      index: 0,
+      actions: [navigate("Home")]
+    });
+  };
 
   const verifySubmit = () => {
     const splitDate = dateValue.split(".");
@@ -209,7 +217,7 @@ const Add = ({ navigation }) => {
       const list = result ? [...JSON.parse(result), item] : [item];
 
       AsyncStorage.setItem("whatsubs_list", JSON.stringify(list), () => {
-        goBack();
+        goHome();
       });
     });
   };
@@ -234,7 +242,7 @@ const Add = ({ navigation }) => {
       const list = result ? [...JSON.parse(result), item] : [item];
 
       AsyncStorage.setItem("whatsubs_list", JSON.stringify(list), () => {
-        goBack();
+        goHome();
       });
     });
   };
