@@ -36,7 +36,7 @@ const Information = ({ navigation }) => {
               width: 70,
               height: 70
             }}
-            source={require("../../assets/icon.png")}
+            source={require("../../assets/icon_round.png")}
           />
 
           <Text
