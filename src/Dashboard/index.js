@@ -244,10 +244,9 @@ const Dashboard = ({ navigation }) => {
               <Fa
                 icon={faInfoCircle}
                 style={{
-                  opacity: 0.3,
+                  opacity: 0.2,
                   marginTop: 1,
-                  marginLeft: 2,
-                  color: "#3c82f6"
+                  marginLeft: 2
                 }}
                 size={12}
               />
