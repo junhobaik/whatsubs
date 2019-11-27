@@ -22,6 +22,7 @@
       "bundleIdentifier": "com.junhobaik.whatsubs"
     },
     "android": {
+      "icon": "./assets/icon_round.png",
       "package": "com.junhobaik.whatsubs"
     }
   }
