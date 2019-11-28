@@ -200,7 +200,7 @@ const List = ({ navigation }) => {
                 borderStyle: "dotted",
                 marginBottom: 50,
                 borderRadius: 7,
-                height: 50,
+                height: 45,
                 alignItems: "center",
                 justifyContent: "center",
                 flexDirection: "row",
