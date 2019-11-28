@@ -2,6 +2,7 @@
   "expo": {
     "name": "WhatSubs",
     "slug": "whatsubs",
+    "description": "WhtaSubs앱을 통해 구독 서비스의 리스트를 만들어 쉽게 확인하고 관리하세요",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": ["ios", "android", "web"],
