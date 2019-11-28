@@ -29,7 +29,7 @@ const Dashboard = ({ navigation }) => {
   const { navigate } = navigation;
   const [list, setList] = useState([]);
   const [listFilter, setListFilter] = useState("all"); // all, month, yearly, monthly
-  const [sortMethod, setSortMethod] = useState("title"); // title, price, pay
+  const [sortMethod, setSortMethod] = useState("pay"); // title, price, pay
   const rates = {
     USD: 1,
     KRW: 1200,
