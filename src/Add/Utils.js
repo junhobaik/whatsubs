@@ -345,6 +345,7 @@ export const IconSetting = ({
   iconChar,
   setIconChar
 }) => {
+  const [isIconTextPlaceHolder, setIsIconTextPlaceHolder] = useState(true);
   return (
     <View>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -416,25 +417,45 @@ export const IconSetting = ({
 
         <View>
           <TextInput
-            style={[
-              {
-                borderRadius: 10,
-                width: 70,
-                height: 70,
-                backgroundColor: hexValue,
-                textAlign: "center",
-                fontSize: iconChar === "" ? 14 : 36,
-                fontWeight: iconChar === "" ? "normal" : "bold",
-                color: "#eee"
-              }
-            ]}
+            style={{
+              zIndex: 2,
+              position: "absolute",
+              top: 0,
+              right: 0,
+              borderRadius: 10,
+              width: 70,
+              height: 70,
+              fontSize: 32,
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              fontWeight: "bold",
+              color: "#eee"
+            }}
             onChangeText={text => {
+              if (isIconTextPlaceHolder) setIsIconTextPlaceHolder(false);
               if (text.length < 2) setIconChar(text.toLocaleUpperCase());
             }}
             value={iconChar}
-            placeholder="Icon text"
-            placeholderTextColor="#ddd"
           />
+          <View
+            style={{
+              zIndex: 1,
+              position: "absolute",
+              top: 0,
+              right: 0,
+              width: 70,
+              height: 70,
+              borderRadius: 10,
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: hexValue
+            }}
+          >
+            {isIconTextPlaceHolder ? (
+              <Text style={{ color: "#eee" }}>Icon Text</Text>
+            ) : null}
+          </View>
         </View>
       </View>
     </View>
