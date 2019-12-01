@@ -19,6 +19,11 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
     const { date, period } = item;
     const splitDate = date.split(".");
 
+    const formatter = v => {
+      if (v.toString().length < 2) return `0${v}`;
+      return v.toString();
+    };
+
     const now = {
       date: parseInt(moment().format("YYYYMMDD"), 10),
       d: parseInt(moment().format("DD"), 10),
@@ -67,8 +72,10 @@ const List = ({ navigate, list, filter, sort, cashify, currencyFormat }) => {
 
     if (period === "y") {
       resultMonth = sub.m;
-
-      if (parseInt(`${now.m}${now.d}`, 10) > parseInt(`${sub.m}${sub.d}`, 10)) {
+      if (
+        parseInt(`${now.m}${formatter(now.d)}`, 10) >
+        parseInt(`${sub.m}${formatter(sub.d)}`, 10)
+      ) {
         resultYear += 1;
       }
     }
