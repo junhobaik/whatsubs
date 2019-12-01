@@ -34,7 +34,8 @@ const Information = ({ navigation }) => {
           <Image
             style={{
               width: 70,
-              height: 70
+              height: 70,
+              minHeight: 70
             }}
             source={require("../../assets/icon_round.png")}
           />
