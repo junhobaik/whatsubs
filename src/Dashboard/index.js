@@ -74,7 +74,8 @@ const Dashboard = ({ navigation }) => {
         to: "KRW"
       });
     }
-    return sum;
+
+    return sum.toFixed(0);
   };
 
   const willFocusEvents = () => {
