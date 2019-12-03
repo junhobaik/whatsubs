@@ -24,7 +24,8 @@
     },
     "android": {
       "icon": "./assets/icon_round.png",
-      "package": "com.junhobaik.whatsubs"
+      "package": "com.junhobaik.whatsubs",
+      "versionCode": 103
     }
   }
 }
