@@ -5,7 +5,7 @@
 
 - **[DEMO(Expo)](https://expo.io/@junhobaik/whatsubs)** : _Expo 앱을 통해 실행해 볼 수 있습니다_
 - **[Google Play Store](https://play.google.com/store/apps/details?id=com.junhobaik.whatsubs)**
-- **Apple App Store** : _심사 중_ & _TestFlight 테스트 중_
+- **[Apple App Store](https://apps.apple.com/kr/app/whatsubs/id1489637056)**
 
 ## About
 
