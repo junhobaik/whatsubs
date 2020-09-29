@@ -4,8 +4,8 @@
 &nbsp;자신만의 목록을 만들어 여러 곳에서 여러 방법으로 구독 중인 항목을 한곳에서 쉽게 확인하세요"
 
 - **[DEMO(Expo)](https://expo.io/@junhobaik/whatsubs)** : _Expo 앱을 통해 실행해 볼 수 있습니다_
-- **[Google Play Store](https://play.google.com/store/apps/details?id=com.junhobaik.whatsubs)**
-- **[Apple App Store](https://apps.apple.com/kr/app/whatsubs/id1489637056)**
+- ~~**[Google Play Store](https://play.google.com/store/apps/details?id=com.junhobaik.whatsubs)**~~
+- ~~**[Apple App Store](https://apps.apple.com/kr/app/whatsubs/id1489637056)**~~
 
 ## About
 
